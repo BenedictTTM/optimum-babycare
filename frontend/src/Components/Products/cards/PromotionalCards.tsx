@@ -15,7 +15,7 @@ const PromotionalCards = () => {
             </>
           }
           description="on first order"
-          imageUrl="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400&auto=format&fit=crop&q=60"
+          imageUrl="/baby.png"
           gradientClass="from-blue-50 to-cyan-50"
           titleClass="text-2xl md:text-3xl mb-2 text-red-600"
         />
@@ -24,7 +24,7 @@ const PromotionalCards = () => {
           badge={<span className="text-lg md:text-2xl font-bold text-gray-800 tracking-wide">Summer Offer</span>}
           title={"Get 50% Extra Discount On Summer Items"}
           buttonText="Buy Now"
-          imageUrl="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=60"
+          imageUrl="/baby3.png"
           gradientClass="from-orange-50 to-rose-50"
           titleClass="text-sm md:text-base font-normal text-black mb-4 leading-tight"
           textClass="text-xs md:text-sm text-gray-700"

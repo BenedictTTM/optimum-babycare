@@ -43,10 +43,10 @@ const SidebarCategories: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:block h-auto pb-2">
+            <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:flex flex-col h-full overflow-y-auto scrollbar-hide">
                 <div className="flex flex-col py-2">
                     {[...Array(7)].map((_, i) => (
-                        <div key={i} className="px-6 py-4 animate-pulse">
+                        <div key={i} className="px-6 py-3 animate-pulse">
                             <div className="h-4 bg-gray-200 rounded w-2/3" />
                         </div>
                     ))}
@@ -60,13 +60,13 @@ const SidebarCategories: React.FC = () => {
     }
 
     return (
-        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:block h-auto pb-2">
+        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:flex flex-col h-full overflow-y-auto scrollbar-hide">
             <div className="flex flex-col">
                 {displayCategories.map((cat) => (
                     <Link
                         key={cat.id}
                         href={`/main/products/categories?category=${cat.id}`}
-                        className="group flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition-colors"
+                        className="group flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors"
                     >
                         <span className="text-[15px] font-medium text-gray-800 group-hover:text-[#f59e0b] transition-colors">
                             {cat.name}

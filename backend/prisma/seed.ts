@@ -13,6 +13,15 @@ async function main() {
         { name: 'Beauty', description: 'Cosmetics and skincare' },
         { name: 'Sports', description: 'Sporting goods and equipment' },
         { name: 'Books', description: 'Books and literature' },
+        { name: 'Feeding', description: 'Baby bottles, breastfeeding, formula, and feeding accessories' },
+        { name: 'Diapering & Changing', description: 'Diapers, wipes, changing pads, and diapering essentials' },
+        { name: 'Nursery & Sleeping', description: 'Cribs, bassinets, baby monitors, and nursery decor' },
+        { name: 'Clothing & Apparel', description: 'Baby and toddler clothing, shoes, and accessories' },
+        { name: 'Bathing & Grooming', description: 'Baby tubs, shampoos, grooming kits, and skincare' },
+        { name: 'Travel & Transportation', description: 'Strollers, car seats, baby carriers, and travel gear' },
+        { name: 'Toys & Entertainment', description: 'Educational toys, rattles, play mats, and activity centers' },
+        { name: 'Health & Safety', description: 'Baby health products, safety gates, monitors, and first aid' },
+        { name: 'Weaning & Toddler Feeding', description: 'Weaning spoons, sippy cups, high chairs, and toddler snacks' },
     ];
 
     for (const cat of categories) {

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -38,6 +38,32 @@ const BLOG_POSTS = [
 ];
 
 const BlogInsights = () => {
+    const carouselRef = useRef<HTMLDivElement | null>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleScroll = () => {
+        const el = carouselRef.current;
+        if (!el) return;
+        const w = el.clientWidth;
+        const idx = Math.round(el.scrollLeft / w);
+        setActiveIndex(idx);
+    };
+
+    const scrollToIndex = (i: number) => {
+        const el = carouselRef.current;
+        if (!el) return;
+        el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        const el = carouselRef.current;
+        if (!el) return;
+        // keep activeIndex synced when window resizes
+        const onResize = () => scrollToIndex(activeIndex);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, [activeIndex]);
+
     return (
         <section className="w-full py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
             <div className="mb-12 text-center">
@@ -55,9 +81,52 @@ const BlogInsights = () => {
                 </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Mobile: swipeable single-card carousel; md+: grid */}
+            <div className="relative">
+                {/* Prev/Next buttons (mobile only) */}
+                <div className="absolute inset-y-0 left-2 flex items-center z-20 md:hidden">
+                    <button
+                        onClick={() => {
+                            if (!carouselRef.current) return;
+                            const w = carouselRef.current.clientWidth;
+                            carouselRef.current.scrollBy({ left: -w, behavior: 'smooth' });
+                        }}
+                        aria-label="Previous"
+                        className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center shadow"
+                    >
+                        <svg className="w-4 h-4 text-gray-800" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div className="absolute inset-y-0 right-2 flex items-center z-20 md:hidden">
+                    <button
+                        onClick={() => {
+                            if (!carouselRef.current) return;
+                            const w = carouselRef.current.clientWidth;
+                            carouselRef.current.scrollBy({ left: w, behavior: 'smooth' });
+                        }}
+                        aria-label="Next"
+                        className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center shadow"
+                    >
+                        <svg className="w-4 h-4 text-gray-800" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div
+                    ref={carouselRef}
+                    className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    onScroll={handleScroll}
+                >
                 {BLOG_POSTS.map((post, index) => (
-                    <article key={index} className="bg-white group cursor-pointer border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <article
+                        key={index}
+                        data-index={index}
+                        className="snap-start shrink-0 w-full md:w-auto md:shrink bg-white group cursor-pointer border border-gray-100 shadow-xs hover:shadow-sm transition-shadow duration-300"
+                    >
                         {/* Image Container with Date Badge */}
                         <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                             <Image
@@ -68,7 +137,7 @@ const BlogInsights = () => {
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                             {/* Date Badge */}
-                            <div className="absolute bottom-[-20px] right-6 bg-white px-4 py-2 shadow-md flex flex-col items-center justify-center z-10 w-16">
+                            <div className="absolute bottom-[-20px] right-6 bg-white px-4 py-2 shadow-sm flex flex-col items-center justify-center z-10 w-16">
                                 <span className="text-xl font-bold text-gray-900 leading-none">{post.date}</span>
                                 <span className="text-xs text-gray-500 font-medium uppercase mt-1">{post.month}</span>
                             </div>
@@ -101,7 +170,20 @@ const BlogInsights = () => {
                         </div>
                     </article>
                 ))}
-            </div>
+                    </div>
+
+                    {/* Dot indicators (mobile only) */}
+                    <div className="flex items-center justify-center gap-2 mt-4 md:hidden z-20">
+                        {BLOG_POSTS.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => scrollToIndex(i)}
+                                aria-label={`Go to slide ${i + 1}`}
+                                className={`w-2.5 h-2.5 rounded-full ${i === activeIndex ? 'bg-gray-800' : 'bg-gray-300'} transition-colors`}
+                            />
+                        ))}
+                    </div>
+                </div>
         </section>
     );
 };

@@ -22,6 +22,7 @@ import {
   DiscountBar,
   ProductsGridLayout
 } from '@/Components/Products/layouts';
+import Header from "@/Components/Header/mainNavBar";
 
 // Lazy-load below-fold sections to prevent white page flash on scroll
 const DealOfWeek = dynamic(
@@ -80,10 +81,6 @@ const ServiceFeaturesSkeleton = () => (
     </div>
   </div>
 );
-
-
-
-import { apiClient } from '../../../api/clients';
 
 
 
@@ -228,11 +225,12 @@ export default function ProductsPage() {
 
   return (
     <>
+    <Header></Header>
       <MultipleSchemas schemas={schemas} deferImageSchemas={true} />
 
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
         {/* Top Hero Section with Shared Background */}
-        <div className="relative pt-0 pb-3 h-[420px] md:h-[560px] bg-[#FBF3E8] mb-12">
+        <div className="relative pt-0 pb-3 h-[420px] md:h-[560px] bg-[#FBF3E8] mb-12 overflow-hidden">
           {/* SVG Background */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1440 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
               <path fill="#F2E6D0" opacity="0.6" d="M-100,-100 C300,100 400,400 0,660 Z" />
@@ -241,7 +239,7 @@ export default function ProductsPage() {
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
             <div className="flex flex-col lg:flex-row h-full">
-              <div className="hidden lg:block z-20 h-auto self-start">
+              <div className="hidden lg:flex flex-col z-20 h-full">
                 <SidebarCategories />
               </div>
               <div className="flex-1 w-full min-w-0 h-full">
@@ -277,7 +275,7 @@ export default function ProductsPage() {
                     </div>
 
                     {/* Main Heading */}
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
+                    <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
                       Get Your Fashion Style
                     </h2>
 

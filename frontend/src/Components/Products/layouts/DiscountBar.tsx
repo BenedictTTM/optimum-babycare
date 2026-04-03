@@ -18,7 +18,7 @@ const DiscountBar = () => {
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23000000' stroke-width='1' stroke-opacity='0.05'%3E%3Cpath d='M10 10 L20 10 L20 20 L10 20 Z M40 10 L50 20 M15 40 A5 5 0 1 1 15 50 A5 5 0 1 1 15 40 M45 40 A3 3 0 1 1 45 46 A3 3 0 1 1 45 40 M40 50 L50 40' /%3E%3C/g%3E%3C/svg%3E")`,
                  }}
             >
-                <p className="text-[14px] sm:text-[15px] font-medium text-black tracking-wide">
+                <p className="text-[11px] sm:text-[13px] font-medium text-black tracking-wide">
                     Super discount for your 100$ purchase. Use this code
                     <span className="font-extrabold text-black ml-2 underline decoration-black decoration-2 underline-offset-[6px]">OFFER100</span>
                 </p>

@@ -12,7 +12,7 @@ interface ProductsGridLayoutProps {
 export default function ProductsGridLayout({ products, loading }: ProductsGridLayoutProps) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={`skeleton-${index}`} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
             <div className="aspect-square bg-gray-200"></div>
@@ -50,7 +50,7 @@ export default function ProductsGridLayout({ products, loading }: ProductsGridLa
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {products.map((product) => (
         <ProductsCard key={product.id} product={product} />
       ))}

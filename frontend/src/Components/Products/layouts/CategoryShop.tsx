@@ -38,39 +38,39 @@ const CategoryShop = () => {
     };
 
     const renderCard = (cat: typeof CATEGORIES[number], index: number, extraClasses = '') => (
-        <div key={index} className={`bg-white rounded-xl p-8 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 ${extraClasses}`}>
-            <h3 className="text-2xl font-serif text-[#0a192f] tracking-widest uppercase mb-4">
+        <div key={index} className={`bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 ${extraClasses}`}>
+            <h3 className="text-xl font-bold text-[#1a1a2e] tracking-widest uppercase mb-2">
                 {cat.title}
             </h3>
 
-            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#b89474]/60 to-transparent mb-5" />
+            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#F5A623]/60 to-transparent mb-3" />
 
-            <p className="text-gray-600 text-[14px] leading-relaxed mb-8 flex-1">
+            <p className="text-gray-500 text-[14px] leading-relaxed mb-4 flex-1">
                 {cat.title === 'SALES' ? cat.subtitle : cat.description}
             </p>
 
-            <Link href="/main/products" className="mt-auto inline-block w-full py-2.5 border border-[#b89474] text-[#b89474] hover:bg-[#b89474] hover:text-white rounded-md transition-colors text-sm tracking-widest uppercase font-serif text-center">
+            <Link href="/main/products" className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-[#F5A623] hover:bg-[#F5A623] hover:text-white rounded-md transition-colors text-sm tracking-widest uppercase font-bold text-center">
                 VIEW COLLECTION
             </Link>
         </div>
     );
 
     return (
-        <section className="w-full bg-gray-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <section className="w-full bg-gray-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-[1400px] mx-auto">
                 {/* Header with Nav Controls */}
-                <div className="flex items-center justify-center mb-16">
+                <div className="flex items-center justify-center mb-8">
                     <div className="text-center">
                         <div className="flex items-center justify-center gap-2 mb-2">
-                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
+                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#F5A623]">
                                 <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
-                            <span className="text-[#FF4A3B] font-medium text-sm">Categories</span>
-                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
+                            <span className="text-[#F5A623] font-semibold text-sm">Categories</span>
+                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#F5A623]">
                                 <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
                         </div>
-                        <h2 className="text-4xl text-[#0a192f] tracking-widest uppercase font-serif">
+                        <h2 className="text-4xl text-[#1a1a2e] tracking-widest uppercase font-bold">
                             OUR COLLECTIONS
                         </h2>
                     </div>

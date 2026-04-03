@@ -1,35 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import ProductsCard from '../cards/ProductsCard';
+import { Product } from '@/types/products';
 
-const TOP_PRODUCTS = [
-    { id: 1, title: 'The Linen T-shirt', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&auto=format&fit=crop&q=60' },
-    { id: 2, title: 'The Cotton Cutaway', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=200&auto=format&fit=crop&q=60' },
-    { id: 3, title: 'The Seersucker Dress', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=200&auto=format&fit=crop&q=60' },
-    { id: 4, title: 'The Fatigue Sunglass', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1511499767390-91f9932aaad7?w=200&auto=format&fit=crop&q=60' },
-    { id: 5, title: 'The Fatigue Shoe', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&auto=format&fit=crop&q=60' },
-    { id: 6, title: 'The Fatigue Shirt', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=200&auto=format&fit=crop&q=60' },
-    { id: 7, title: 'The Cotton Cutaway', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&auto=format&fit=crop&q=60' },
-    { id: 8, title: 'The Linen T-shirt', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=200&auto=format&fit=crop&q=60' },
-    { id: 9, title: 'The Fatigue Slipper', price: 21.00, rating: 4, reviews: 10, image: 'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=200&auto=format&fit=crop&q=60' },
+const TOP_PRODUCTS: Product[] = [
+    { id: 1, title: 'The Linen T-shirt', originalPrice: 21.00, averageRating: 4, totalReviews: 10, imageUrl: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&auto=format&fit=crop&q=60'] },
+    { id: 2, title: 'The Cotton Cutaway', originalPrice: 21.00, averageRating: 4, totalReviews: 10, imageUrl: ['https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=200&auto=format&fit=crop&q=60'] },
 ];
 
 const TopListedItems = () => {
-    const [visibleCount, setVisibleCount] = useState<number>(TOP_PRODUCTS.length);
-
-    useEffect(() => {
-        const mq = window.matchMedia('(max-width: 639px)');
-        const handle = () => setVisibleCount(mq.matches ? 4 : TOP_PRODUCTS.length);
-        handle();
-        if (mq.addEventListener) mq.addEventListener('change', handle);
-        else mq.addListener(handle);
-        return () => {
-            if (mq.removeEventListener) mq.removeEventListener('change', handle);
-            else mq.removeListener(handle);
-        };
-    }, []);
     return (
         <section className="w-full py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex bg-white rounded-lg border border-gray-100 shadow-xs overflow-hidden flex-col lg:flex-row">
@@ -47,47 +29,9 @@ const TopListedItems = () => {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
-                        {TOP_PRODUCTS.slice(0, visibleCount).map((product, index) => (
-                            <div key={index} className="flex flex-col items-center text-center gap-3 w-full p-2">
-                                {/* Image Placeholder */}
-                                <div className="relative w-24 h-24 sm:w-[90px] sm:h-[90px] bg-[#f2f2f2] rounded-lg overflow-hidden">
-                                    <Image
-                                        src={product.image}
-                                        alt={product.title}
-                                        fill
-                                        loading="lazy"
-                                        className="object-contain"
-                                        sizes="90px"
-                                    />
-                                </div>
-
-                                {/* Stars */}
-                                <div className="flex items-center justify-center gap-2">
-                                    {[1, 2, 3, 4, 5].map((s) => (
-                                        <svg
-                                            key={s}
-                                            className={`w-3.5 h-3.5 ${s <= product.rating ? 'text-amber-400 fill-current' : 'text-gray-300 stroke-current fill-transparent'}`}
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                        >
-                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                                        </svg>
-                                    ))}
-                                    <span className="text-[11px] text-gray-400">({product.reviews})</span>
-                                </div>
-
-                                {/* Product Info */}
-                                <div className="flex flex-col items-center">
-                                    <h3 className="text-sm sm:text-[14px] font-medium text-gray-900 leading-tight mb-1">
-                                        {product.title}
-                                    </h3>
-
-                                    <p className="text-[15px] sm:text-[16px] font-extrabold text-gray-900">
-                                        ${product.price.toFixed(2)}
-                                    </p>
-                                </div>
-                            </div>
+                    <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                        {TOP_PRODUCTS.map((product) => (
+                            <ProductsCard key={product.id} product={product} />
                         ))}
                     </div>
                 </div>
