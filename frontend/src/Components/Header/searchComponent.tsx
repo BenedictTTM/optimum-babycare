@@ -67,13 +67,13 @@ const SearchComponent = () => {
 
       <div
         className={`transition-all duration-300 ease-out ${isFocused
-          ? 'fixed top-24 left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 z-50'
+          ? 'fixed top-24 sm:top-28 left-1/2 -translate-x-1/2 w-[90%] sm:w-full max-w-3xl z-50'
           : 'relative w-fit'
           }`}
         ref={searchRef}
       >
         <div className={`flex items-center w-full transition-all duration-300 ${isFocused
-          ? 'px-6 py-3 bg-white rounded-full border-2 shadow-2xl border-amber-500'
+          ? 'px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full border-2 shadow-2xl border-amber-500'
           : 'p-0 border-transparent'
           }`}>
           {isFocused && (

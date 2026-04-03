@@ -6,6 +6,7 @@ import { Inter, Montserrat } from 'next/font/google';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCartCount } from '@/hooks/useCartCount';
 import Link from 'next/link';
+import Image from 'next/image';
 import SearchComponent from './searchComponent';
 
 
@@ -73,7 +74,7 @@ export default function MainNavBar() {
         transition={{ type: 'spring', stiffness: 200, damping: 28 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between w-full">
             {/* Left: Mobile hamburger and Desktop Category Toggle */}
             <div className="flex items-center lg:w-[260px]">
               {isSmallScreen && (
@@ -85,6 +86,12 @@ export default function MainNavBar() {
                   <Menu className="w-6 h-6" />
                 </button>
               )}
+              
+              {/* Mobile Search */}
+              <div className="md:hidden">
+                <SearchComponent />
+              </div>
+
               {/* Desktop Category Toggle - matches sidebar width */}
               <div className="hidden lg:flex items-center justify-between w-full bg-red-500 text-white px-5 py-4 cursor-pointer rounded-tr-md rounded-tl-md">
                 <span className="font-bold text-[15px]">All Categories</span>
@@ -114,10 +121,26 @@ export default function MainNavBar() {
                 <span>Contact</span>
               </Link>
             </div>
+            
+            {/* Center Logo for Mobile */}
+            <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
+                <Link href="/main">
+                    <Image
+                        src="/logo.png"
+                        alt="babylist logo"
+                        width={90}
+                        height={30}
+                        priority
+                        className="w-auto h-auto max-h-[35px] object-contain"
+                    />
+                </Link>
+            </div>
 
             {/* Right: navigation and cart + user */}
             <div className="flex items-center justify-end space-x-3 sm:space-x-4">
-              <SearchComponent />
+              <div className="hidden md:block">
+                <SearchComponent />
+              </div>
 
               <Link
                 href="/profile"

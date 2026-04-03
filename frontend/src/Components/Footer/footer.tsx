@@ -1,207 +1,153 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Truck, Headphones, ShieldCheck } from 'lucide-react';
+import { Facebook, Youtube, Twitter, Linkedin, Phone, Mail, Package, HeadphonesIcon, RotateCcw, Tags, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
-
-  const services = [
-    {
-      icon: Truck,
-      title: 'FREE AND FAST DELIVERY',
-      description: 'Free delivery for all orders over $140',
-    },
-    {
-      icon: Headphones,
-      title: '24/7 CUSTOMER SERVICE',
-      description: 'Friendly 24/7 customer support',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'MONEY BACK GUARANTEE',
-      description: 'We return money within 30 days',
-    },
-  ];
-
-  // Auto-rotate slides every 5 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % services.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [services.length]);
-
-  // Handle touch events for swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      // Swipe left
-      setCurrentSlide((prev) => (prev + 1) % services.length);
-    }
-    if (touchStart - touchEnd < -75) {
-      // Swipe right
-      setCurrentSlide((prev) => (prev - 1 + services.length) % services.length);
-    }
-  };
-
-  const CurrentIcon = services[currentSlide].icon;
-
   return (
-    <footer className="bg-white py-16 px-6">
-      {/* Services Section - Carousel on Mobile, Grid on Desktop */}
-      <div className="max-w-6xl mx-auto mb-16">
-        {/* Mobile Carousel */}
-        <div
-          className="md:hidden relative overflow-hidden"
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="flex flex-col items-center text-center py-4">
-            <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                <CurrentIcon className="text-white" size={24} />
+    <footer className="bg-gray-50 pt-10 pb-6 font-sans">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Top Benefits Bar */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-12 flex flex-col md:flex-row justify-between items-center gap-6 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+          <div className="flex items-center gap-4 px-4 w-full md:w-1/4">
+            <Package className="text-red-500 w-8 h-8 flex-shrink-0" />
+            <div>
+              <h4 className="font-bold text-sm text-gray-900">INTERNATIONAL SHIPMENT</h4>
+              <p className="text-xs text-gray-500">Orders are shipped seamlessly between countries</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 px-4 w-full md:w-1/4 pt-4 md:pt-0">
+            <HeadphonesIcon className="text-red-500 w-8 h-8 flex-shrink-0" />
+            <div>
+              <h4 className="font-bold text-sm text-gray-900">ONLINE SUPPORT 24/7</h4>
+              <p className="text-xs text-gray-500">Orders are shipped seamlessly between countries</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 px-4 w-full md:w-1/4 pt-4 md:pt-0">
+            <RotateCcw className="text-red-500 w-8 h-8 flex-shrink-0" />
+            <div>
+              <h4 className="font-bold text-sm text-gray-900">MONEY RETURN</h4>
+              <p className="text-xs text-gray-500">Orders are shipped seamlessly between countries</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4 px-4 w-full md:w-1/4 pt-4 md:pt-0">
+            <Tags className="text-red-500 w-8 h-8 flex-shrink-0" />
+            <div>
+              <h4 className="font-bold text-sm text-gray-900">MEMBER DISCOUNT</h4>
+              <p className="text-xs text-gray-500">Orders are shipped seamlessly between countries</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Footer Links */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+          
+          {/* Brand & Contact */}
+          <div className="lg:col-span-1">
+            <div className="mb-6">
+              <img src="/logo.png" alt="Logo" className="h-10 w-auto object-contain" />
+            </div>
+            <p className="text-sm text-gray-500 mb-6">Solid is the information & experience directed at an end-user</p>
+            
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center gap-3">
+                <Phone className="text-red-500 w-8 h-8 font-light" strokeWidth={1} />
+                <div>
+                  <p className="text-xs text-gray-500">Mon - Fri: 9:00-20:00</p>
+                  <p className="font-bold text-sm">0020 500 - CALL - 000</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="text-red-500 w-8 h-8 font-light" strokeWidth={1} />
+                <div>
+                  <p className="text-xs text-gray-500">Get Free Support</p>
+                  <p className="font-bold text-sm">info@webmail.com</p>
+                </div>
               </div>
             </div>
-            <h3 className="text-sm font-bold mb-2 text-black">
-              {services[currentSlide].title}
-            </h3>
-            <p className="text-xs text-gray-600">
-              {services[currentSlide].description}
+
+            <div className="flex gap-3">
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:bg-gray-100"><Facebook size={16} /></a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:bg-gray-100"><Youtube size={16} /></a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:bg-gray-100"><Twitter size={16} /></a>
+              <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-sm hover:bg-gray-100"><Linkedin size={16} /></a>
+            </div>
+          </div>
+
+          {/* About Us */}
+          <div>
+            <h3 className="font-bold text-sm mb-6">ABOUT US</h3>
+            <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+              Elegant pink origami design three type of dimensional view and decoration co Great for adding a decorative touch to any room's decor.
             </p>
+            <Link href="#" className="text-sm font-bold flex items-center gap-1 hover:text-red-500">
+              GET IN TOUCH <ArrowRight size={16} />
+            </Link>
           </div>
 
-          {/* Navigation Dots - Mobile Only */}
-          <div className="flex justify-center gap-2 mt-6">
-            {services.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-2 h-2 rounded-full transition-all ${currentSlide === index ? 'bg-black w-6' : 'bg-gray-300'
-                  }`}
-                aria-label={`Go to slide ${index + 1}`}
+          {/* Information */}
+          <div>
+            <h3 className="font-bold text-sm mb-6">INFORMATION</h3>
+            <ul className="space-y-3">
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">About</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">FAQ's</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Wishlist</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
+            </ul>
+          </div>
+
+          {/* My Account */}
+          <div>
+            <h3 className="font-bold text-sm mb-6">MY ACCOUNT</h3>
+            <ul className="space-y-3">
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Wishlist</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">My Account</Link></li>
+              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Shop</Link></li>
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h3 className="font-bold text-sm mb-6">GET NEWSLETTER</h3>
+            <p className="text-sm text-gray-500 mb-4">Get 10% off your first order! Hurry up</p>
+            <div className="space-y-3">
+              <input 
+                type="email" 
+                placeholder="Enter email address" 
+                className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded focus:outline-none focus:border-red-500"
               />
-            ))}
+              <button className="w-auto px-6 py-3 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+                Subscribe Now <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Desktop Grid - All 3 Visible */}
-        <div className="hidden md:grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <div key={index} className="flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-                  <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center">
-                    <Icon className="text-white" size={28} />
-                  </div>
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-black">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {service.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="max-w-md mx-auto text-center">
-
-        {/* Newsletter Section */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-medium mb-4 text-amber-700" >
-            Join Our Newsletter
-          </h2>
-          <p className="text-gray-700 text-sm mb-8 leading-relaxed">
-            Stay updated with the latest trends,<br />
-            exclusive offers, and more.
-          </p>
-          <div className="space-y-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-md text-sm text-gray-600 placeholder-gray-400 focus:outline-none focus:border-gray-400"
-            />
-            <button className="w-auto px-8 py-2.5 bg-[#5DADE2] text-white text-sm font-medium rounded-md hover:bg-[#4A9DD6] transition-colors">
-              Subscribe
-            </button>
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <span className="font-bold text-sm">Order faster with our App!</span>
+            <div className="flex gap-2">
+              <button className="bg-black text-white px-3 py-1.5 rounded flex items-center gap-2">
+                 <span className="text-xs">Download on the<br/><strong className="text-sm">App Store</strong></span>
+              </button>
+              <button className="bg-black text-white px-3 py-1.5 rounded flex items-center gap-2">
+                 <span className="text-xs">GET IT ON<br/><strong className="text-sm">Google Play</strong></span>
+              </button>
+            </div>
           </div>
-        </div>
-
-        {/* Quick Links Section */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-medium mb-6 text-amber-700" >
-            Quick Links
-          </h3>
-          <ul className="space-y-3">
           
-            <li>
-              <Link href="/main/products" className="text-gray-700 hover:text-gray-900 transition-colors">
-                Collections
-              </Link>
-            </li>
-            <li>
-              <Link href="/main/help" className="text-gray-700 hover:text-gray-900 transition-colors">
-                FAQs
-              </Link>
-            </li>
-            <li>
-              <Link href="/main/contact" className="text-gray-700 hover:text-gray-900 transition-colors">
-                Contact Us
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Stay Connected Section */}
-        <div>
-          <h3 className="text-2xl font-medium mb-6 text-amber-700">
-            Stay Connected
-          </h3>
-          <div className="flex justify-center gap-6">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-[#D946A6] transition-colors"
-              aria-label="Facebook"
-            >
-              <Facebook size={24} />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-[#D946A6] transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram size={24} />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-[#D946A6] transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter size={24} />
-            </a>
+          <div className="flex items-center gap-4 opacity-70 grayscale">
+            <span className="font-bold text-sm">Wallet</span>
+            <span className="font-bold text-sm italic">Payoneer</span>
+            <span className="font-bold text-sm">amazon</span>
           </div>
         </div>
-
+        
       </div>
     </footer>
   );

@@ -22,7 +22,6 @@ import {
   DiscountBar,
   ProductsGridLayout
 } from '@/Components/Products/layouts';
-import OfferBanners from '@/Components/Products/cards/offer';
 
 // Lazy-load below-fold sections to prevent white page flash on scroll
 const DealOfWeek = dynamic(
@@ -30,26 +29,17 @@ const DealOfWeek = dynamic(
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-[#1a1a1a] animate-pulse" /> }
 );
 
-const FeaturedProducts = dynamic(
-  () => import('@/Components/Products/layouts/FeaturedProducts'),
-  { ssr: false, loading: () => <div className="w-full min-h-[500px] bg-gray-50 animate-pulse rounded-xl" /> }
-);
+
 const CategoryShop = dynamic(
   () => import('@/Components/Products/layouts/CategoryShop'),
   { ssr: false, loading: () => <div className="w-full min-h-[300px] bg-gray-50 animate-pulse rounded-xl" /> }
 );
-const BrandSlider = dynamic(
-  () => import('@/Components/Products/layouts/BrandSlider'),
-  { ssr: false, loading: () => <div className="w-full min-h-[180px] bg-[#991b1b] animate-pulse" /> }
-);
+
 const BlogInsights = dynamic(
   () => import('@/Components/Products/layouts/BlogInsights'),
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
 );
-const FooterFeatures = dynamic(
-  () => import('@/Components/Products/layouts/FooterFeatures'),
-  { ssr: false, loading: () => <div className="w-full min-h-[140px] bg-gray-50 animate-pulse rounded-xl" /> }
-);
+
 const TopListedItems = dynamic(
   () => import('@/Components/Products/layouts/toplisted'),
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
@@ -241,16 +231,27 @@ export default function ProductsPage() {
       <MultipleSchemas schemas={schemas} deferImageSchemas={true} />
 
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-        <div className="mt-0 pb-3 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row ">
-            <div className="hidden lg:block">
-              <SidebarCategories />
-            </div>
-            <div className="flex-1 w-full min-w-0">
-              <HeroSlider />
-            
+        {/* Top Hero Section with Shared Background */}
+        <div className="relative pt-0 pb-3 h-[420px] md:h-[560px] bg-[#FBF3E8] mb-12">
+          {/* SVG Background */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1440 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#F2E6D0" opacity="0.6" d="M-100,-100 C300,100 400,400 0,660 Z" />
+              <path fill="#F2E6D0" opacity="0.6" d="M1540,660 C1100,500 1000,100 1540,-100 Z" />
+          </svg>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+            <div className="flex flex-col lg:flex-row h-full">
+              <div className="hidden lg:block z-20 h-auto self-start">
+                <SidebarCategories />
+              </div>
+              <div className="flex-1 w-full min-w-0 h-full">
+                <HeroSlider />
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12">
             <PromotionalCards />
         </div>
 
@@ -410,40 +411,16 @@ export default function ProductsPage() {
         </main>
 
         <DiscountBar />
-        
-        <section aria-labelledby="offer-heading" className="w-full py-16 px-4 max-w-7xl mx-auto">
-            <div className="mb-10 text-center px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
-                  <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-                <span className="text-[#FF4A3B] font-medium text-lg">Featured</span>
-                <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
-                  <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
-                Get Your Fashion Style
-              </h2>
-            </div>
-            <OfferBanners />
-        </section>
 
         <TopListedItems />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12 flex flex-col gap-12">
           <DealOfWeek />
-          <FeaturedProducts />
           <CategoryShop />
         </div>
 
-        <BrandSlider />
         <BlogInsights />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-20">
-          <FooterFeatures />
-        </div>
-
         <a
           href="#top"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 

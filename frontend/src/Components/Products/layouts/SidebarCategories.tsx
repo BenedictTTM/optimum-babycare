@@ -43,7 +43,7 @@ const SidebarCategories: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:block">
+            <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:block h-auto pb-2">
                 <div className="flex flex-col py-2">
                     {[...Array(7)].map((_, i) => (
                         <div key={i} className="px-6 py-4 animate-pulse">
@@ -60,7 +60,7 @@ const SidebarCategories: React.FC = () => {
     }
 
     return (
-        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:block h-full">
+        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:block h-auto pb-2">
             <div className="flex flex-col">
                 {displayCategories.map((cat) => (
                     <Link

@@ -1,15 +1,39 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+// using native <img> for remote logos to avoid requiring next.config change
 
 const BRANDS = [
-    { name: "allure", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Allure_logo.svg/200px-Allure_logo.svg.png" },
-    { name: "BUSTLE", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Bustle_logo.svg/200px-Bustle_logo.svg.png" },
-    { name: "BAZAAR", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Harper%27s_Bazaar_logo.svg/200px-Harper%27s_Bazaar_logo.svg.png" },
-    { name: "goop", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Goop_logo.svg/100px-Goop_logo.svg.png" },
-    { name: "BRIT+CO", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Brit_%2B_Co.logo.png/100px-Brit_%2B_Co.logo.png" },
-    { name: "THE COVETEUR", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Coveteur_logo.svg/150px-Coveteur_logo.svg.png" }
+    { name: "ALLURE", svg: `
+        <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ALLURE">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="currentColor" font-weight="700">ALLURE</text>
+        </svg>
+    ` },
+    { name: "BUSTLE", svg: `
+        <svg viewBox="0 0 220 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BUSTLE">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="currentColor" font-weight="700">BUSTLE</text>
+        </svg>
+    ` },
+    { name: "BAZAAR", svg: `
+        <svg viewBox="0 0 260 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BAZAAR">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="currentColor" font-weight="700">BAZAAR</text>
+        </svg>
+    ` },
+    { name: "GOOP", svg: `
+        <svg viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GOOP">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="24" fill="currentColor" font-weight="700">GOOP</text>
+        </svg>
+    ` },
+    { name: "BRIT+CO", svg: `
+        <svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BRIT+CO">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="currentColor" font-weight="700">BRIT+CO</text>
+        </svg>
+    ` },
+    { name: "THE COVETEUR", svg: `
+        <svg viewBox="0 0 320 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="THE COVETEUR">
+            <text x="0" y="28" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="currentColor" font-weight="700">THE COVETEUR</text>
+        </svg>
+    ` }
 ];
 
 const BrandSlider = () => {
@@ -19,22 +43,19 @@ const BrandSlider = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-[#991b1b] to-[#b91c1c] mix-blend-multiply opacity-80" />
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-linen.png')] opacity-10 bg-repeat mix-blend-overlay" />
 
-            <div className="absolute inset-0 flex items-center justify-center max-w-[1400px] mx-auto px-4 overflow-x-auto no-scrollbar mask-edges whitespace-nowrap">
-                <div className="flex gap-16 md:gap-24 opacity-80 mix-blend-luminosity brightness-0 invert items-center animate-scroll">
+            <div className="absolute inset-0 flex items-center justify-center max-w-[1400px] mx-auto px-4 overflow-x-auto no-scrollbar whitespace-nowrap z-10 text-white">
+                <div className="flex gap-8 md:gap-12 items-center animate-scroll">
                     {BRANDS.map((brand, index) => (
-                        <div key={index} className="relative h-6 md:h-10 shrink-0 min-w-[100px]">
-                            {/* Fallback to text if images are restricted */}
-                            <span className="text-xl sm:text-2xl md:text-3xl font-serif text-white tracking-widest uppercase truncate ml-8 mr-8">
-                                {brand.name}
-                            </span>
+                        <div key={index} className="flex items-center justify-center shrink-0 px-6 logo-svg" aria-hidden={false}>
+                            <div dangerouslySetInnerHTML={{ __html: brand.svg }} />
+                            <span className="sr-only">{brand.name}</span>
                         </div>
                     ))}
                     {/* Duplicate loop to allow continuous scrolling effect */}
                     {BRANDS.map((brand, index) => (
-                        <div key={`dup-${index}`} className="relative h-6 md:h-10 shrink-0 min-w-[100px]">
-                            <span className="text-xl sm:text-2xl md:text-3xl font-serif text-white tracking-widest uppercase truncate ml-8 mr-8">
-                                {brand.name}
-                            </span>
+                        <div key={`dup-${index}`} className="flex items-center justify-center shrink-0 px-6 logo-svg" aria-hidden={false}>
+                            <div dangerouslySetInnerHTML={{ __html: brand.svg }} />
+                            <span className="sr-only">{brand.name}</span>
                         </div>
                     ))}
                 </div>
@@ -48,10 +69,7 @@ const BrandSlider = () => {
                     -ms-overflow-style: none;  /* IE and Edge */
                     scrollbar-width: none;  /* Firefox */
                 }
-                .mask-edges {
-                    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                }
+                /* mask removed to ensure logos are visible */
                 @keyframes scroll {
                     0% {
                         transform: translateX(0);
@@ -61,7 +79,23 @@ const BrandSlider = () => {
                     }
                 }
                 .animate-scroll {
-                    animation: scroll 30s linear infinite;
+                    animation: scroll 28s linear infinite;
+                    will-change: transform;
+                }
+                .logo-svg svg {
+                    height: 28px;
+                    width: auto;
+                    display: block;
+                    color: #ffffff; /* uses currentColor in SVG */
+                }
+                @media (min-width: 640px) {
+                    .logo-svg svg { height: 32px; }
+                }
+                @media (min-width: 768px) {
+                    .logo-svg svg { height: 44px; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .animate-scroll { animation-play-state: paused; }
                 }
             `}</style>
         </section>
