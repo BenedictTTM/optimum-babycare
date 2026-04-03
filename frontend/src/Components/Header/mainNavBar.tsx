@@ -237,7 +237,7 @@ export default function MainNavBar() {
                 <Link
                   href="/main/products"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-600 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
                 >
                   <Home className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Home</span>
@@ -246,7 +246,7 @@ export default function MainNavBar() {
                 <Link
                   href="/auth/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-600 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
                 >
                   <LogIn className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Login</span>
@@ -255,7 +255,7 @@ export default function MainNavBar() {
                 <Link
                   href="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-600 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
                 >
                   <User className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Profile</span>
@@ -264,7 +264,7 @@ export default function MainNavBar() {
                 <Link
                   href="/main/orders"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-600 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
                 >
                   <Package className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Orders</span>
@@ -273,7 +273,7 @@ export default function MainNavBar() {
                 <Link
                   href="/main/cart"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-600 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Cart</span>

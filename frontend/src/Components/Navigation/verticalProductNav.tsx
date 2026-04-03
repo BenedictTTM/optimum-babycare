@@ -129,7 +129,7 @@ export default function Sidebar() {
                 className="w-12 h-12 rounded-full object-cover border-1 border-gray-100"
               />
             ) : (
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br  flex items-center justify-center text-amber-600 font-semibold text-sm border-2 border-gray-200">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br  flex items-center justify-center text-amber-500 font-semibold text-sm border-2 border-gray-200">
                 {getUserInitials()}
               </div>
             )}

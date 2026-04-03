@@ -217,7 +217,7 @@ export default function AdminFeedbackPage() {
                             {feedback.adminReply ? (
                                 <div className="bg-amber-50/50 border-l-[3px] border-amber-500 pl-3 py-2 pr-2 rounded-r">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <MessageSquare size={14} className="text-amber-600" />
+                                        <MessageSquare size={14} className="text-amber-500" />
                                         <p className="text-xs font-bold text-amber-800 uppercase tracking-wide">
                                             Admin Reply
                                         </p>

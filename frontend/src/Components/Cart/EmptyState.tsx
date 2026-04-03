@@ -6,7 +6,7 @@ export default function EmptyCartState() {
     <div className=" p-4 sm:p-8 md:p-12 text-center max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto">
       {/* Icon with red background */}
       <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mb-4 sm:mb-6">
-        <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-amber-600" strokeWidth={1.5} />
+        <ShoppingCart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-amber-500" strokeWidth={1.5} />
       </div>
       
       {/* Heading */}

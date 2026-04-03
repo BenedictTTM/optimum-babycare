@@ -281,7 +281,7 @@ export default function ProductsPage() {
 
                     {/* Filter Tabs */}
                     <div className="flex items-center justify-center gap-4 text-base font-semibold">
-                      <button className="text-amber-500 hover:text-amber-600 transition-colors">Latest</button>
+                      <button className="text-amber-500 hover:text-amber-500 transition-colors">Latest</button>
                       <span className="w-2 h-2 rounded-full bg-gray-300" />
                       <button className="text-gray-500 hover:text-amber-500 transition-colors">Popular</button>
                       <span className="w-2 h-2 rounded-full bg-gray-300" />

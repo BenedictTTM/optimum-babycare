@@ -310,7 +310,7 @@ export default function CreateProductPage() {
                       type="text"
                       id="title"
                       {...register('title')}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       placeholder="Enter product title"
                     />
                     {errors.title && (
@@ -326,7 +326,7 @@ export default function CreateProductPage() {
                       id="description"
                       {...register('description')}
                       rows={4}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all resize-none"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all resize-none"
                       placeholder="Describe your product"
                     />
                     {errors.description && (
@@ -342,7 +342,7 @@ export default function CreateProductPage() {
                       <select
                         id="category"
                         {...register('category')}
-                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                         disabled={isLoadingCategories}
                       >
                         <option value="">{isLoadingCategories ? 'Loading categories...' : 'Select a category'}</option>
@@ -364,7 +364,7 @@ export default function CreateProductPage() {
                       <select
                         id="condition"
                         {...register('condition')}
-                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       >
                         <option value="">Select condition</option>
                         <option value="new">New</option>
@@ -387,7 +387,7 @@ export default function CreateProductPage() {
                       type="text"
                       id="tags"
                       {...register('tags')}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       placeholder="e.g., smartphone, android, samsung (comma separated)"
                     />
                     {errors.tags && (
@@ -416,7 +416,7 @@ export default function CreateProductPage() {
                           {...register('originalPrice')}
                           min="0"
                           step="0.01"
-                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                           placeholder="0.00"
                         />
                       </div>
@@ -437,7 +437,7 @@ export default function CreateProductPage() {
                           {...register('discountedPrice')}
                           min="0"
                           step="0.01"
-                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                           placeholder="0.00"
                         />
                       </div>
@@ -466,7 +466,7 @@ export default function CreateProductPage() {
                       id="stock"
                       {...register('stock')}
                       min="0"
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                       placeholder="Enter stock quantity"
                     />
                     {errors.stock && (
@@ -529,7 +529,7 @@ export default function CreateProductPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
               >
                 {isSubmitting ? 'Publishing...' : 'Add to Product'}
               </button>

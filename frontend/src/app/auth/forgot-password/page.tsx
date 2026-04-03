@@ -117,7 +117,7 @@ export default function ForgotPasswordPage() {
             {/* Footer */}
             <p className="text-center text-sm text-gray-500">
               Remember your password?{' '}
-              <Link href="/auth/login" className="text-amber-600 hover:text-amber-700 font-medium">
+              <Link href="/auth/login" className="text-amber-500 hover:text-amber-700 font-medium">
                 Sign in
               </Link>
             </p>

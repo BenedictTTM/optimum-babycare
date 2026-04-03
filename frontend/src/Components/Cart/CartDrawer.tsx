@@ -100,7 +100,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
-            <ShoppingCart className="h-6 w-6 text-amber-600" />
+            <ShoppingCart className="h-6 w-6 text-amber-500" />
             <h2 className="text-2xl font-bold">
               Cart ({cart?.totalItems || 0})
             </h2>
@@ -147,7 +147,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       {/* Details */}
                       <div className="flex-1 min-w-0">
                         <Link href={`/main/products/${product.id}`} onClick={onClose}>
-                          <h3 className="text-sm font-medium text-gray-800 mb-1 truncate hover:text-amber-600">
+                          <h3 className="text-sm font-medium text-gray-800 mb-1 truncate hover:text-amber-500">
                             {product.title}
                           </h3>
                         </Link>
@@ -179,7 +179,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           <button
                             onClick={() => handleRemoveItem(item.id)}
                             disabled={isUpdating}
-                            className="ml-auto p-1 text-amber-600 hover:bg-red-50 rounded"
+                            className="ml-auto p-1 text-amber-500 hover:bg-red-50 rounded"
                             aria-label="Remove item"
                           >
                             <Trash2 size={16} />
@@ -202,7 +202,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <Link
                   href="/main/cart"
                   onClick={onClose}
-                  className="block w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
+                  className="block w-full bg-amber-500 hover:bg-amber-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
                 >
                   View Full Cart
                 </Link>

@@ -15,7 +15,7 @@ export function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) 
   const getSegmentColor = (index: number) => {
     if (index <= strength.score) {
       switch (strength.score) {
-        case 0: return 'bg-amber-600';
+        case 0: return 'bg-amber-500';
         case 1: return 'bg-red-400';
         case 2: return 'bg-yellow-400';
         case 3: return 'bg-blue-400';

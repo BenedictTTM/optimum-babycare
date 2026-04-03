@@ -166,7 +166,7 @@ export default function PublicStorePage() {
                     </p>
                     <div className="flex items-center gap-2">
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-900 border border-red-200">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         {products.length} Product{products.length !== 1 ? 's' : ''} Available
                       </span>
                     </div>

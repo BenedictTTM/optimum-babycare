@@ -183,7 +183,7 @@ export default function ProductList() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <p className="text-amber-600 mb-4">{error}</p>
+          <p className="text-amber-500 mb-4">{error}</p>
           <button
             onClick={loadProducts}
             className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"

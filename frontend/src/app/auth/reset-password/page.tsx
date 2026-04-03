@@ -124,7 +124,7 @@ function ResetPasswordForm() {
                   minLength={8}
                   required
                   disabled={!token || loading}
-                  className="w-full px-4 py-3 pr-12 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 pr-12 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed"
                 />
                 <button
                   type="button"
@@ -155,8 +155,8 @@ function ResetPasswordForm() {
                   disabled={!token || loading}
                   className={`w-full px-4 py-3 pr-12 bg-white border rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed ${
                     confirmPassword && !passwordsMatch
-                      ? 'border-red-300 focus:ring-amber-600'
-                      : 'border-gray-200 focus:ring-amber-600 focus:border-transparent'
+                      ? 'border-red-300 focus:ring-amber-500'
+                      : 'border-gray-200 focus:ring-amber-500 focus:border-transparent'
                   }`}
                 />
                 <button
@@ -185,7 +185,7 @@ function ResetPasswordForm() {
             <button
               type="submit"
               disabled={loading || !token || !passwordsMatch || !password || !confirmPassword}
-              className="w-full px-6 py-3 bg-amber-600 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {loading ? 'Resetting password...' : 'Reset Password'}
             </button>
@@ -194,7 +194,7 @@ function ResetPasswordForm() {
           {/* Footer */}
           <p className="text-center text-sm text-gray-600 mt-8">
             Remember your password?{' '}
-            <Link href="/auth/login" className="text-amber-600 hover:text-amber-700 font-medium transition-colors">
+            <Link href="/auth/login" className="text-amber-500 hover:text-amber-700 font-medium transition-colors">
               Sign in
             </Link>
           </p>
@@ -215,7 +215,7 @@ export default function ResetPasswordPage() {
       fallback={
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <div className="inline-block w-8 h-8 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <div className="inline-block w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
             <p className="text-sm text-gray-600">Loading...</p>
           </div>
         </div>

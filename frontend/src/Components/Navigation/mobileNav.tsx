@@ -252,7 +252,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
           </button>
 
           <p className="mt-3 text-xs text-gray-400 text-center">
-            © 2025 <span className="text-amber-600 font-bold">Buddies</span>. All rights reserved.
+            © 2025 <span className="text-amber-500 font-bold">Buddies</span>. All rights reserved.
           </p>
         </div>
       </div>

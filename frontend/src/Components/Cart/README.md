@@ -365,7 +365,7 @@ interface CartCountResponse {
 
 ### Colors
 
-- Primary: `bg-amber-600` / `text-amber-600`
+- Primary: `bg-amber-500` / `text-amber-500`
 - Hover: `hover:bg-amber-700`
 - Success: `text-green-600`
 - Error: `text-amber-700` / `bg-red-50`
@@ -385,7 +385,7 @@ interface CartCountResponse {
 
 ### Buttons
 
-- Primary: `bg-amber-600 hover:bg-amber-700 text-white font-semibold`
+- Primary: `bg-amber-500 hover:bg-amber-700 text-white font-semibold`
 - Icon: `w-10 h-10 rounded`
 - Disabled: `disabled:opacity-50 disabled:cursor-not-allowed`
 

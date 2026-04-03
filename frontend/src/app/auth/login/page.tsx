@@ -149,7 +149,7 @@ export default function LogInPage() {
             <div className="text-right">
               <a
                 href="/auth/forgot-password"
-                className="text-sm text-amber-600 hover:underline"
+                className="text-sm text-amber-500 hover:underline"
               >
                 Forgot Password?
               </a>

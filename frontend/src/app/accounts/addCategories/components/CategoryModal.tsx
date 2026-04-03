@@ -111,7 +111,7 @@ export default function CategoryModal({
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="category-name" className="block text-sm font-medium text-gray-700 mb-1">
-                            Category Name <span className="text-amber-600">*</span>
+                            Category Name <span className="text-amber-500">*</span>
                         </label>
                         <input
                             id="category-name"
@@ -125,7 +125,7 @@ export default function CategoryModal({
                             autoFocus
                         />
                         {errors.name && (
-                            <p className="mt-1 text-xs text-amber-600" role="alert">
+                            <p className="mt-1 text-xs text-amber-500" role="alert">
                                 {errors.name}
                             </p>
                         )}
@@ -145,7 +145,7 @@ export default function CategoryModal({
                             maxLength={500}
                         />
                         {errors.description && (
-                            <p className="mt-1 text-xs text-amber-600" role="alert">
+                            <p className="mt-1 text-xs text-amber-500" role="alert">
                                 {errors.description}
                             </p>
                         )}

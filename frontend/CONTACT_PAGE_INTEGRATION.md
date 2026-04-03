@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { success: true, message: "Message sent successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error("Contact form error:", error);
@@ -128,13 +128,13 @@ export async function POST(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { success: false, errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     return NextResponse.json(
       { success: false, message: "Failed to send message" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -421,8 +421,8 @@ if (Object.keys(newErrors).length > 0) {
 Update Tailwind classes to match your brand:
 
 ```typescript
-// Replace amber-600 with your primary color
-className = "bg-amber-600 hover:bg-amber-700";
+// Replace amber-500 with your primary color
+className = "bg-amber-500 hover:bg-amber-700";
 // to
 className = "bg-blue-500 hover:bg-blue-600";
 ```

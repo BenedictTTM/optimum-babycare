@@ -145,7 +145,7 @@ function CartItem({
               name="cart-item-selection"
               checked={isSelected}
               onChange={onSelect}
-              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700 focus:ring-amber-600 cursor-pointer"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700 focus:ring-amber-500 cursor-pointer"
               aria-label={`Select ${product.title}`}
             />
           </div>
@@ -261,7 +261,7 @@ function ProductHeader({ title, condition, isUpdating, onRemove }: ProductHeader
       <button
         onClick={onRemove}
         disabled={isUpdating}
-        className="text-gray-400 hover:text-amber-600 transition-colors disabled:opacity-50 flex-shrink-0 sm:hidden"
+        className="text-gray-400 hover:text-amber-500 transition-colors disabled:opacity-50 flex-shrink-0 sm:hidden"
         aria-label="Remove item"
       >
         {isUpdating ? (
@@ -340,7 +340,7 @@ function PriceAndDelete({ price, isUpdating, onRemove }: PriceAndDeleteProps) {
       <button
         onClick={onRemove}
         disabled={isUpdating}
-        className="text-gray-400 hover:text-amber-600 transition-colors disabled:opacity-50 hidden sm:block flex-shrink-0"
+        className="text-gray-400 hover:text-amber-500 transition-colors disabled:opacity-50 hidden sm:block flex-shrink-0"
         aria-label="Remove item"
       >
         {isUpdating ? (

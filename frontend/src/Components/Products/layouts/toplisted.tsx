@@ -1,17 +1,22 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ProductsCard from '../cards/ProductsCard';
 import { Product } from '@/types/products';
-
-const TOP_PRODUCTS: Product[] = [
-    { id: 1, title: 'The Linen T-shirt', originalPrice: 21.00, averageRating: 4, totalReviews: 10, imageUrl: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&auto=format&fit=crop&q=60'] },
-    { id: 2, title: 'The Cotton Cutaway', originalPrice: 21.00, averageRating: 4, totalReviews: 10, imageUrl: ['https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=200&auto=format&fit=crop&q=60'] },
-];
+import { products as productsApi } from '@/api/clients';
 
 const TopListedItems = () => {
+    const [topProducts, setTopProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        productsApi.getAll(1, 2).then((data) => {
+            const items = Array.isArray(data) ? data : data?.data ?? data?.products ?? [];
+            setTopProducts(items.slice(0, 2));
+        }).catch(() => {});
+    }, []);
+
     return (
         <section className="w-full py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex bg-white rounded-lg border border-gray-100 shadow-xs overflow-hidden flex-col lg:flex-row">
@@ -30,7 +35,7 @@ const TopListedItems = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-x-8 gap-y-6">
-                        {TOP_PRODUCTS.map((product) => (
+                        {topProducts.map((product) => (
                             <ProductsCard key={product.id} product={product} />
                         ))}
                     </div>

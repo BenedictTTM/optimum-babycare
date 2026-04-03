@@ -26,7 +26,7 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
         ) : (
           <>
             <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-red-100 flex items-center justify-center">
-              <span className="text-amber-600 text-[10px] sm:text-xs">✕</span>
+              <span className="text-amber-500 text-[10px] sm:text-xs">✕</span>
             </div>
             <span>Out of Stock</span>
           </>
@@ -39,7 +39,7 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
         <p className="flex-1">
           <span className=" text-gray-800 text-xs">Estimated delivery:</span>{" "}
           2–3 business days.{" "}
-          <button className="text-amber-600 hover:underline font-medium transition-colors">
+          <button className="text-amber-500 hover:underline font-medium transition-colors">
             Details
           </button>
         </p>

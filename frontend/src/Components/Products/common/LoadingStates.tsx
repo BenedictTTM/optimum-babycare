@@ -48,7 +48,7 @@ export function ErrorMessage({ message, subText, onRetry }: ErrorMessageProps) {
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
         <div className="text-amber-700 font-semibold text-lg mb-2">{message}</div>
         {subText && (
-          <div className="text-amber-600 text-sm mb-4">{subText}</div>
+          <div className="text-amber-500 text-sm mb-4">{subText}</div>
         )}
         {onRetry && (
           <button

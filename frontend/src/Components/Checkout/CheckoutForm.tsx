@@ -66,11 +66,11 @@ export default function CheckoutForm({
               value={hall}
               onChange={(e) => onChange('hall', e.target.value)}
               placeholder="Location"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 ${
-                errors.hall ? 'border-amber-600' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                errors.hall ? 'border-amber-500' : 'border-gray-300'
               }`}
             />
-            {errors.hall && <p className="text-amber-600 text-xs mt-1">{errors.hall}</p>}
+            {errors.hall && <p className="text-amber-500 text-xs mt-1">{errors.hall}</p>}
           </div>
 
           <div>
@@ -79,11 +79,11 @@ export default function CheckoutForm({
               value={whatsapp}
               onChange={(e) => onChange('whatsapp', e.target.value)}
               placeholder="WhatsApp Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 ${
-                errors.whatsapp ? 'border-amber-600' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                errors.whatsapp ? 'border-amber-500' : 'border-gray-300'
               }`}
             />
-            {errors.whatsapp && <p className="text-amber-600 text-xs mt-1">{errors.whatsapp}</p>}
+            {errors.whatsapp && <p className="text-amber-500 text-xs mt-1">{errors.whatsapp}</p>}
           </div>
 
           <div>
@@ -92,11 +92,11 @@ export default function CheckoutForm({
               value={callNumber}
               onChange={(e) => onChange('callNumber', e.target.value)}
               placeholder="Call Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 ${
-                errors.callNumber ? 'border-amber-600' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
+                errors.callNumber ? 'border-amber-500' : 'border-gray-300'
               }`}
             />
-            {errors.callNumber && <p className="text-amber-600 text-xs mt-1">{errors.callNumber}</p>}
+            {errors.callNumber && <p className="text-amber-500 text-xs mt-1">{errors.callNumber}</p>}
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@ export default function CheckoutForm({
           onChange={(e) => onChange('message', e.target.value)}
           placeholder="Add any special requests or notes here..."
           rows={3}
-          className="w-full px-2.5 py-2 sm:py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none"
+          className="w-full px-2.5 py-2 sm:py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
         />
       </div>
 

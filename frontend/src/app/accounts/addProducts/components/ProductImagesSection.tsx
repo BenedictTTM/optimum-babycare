@@ -57,7 +57,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                   onClick={() => onRemoveImage(0)}
                   aria-label="Remove main image"
                   title="Remove image"
-                  className="absolute top-2 right-2 bg-amber-600 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-amber-700 transition-colors "
+                  className="absolute top-2 right-2 bg-amber-500 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-amber-700 transition-colors "
                 >
                   <IoClose className="w-4 h-4" />
                 </button>
@@ -67,7 +67,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                 <IoCamera className="mx-auto h-10 w-10 text-gray-400" />
                 <div className="mt-3">
                   <label htmlFor="main-image" className="cursor-pointer">
-                    <span className="text-sm font-semibold text-amber-600 hover:text-amber-700 transition-colors">
+                    <span className="text-sm font-semibold text-amber-500 hover:text-amber-700 transition-colors">
                       Upload main image
                     </span>
                     <input id="main-image" type="file" accept="image/*" onChange={onImageUpload} className="sr-only" />
@@ -90,7 +90,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                 onClick={() => onRemoveImage(index + 1)}
                 aria-label={`Remove image ${index + 2}`}
                 title="Remove image"
-                className="absolute -top-1.5 -right-1.5 bg-amber-600 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-amber-700 transition-colors "
+                className="absolute -top-1.5 -right-1.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-amber-700 transition-colors "
               >
                 <IoClose className="w-3.5 h-3.5" />
               </button>

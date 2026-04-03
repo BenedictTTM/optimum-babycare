@@ -38,7 +38,7 @@ export default function NotFoundPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
             <button
               onClick={() => window.location.href = '/'}
-              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-medium px-6 py-3 rounded shadow-md hover:shadow-lg transition-all duration-200 w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-amber-500 hover:bg-amber-700 text-white font-medium px-6 py-3 rounded shadow-md hover:shadow-lg transition-all duration-200 w-full sm:w-auto justify-center"
             >
               <Home size={18} />
               Back to Home

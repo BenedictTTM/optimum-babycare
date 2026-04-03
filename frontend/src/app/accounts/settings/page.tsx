@@ -82,7 +82,7 @@ export default function SettingsPage() {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
             </div>
         );
     }
@@ -112,7 +112,7 @@ export default function SettingsPage() {
                                         type="text"
                                         id="topic"
                                         {...register('topic')}
-                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                                         placeholder="e.g. University of Ghana this is your plug"
                                     />
                                     {errors.topic && (
@@ -128,7 +128,7 @@ export default function SettingsPage() {
                                         type="text"
                                         id="callNumber"
                                         {...register('callNumber')}
-                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                                         placeholder="e.g. +233 55 555 5555"
                                     />
                                     {errors.callNumber && (
@@ -144,7 +144,7 @@ export default function SettingsPage() {
                                         type="text"
                                         id="discountPercentage"
                                         {...register('discountPercentage')}
-                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                                         placeholder="e.g. Instant deliveries!"
                                     />
                                     {errors.discountPercentage && (
@@ -157,7 +157,7 @@ export default function SettingsPage() {
                                         <input
                                             type="checkbox"
                                             {...register('isActive')}
-                                            className="w-4 h-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500"
+                                            className="w-4 h-4 text-amber-500 rounded border-gray-300 focus:ring-amber-500"
                                         />
                                         <span className="text-sm font-medium text-gray-700">Show Top Bar</span>
                                     </label>
@@ -179,7 +179,7 @@ export default function SettingsPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="px-5 py-2.5 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
                             >
                                 {isSubmitting ? 'Saving...' : 'Save Changes'}
                             </button>

@@ -9,7 +9,7 @@ export default function CartHeader() {
       </h1>
       <Link
         href="/main/products"
-        className="flex items-center gap-1 sm:gap-2 text-amber-600 hover:text-amber-700 font-medium transition-colors text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+        className="flex items-center gap-1 sm:gap-2 text-amber-500 hover:text-amber-700 font-medium transition-colors text-sm sm:text-base whitespace-nowrap flex-shrink-0"
       >
         <span className="hidden sm:inline">Continue Shopping</span>
         <span className="sm:hidden">Continue</span>
