@@ -108,15 +108,15 @@ const TopListedItems = () => {
                         </button>
                     </div>
 
-                    {/* Model Image - Bottom Aligned */}
-                    <div className="mt-8 relative w-full h-[300px]">
+                    {/* Model Image - Bottom Aligned (increase height so image isn't cut) */}
+                    <div className="mt-8 relative w-full h-[420px] sm:h-[250px] md:h-[300px] lg:h-[420px]">
                         <Image
                             src="/womanbabymilk.png"
                             alt="Woman Baby Milk"
                             fill
                             loading="lazy"
                             className="object-cover"
-                            style={{ objectPosition: 'center 20%' }}
+                            style={{ objectPosition: 'center 15%' }}
                             sizes="320px"
                         />
                     </div>

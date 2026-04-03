@@ -28,17 +28,35 @@ const DealOfWeek = () => {
     return (
         <section className="w-full relative overflow-hidden">
             {/* Hero background image (left) - hidden on smaller screens */}
-            <div className="absolute inset-0 hidden lg:block">
+            <div className="absolute inset-0">
                 <div
-                    className="absolute inset-0 bg-cover bg-left"
-                    style={{ backgroundImage: "url('htFtps://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1600&auto=format&fit=crop&q=60')" }}
+                    className="absolute inset-0 bg-cover bg-bottom lg:bg-left"
+                    style={{ backgroundImage: "url('/shop.png')", backgroundPosition: 'center bottom', backgroundSize: 'cover' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 lg:from-black/60 via-black/30 to-transparent" />
             </div>
 
             <div className="max-w-7xl mx-auto lg:px-8 w-full flex flex-col lg:flex-row items-center lg:items-stretch py-12 lg:py-20 relative">
 
-                {/* Small product card positioned over the hero (left) - shows only on large screens */}
+                {/* Small product card for mobile (in-flow) and desktop (absolute) */}
+                <div className="block lg:hidden relative z-40 w-full max-w-xs mx-auto mb-6">
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div className="relative w-full h-40 bg-neutral-50">
+                            <Image
+                                src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60"
+                                alt="Promo"
+                                fill
+                                loading="lazy"
+                                className="object-contain p-4"
+                            />
+                        </div>
+                        <div className="p-3 border-t">
+                            <h4 className="text-xs text-gray-500">The Organic Cotton Cutaway Tank</h4>
+                            <p className="text-base font-extrabold text-gray-900">$21.00</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="hidden lg:block absolute left-20 top-12 z-20">
                     <div className="bg-white rounded-lg shadow-md w-[240px] overflow-hidden">
                         <div className="relative w-full h-48 bg-neutral-50">

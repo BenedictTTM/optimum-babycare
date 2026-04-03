@@ -61,15 +61,17 @@ const CategoryShop = () => {
                 {/* Header with Nav Controls */}
                 <div className="flex items-center justify-center mb-16">
                     <div className="text-center">
-                         <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
-                        <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                    <span className="text-[#FF4A3B] font-medium text-sm">Categories</span>
-                    <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
-                        <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
+                                <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                            <span className="text-[#FF4A3B] font-medium text-sm">Categories</span>
+                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
+                                <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                        </div>
                         <h2 className="text-4xl text-[#0a192f] tracking-widest uppercase font-serif">
-                           OUR COLLECTIONS
+                            OUR COLLECTIONS
                         </h2>
                     </div>
                 </div>
