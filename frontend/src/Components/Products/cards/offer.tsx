@@ -46,7 +46,7 @@ const OfferBanners = () => {
                             alt={offer.category}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                            sizes="(max-width: 660px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                         {/* Badge - overlaps the content area slightly */}
                         <div className="absolute -bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm z-20">
@@ -58,7 +58,7 @@ const OfferBanners = () => {
                     </div>
 
                     {/* Content Area */}
-                    <div className="p-6 flex-1 flex flex-col justify-between pt-8">
+                    <div className="p-3 flex-1 flex flex-col justify-between pt-8">
                         <div>
                             <h3 className="text-[15px] sm:text-[16px] font-extrabold text-gray-900 tracking-wide mb-3">
                                 {offer.category}
@@ -87,7 +87,7 @@ const OfferBanners = () => {
 
                         {/* Buy Now Button */}
                         <div className="w-full flex justify-center">
-                            <button className="w-56 sm:w-64 bg-white text-[13px] font-bold text-gray-900 py-3 rounded-md shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                            <button className="w-56 sm:w-64 bg-white text-[13px] font-bold text-gray-900 py-3 rounded-md shadow-xs border border-gray-100 hover:shadow-sm transition-all">
                                 Buy Now
                             </button>
                         </div>
