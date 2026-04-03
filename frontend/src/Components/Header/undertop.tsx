@@ -16,10 +16,10 @@ const UnderTop = () => {
                         <Image
                             src="/logo.png"
                             alt="babylist logo"
-                            width={140}
-                            height={45}
+                            width={210}
+                            height={68}
                             priority
-                            className="w-auto h-auto max-h-[50px] object-contain"
+                            className="w-auto h-auto max-h-[80px] object-contain"
                         />
                     </Link>
                 </div>

@@ -95,7 +95,7 @@ export default function Sidebar() {
       {/* Top Navbar for Mobile */}
       <div className="lg:hidden flex items-center justify-between px-6 py-6 bg-gray-100  border-gray-50">
         <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
-          <Image src='/logo.png' alt="Logo" width={40} height={40} />
+          <Image src='/logo.png' alt="Logo" width={60} height={60} />
         </Link>
         <button
           onClick={() => setIsMobileOpen(true)}
@@ -114,7 +114,7 @@ export default function Sidebar() {
         {/* Brand */}
         <div className="hidden lg:flex items-center justify-between px-6 py-6 bg-white border-b border-gray-50">
           <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
-            <Image src='/logo.png' alt="Logo" width={80} height={80} />
+            <Image src='/logo.png' alt="Logo" width={120} height={120} />
 
           </Link>
         </div>

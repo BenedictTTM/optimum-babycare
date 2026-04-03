@@ -124,17 +124,17 @@ export default function MainNavBar() {
             
             {/* Center Logo for Mobile */}
             <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
-                <Link href="/main">
-                    <Image
-                        src="/logo.png"
-                        alt="babylist logo"
-                        width={90}
-                        height={30}
-                        priority
-                        className="w-auto h-auto max-h-[35px] object-contain"
-                    />
-                </Link>
-            </div>
+            <Link href="/main">
+              <Image
+                src="/logo.png"
+                alt="babylist logo"
+                width={135}
+                height={45}
+                priority
+                className="w-auto h-auto max-h-[52px] object-contain"
+              />
+            </Link>
+          </div>
 
             {/* Right: navigation and cart + user */}
             <div className="flex items-center justify-end space-x-3 sm:space-x-4">

@@ -46,7 +46,7 @@ const Footer = () => {
           {/* Brand & Contact */}
           <div className="lg:col-span-1">
             <div className="mb-6">
-              <img src="/logo.png" alt="Logo" className="h-10 w-auto object-contain" />
+              <img src="/logo.png" alt="Logo" className="h-16 w-auto object-contain" />
             </div>
             <p className="text-sm text-gray-500 mb-6">Solid is the information & experience directed at an end-user</p>
             

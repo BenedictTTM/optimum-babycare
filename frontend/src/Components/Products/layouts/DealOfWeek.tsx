@@ -26,21 +26,21 @@ const DealOfWeek = () => {
     }, []);
 
     return (
-        <section className="w-full relative min-h-[480px] overflow-hidden">
-            {/* Hero background image (left) */}
+        <section className="w-full relative overflow-hidden">
+            {/* Hero background image (left) - hidden on smaller screens */}
             <div className="absolute inset-0 hidden lg:block">
                 <div
                     className="absolute inset-0 bg-cover bg-left"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1600&auto=format&fit=crop&q=60')" }}
+                    style={{ backgroundImage: "url('htFtps://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1600&auto=format&fit=crop&q=60')" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-stretch py-20 relative">
+            <div className="max-w-7xl mx-auto lg:px-8 w-full flex flex-col lg:flex-row items-center lg:items-stretch py-12 lg:py-20 relative">
 
-                {/* Small product card positioned over the hero (left) */}
+                {/* Small product card positioned over the hero (left) - shows only on large screens */}
                 <div className="hidden lg:block absolute left-20 top-12 z-20">
-                    <div className="bg-white rounded-lg shadow-2xl w-[240px] overflow-hidden">
+                    <div className="bg-white rounded-lg shadow-md w-[240px] overflow-hidden">
                         <div className="relative w-full h-48 bg-neutral-50">
                             <Image
                                 src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60"
@@ -58,7 +58,7 @@ const DealOfWeek = () => {
                 </div>
 
                 {/* Right content card */}
-                <div className="ml-auto w-full max-w-2xl bg-white p-10 rounded-md shadow-lg relative z-30">
+                <div className="w-full max-w-2xl bg-white p-6 sm:p-10 rounded-md shadow-lg relative z-30 mx-auto lg:mx-0 lg:ml-auto">
                     <div className="flex items-center gap-3 mb-4">
                         <span className="w-8 h-[2px] bg-red-500 inline-block" />
                         <span className="text-[12px] font-bold tracking-[0.2em] text-red-500 uppercase">Deal Of The Week</span>
@@ -73,7 +73,7 @@ const DealOfWeek = () => {
                     </p>
 
                     {/* Countdown as rounded boxes */}
-                    <div className="flex items-center gap-3 mb-6">
+                    <div className="flex flex-wrap items-center gap-3 mb-6">
                         {[
                             { label: 'D', value: timeLeft.days },
                             { label: 'H', value: timeLeft.hours },
@@ -81,8 +81,8 @@ const DealOfWeek = () => {
                             { label: 'S', value: timeLeft.seconds }
                         ].map((unit, i) => (
                             <div key={i} className="flex flex-col items-center">
-                                <div className="px-4 py-2 bg-gray-100 rounded-md shadow-sm text-center min-w-[64px]">
-                                    <div className="text-lg font-extrabold text-gray-900">{unit.value.toString().padStart(2, '0')}</div>
+                                <div className="px-3 sm:px-4 py-2 bg-gray-100 rounded-md shadow-sm text-center min-w-[52px] sm:min-w-[64px]">
+                                    <div className="text-lg sm:text-xl font-extrabold text-gray-900">{unit.value.toString().padStart(2, '0')}</div>
                                     <div className="text-[10px] text-gray-500 font-bold mt-1">{unit.label}</div>
                                 </div>
                             </div>

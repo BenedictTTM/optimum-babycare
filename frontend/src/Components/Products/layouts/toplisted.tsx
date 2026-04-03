@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -17,6 +17,19 @@ const TOP_PRODUCTS = [
 ];
 
 const TopListedItems = () => {
+    const [visibleCount, setVisibleCount] = useState<number>(TOP_PRODUCTS.length);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(max-width: 639px)');
+        const handle = () => setVisibleCount(mq.matches ? 4 : TOP_PRODUCTS.length);
+        handle();
+        if (mq.addEventListener) mq.addEventListener('change', handle);
+        else mq.addListener(handle);
+        return () => {
+            if (mq.removeEventListener) mq.removeEventListener('change', handle);
+            else mq.removeListener(handle);
+        };
+    }, []);
     return (
         <section className="w-full py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="flex bg-white rounded-lg border border-gray-100 shadow-xs overflow-hidden flex-col lg:flex-row">
@@ -34,57 +47,53 @@ const TopListedItems = () => {
                         </Link>
                     </div>
 
-                    <div className="flex flex-col gap-6">
-                        {[0, 1, 2].map((rowIndex) => (
-                            <div key={rowIndex} className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6 ${rowIndex < 2 ? 'pb-6 border-b border-gray-200' : ''}`}>
-                                {TOP_PRODUCTS.slice(rowIndex * 3, (rowIndex + 1) * 3).map((product, index) => (
-                                    <div key={index} className="flex items-center gap-4">
-                                        {/* Image Placeholder */}
-                                        <div className="relative w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] bg-[#f2f2f2] rounded-lg overflow-hidden flex-shrink-0">
-                                            <Image
-                                                src={product.image}
-                                                alt={product.title}
-                                                fill
-                                                loading="lazy"
-                                                className="object-cover mix-blend-multiply"
-                                                sizes="90px"
-                                            />
-                                        </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+                        {TOP_PRODUCTS.slice(0, visibleCount).map((product, index) => (
+                            <div key={index} className="flex flex-col items-center text-center gap-3 w-full p-2">
+                                {/* Image Placeholder */}
+                                <div className="relative w-24 h-24 sm:w-[90px] sm:h-[90px] bg-[#f2f2f2] rounded-lg overflow-hidden">
+                                    <Image
+                                        src={product.image}
+                                        alt={product.title}
+                                        fill
+                                        loading="lazy"
+                                        className="object-contain"
+                                        sizes="90px"
+                                    />
+                                </div>
 
-                                        {/* Product Info */}
-                                        <div className="flex flex-col flex-1 border-l-2 border-transparent  pr-2">
-                                            {/* Stars */}
-                                            <div className="flex items-center gap-[2px] mb-1">
-                                                {[1, 2, 3, 4, 5].map((s) => (
-                                                    <svg
-                                                        key={s}
-                                                        className={`w-3.5 h-3.5 ${s <= product.rating ? 'text-amber-400 fill-current' : 'text-gray-300 stroke-current fill-transparent'}`}
-                                                        viewBox="0 0 24 24"
-                                                        strokeWidth="1.5"
-                                                    >
-                                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                                                    </svg>
-                                                ))}
-                                                <span className="text-[11px] text-gray-400 ml-1">({product.reviews})</span>
-                                            </div>
+                                {/* Stars */}
+                                <div className="flex items-center justify-center gap-2">
+                                    {[1, 2, 3, 4, 5].map((s) => (
+                                        <svg
+                                            key={s}
+                                            className={`w-3.5 h-3.5 ${s <= product.rating ? 'text-amber-400 fill-current' : 'text-gray-300 stroke-current fill-transparent'}`}
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="1.5"
+                                        >
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                        </svg>
+                                    ))}
+                                    <span className="text-[11px] text-gray-400">({product.reviews})</span>
+                                </div>
 
-                                            <h3 className="text-[13px] sm:text-[14px] font-medium text-gray-900 leading-tight mb-2 hover:text-amber-600 transition-colors cursor-pointer tracking-tight">
-                                                {product.title}
-                                            </h3>
+                                {/* Product Info */}
+                                <div className="flex flex-col items-center">
+                                    <h3 className="text-sm sm:text-[14px] font-medium text-gray-900 leading-tight mb-1">
+                                        {product.title}
+                                    </h3>
 
-                                            <p className="text-[15px] sm:text-[16px] font-extrabold text-gray-900">
-                                                ${product.price.toFixed(2)}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                                    <p className="text-[15px] sm:text-[16px] font-extrabold text-gray-900">
+                                        ${product.price.toFixed(2)}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Right side: Promotional Banner */}
-                <div className="lg:w-[320px] bg-[#fde2e4] relative overflow-hidden flex flex-col items-center pt-12">
+                <div className="lg:w-[320px] bg-amber-50 relative overflow-hidden flex flex-col items-center pt-12">
                     {/* Header text */}
                     <div className="relative z-10 text-center px-8">
                         <span className="text-[10px] font-extrabold text-gray-800 tracking-[0.2em] mb-4 block uppercase leading-none">
@@ -102,11 +111,12 @@ const TopListedItems = () => {
                     {/* Model Image - Bottom Aligned */}
                     <div className="mt-8 relative w-full h-[300px]">
                         <Image
-                            src="https://images.unsplash.com/photo-1549066018-0629bcda55bc?w=500&auto=format&fit=crop&q=60"
-                            alt="Promo Model"
+                            src="/womanbabymilk.png"
+                            alt="Woman Baby Milk"
                             fill
                             loading="lazy"
-                            className="object-cover object-top"
+                            className="object-cover"
+                            style={{ objectPosition: 'center 20%' }}
                             sizes="320px"
                         />
                     </div>
