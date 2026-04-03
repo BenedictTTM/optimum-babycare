@@ -60,18 +60,18 @@ const SidebarCategories: React.FC = () => {
     }
 
     return (
-        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:block h-full">
-            <div className="flex flex-col py-2">
+        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:block h-full">
+            <div className="flex flex-col">
                 {displayCategories.map((cat) => (
                     <Link
                         key={cat.id}
                         href={`/main/products/categories?category=${cat.id}`}
-                        className="group flex items-center justify-between px-6 py-3.5 hover:bg-gray-50 transition-colors"
+                        className="group flex items-center justify-between px-6 py-5 hover:bg-gray-50 transition-colors"
                     >
-                        <span className="text-[15px] font-medium text-gray-800 group-hover:text-amber-500 transition-colors">
+                        <span className="text-[15px] font-medium text-gray-800 group-hover:text-[#f59e0b] transition-colors">
                             {cat.name}
                         </span>
-                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-amber-500 transition-colors" />
+                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#f59e0b] transition-colors" />
                     </Link>
                 ))}
             </div>

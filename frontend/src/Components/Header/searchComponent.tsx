@@ -115,7 +115,7 @@ const SearchComponent = () => {
                   handleSearch();
                 }
               }}
-              className={`hover:bg-gray-100 rounded-full transition-colors flex-shrink-0 ${isFocused ? 'p-1' : 'w-10 h-10 flex items-center justify-center bg-white border border-gray-200'
+              className={`hover:bg-gray-100 rounded-full transition-colors flex-shrink-0 ${isFocused ? 'p-1' : 'w-10 h-10 flex items-center justify-center bg-white '
                 }`}
               aria-label="Search"
             >

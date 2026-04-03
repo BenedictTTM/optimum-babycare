@@ -3,12 +3,10 @@
 import React from 'react';
 import { User, ShoppingBag, Menu, X, Home, Package, LogIn, ChevronDown } from 'lucide-react';
 import { Inter, Montserrat } from 'next/font/google';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCartCount } from '@/hooks/useCartCount';
 import Link from 'next/link';
 import SearchComponent from './searchComponent';
-import { TopCat } from '../Products/layouts';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -88,7 +86,7 @@ export default function MainNavBar() {
                 </button>
               )}
               {/* Desktop Category Toggle - matches sidebar width */}
-              <div className="hidden lg:flex items-center justify-between w-full bg-[#F59E0B] text-white px-5 py-4 cursor-pointer rounded-tr-md rounded-tl-md">
+              <div className="hidden lg:flex items-center justify-between w-full bg-red-500 text-white px-5 py-4 cursor-pointer rounded-tr-md rounded-tl-md">
                 <span className="font-bold text-[15px]">All Categories</span>
                 <ChevronDown className="w-4 h-4 text-white/90" />
               </div>
@@ -96,23 +94,23 @@ export default function MainNavBar() {
 
             {/* Center: Navigation Links */}
             <div className="hidden md:flex items-center space-x-10">
-              <Link href="/main" className={`flex items-center space-x-1 text-[15px] font-bold text-amber-500 hover:text-amber-600 transition-colors ${clashDisplay.className}`}>
+              <Link href="/main" className={`flex items-center space-x-1 text-[15px] font-bold text-red-500 hover:text-red-600 transition-colors ${clashDisplay.className}`}>
                 <span>Home</span>
-                <span className="text-amber-500 font-medium text-[16px]">+</span>
+                <span className="text-red-500 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/products" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-amber-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/main/products" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Shop</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="#" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-amber-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="#" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Pages</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/blog" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-amber-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/main/blog" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Blog</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/contact" className={`text-[15px] font-bold text-black hover:text-amber-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/main/contact" className={`text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Contact</span>
               </Link>
             </div>
@@ -125,9 +123,9 @@ export default function MainNavBar() {
                 href="/profile"
                 aria-label="Account"
                 title="Account"
-                className="w-10 h-10 bg-white border border-gray-200 flex items-center justify-center rounded-full hover:bg-gray-50 transition group"
+                className="w-10 h-10 bg-white  flex items-center justify-center rounded-full hover:bg-gray-50 transition group"
               >
-                <User className="w-5 h-5 text-gray-800 group-hover:text-amber-500 transition-colors" />
+                <User className="w-5 h-5 text-gray-800 group-hover:text-red-500 transition-colors" />
               </Link>
 
               <div className="relative">
@@ -147,9 +145,9 @@ export default function MainNavBar() {
                     }
                   }}
                   aria-expanded={cartMenuOpen}
-                  className={`w-10 h-10 bg-white border border-gray-200 flex items-center justify-center rounded-full transition-all relative group`}
+                  className={`w-10 h-10 bg-white  flex items-center justify-center rounded-full transition-all relative group`}
                 >
-                  <ShoppingBag className="w-5 h-5 text-gray-800 group-hover:text-amber-500 transition-colors" />
+                  <ShoppingBag className="w-5 h-5 text-gray-800 group-hover:text-red-500 transition-colors" />
                   {itemCount > 0 && (
                     <motion.span
                       key={itemCount}
@@ -158,7 +156,7 @@ export default function MainNavBar() {
                       exit={{ scale: 0, opacity: 0 }}
                       transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                       className={`absolute -top-1.5 -right-1.5 flex items-center justify-center
-                        bg-amber-500 text-white text-[10px]
+                        bg-red-500 text-white text-[10px]
                         w-5 h-5 rounded-full
                         font-bold shadow-sm ring-2 ring-white
                         ${shouldPulse ? 'animate-bounce' : ''} ${inter.className}`}
@@ -169,31 +167,7 @@ export default function MainNavBar() {
                   )}
                 </Link>
 
-                {/* Hover/focus dropdown to choose Cart or Orders */}
-                {(
-                  <div
-                    onMouseEnter={openCartMenu}
-                    onMouseLeave={() => scheduleCloseCartMenu()}
-                    className={`absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-lg shadow-md py-1 z-50 transition-opacity duration-150 ${cartMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-                      }`}
-                    aria-label="Cart menu"
-                  >
-                    <Link
-                      href="/main/cart"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      role="menuitem"
-                    >
-                      Cart
-                    </Link>
-                    <Link
-                      href="/main/orders"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      role="menuitem"
-                    >
-                      Orders
-                    </Link>
-                  </div>
-                )}
+
               </div>
             </div>
           </div>

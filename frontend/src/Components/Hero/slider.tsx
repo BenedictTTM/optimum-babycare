@@ -4,36 +4,37 @@ import React from 'react';
 
 const HeroSlider = () => {
     return (
-        <div className="relative w-full h-[350px] md:h-[500px] overflow-hidden rounded-md bg-[#FFF5E9] flex items-center">
+        <div className="relative w-full h-[420px] md:h-[560px] overflow-hidden bg-white flex items-center">
             {/* 
               Placeholder Image - aligned to the right.
               (Retaining the baby image you requested previously) 
             */}
             <div
-                className="absolute right-0 bottom-0 h-[100%] w-[60%] md:w-[50%] bg-no-repeat bg-right-bottom bg-contain"
+                className="absolute right-0 bottom-0 top-0 h-full w-[40%] bg-no-repeat bg-right-bottom bg-contain"
                 style={{
-                    backgroundImage: "url('https://plus.unsplash.com/premium_photo-1701984401514-a32a73eac549?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8YmFieSUyMHByb2R1Y3RzfGVufDB8MXwwfHx8MA%3D%3D')"
+                    backgroundImage: "url('https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80')",
+                    backgroundPosition: 'right center'
                 }}
             />
 
             {/* Text Content */}
-            <div className="relative z-10 w-full px-8 md:px-16 flex flex-col justify-center text-left max-w-[65%]">
+            <div className="relative z-10 w-full md:w-[60%] px-6 md:px-12 flex flex-col justify-center text-left">
                 <p className="text-sm md:text-base font-medium text-gray-700 tracking-wide mb-3 md:mb-4">
                     Women's Collection
                 </p>
 
-                <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-black leading-tight mb-4">
-                    NEW FLORAL DRESS
+                <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-semibold text-gray-950 leading-tight mb-4">
+                    NEW FLORAL TOP
                 </h2>
 
-                <p className="text-xs md:text-sm text-gray-500 mb-8 max-w-sm">
+                <p className="text-sm md:text-base text-gray-500 mb-8 max-w-md">
                     Free shipping with our Special Service & not redeemable
                 </p>
 
                 <div className="flex items-center">
-                    <button className="text-black font-extrabold tracking-widest uppercase text-sm border-b-2 border-black pb-1 hover:text-amber-500 hover:border-amber-500 transition-colors">
-                        View Collection
-                    </button>
+                    <a href="#collections" className="inline-block font-extrabold uppercase text-sm text-black underline decoration-black underline-offset-4 tracking-wide">
+                        View Collections
+                    </a>
                 </div>
             </div>
 

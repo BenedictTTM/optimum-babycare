@@ -38,9 +38,9 @@ const OfferBanners = () => {
     return (
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 py-6 sm:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {OFFERS.map((offer, index) => (
-                <div key={index} className="flex flex-col bg-white rounded-xl overflow-hidden border border-gray-100 shadow-xs hover:shadow-md transition-shadow">
+                <div key={index} className="flex flex-col bg-white rounded-xl overflow-hidden border border-gray-100 shadow-xs hover:shadow-md transition-shadow h-full">
                     {/* Image Area - Gray background */}
-                    <div className="relative aspect-[4/5] bg-neutral-50 p-0">
+                    <div className="relative aspect-[4/5] bg-neutral-50 p-0 overflow-visible">
                         <Image
                             src={offer.image}
                             alt={offer.category}
@@ -49,44 +49,48 @@ const OfferBanners = () => {
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                         />
                         {/* Badge - overlaps the content area slightly */}
-                        <div className="absolute bottom-3 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm z-10">
-                            <span className="text-[11px] font-bold text-gray-900 leading-none">
-                                <span className="text-gray-900 font-extrabold mr-1">{offer.items}</span>
-                                <span className="text-gray-500 font-medium lowercase">items</span>
+                        <div className="absolute -bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm z-20">
+                            <span className="text-[11px] font-bold text-gray-900 leading-none flex items-center">
+                                <span className="text-gray-900 font-extrabold mr-1 text-[12px]">{offer.items}</span>
+                                <span className="text-gray-500 font-medium lowercase text-[11px]">items</span>
                             </span>
                         </div>
                     </div>
 
                     {/* Content Area */}
-                    <div className="p-5 flex flex-col items-start space-y-3">
-                        <h3 className="text-[15px] font-extrabold text-gray-900 tracking-wide">
-                            {offer.category}
-                        </h3>
+                    <div className="p-6 flex-1 flex flex-col justify-between pt-8">
+                        <div>
+                            <h3 className="text-[15px] sm:text-[16px] font-extrabold text-gray-900 tracking-wide mb-3">
+                                {offer.category}
+                            </h3>
 
-                        {/* Feature Checklist */}
-                        <div className="space-y-2">
-                            <div className="flex items-center gap-2">
-                                <svg className="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span className="text-[11px] sm:text-[12px] text-gray-500 font-medium">
-                                    {offer.discount}
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <svg className="w-3.5 h-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                                </svg>
-                                <span className="text-[11px] sm:text-[12px] text-gray-500 font-medium">
-                                    {offer.delivery}
-                                </span>
+                            {/* Feature Checklist */}
+                            <div className="space-y-2">
+                                <div className="flex items-start gap-3">
+                                    <svg className="w-4 h-4 mt-0.5 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span className="text-[12px] sm:text-[13px] text-gray-500 font-medium">
+                                        {offer.discount}
+                                    </span>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                    <svg className="w-4 h-4 mt-0.5 text-gray-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    <span className="text-[12px] sm:text-[13px] text-gray-500 font-medium">
+                                        {offer.delivery}
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         {/* Buy Now Button */}
-                        <button className="w-full mt-2 text-center text-[13px] font-bold text-gray-900 py-3 border-t border-gray-100 hover:text-amber-600 transition-colors">
-                            Buy Now
-                        </button>
+                        <div className="w-full flex justify-center">
+                            <button className="w-56 sm:w-64 bg-white text-[13px] font-bold text-gray-900 py-3 rounded-md shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                Buy Now
+                            </button>
+                        </div>
                     </div>
                 </div>
             ))}

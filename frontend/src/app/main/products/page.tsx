@@ -14,7 +14,6 @@ import {
   generateOrganizationSchema,
   generateWebsiteSchema,
 } from '../../../lib/schemas/productSchemas';
-import '../../../Components/Products/styles/products.css';
 import { Product } from '../../../api/types';
 import { useInfiniteProducts } from '../../../hooks/useProducts';
 import { useInView } from 'react-intersection-observer';
@@ -30,10 +29,7 @@ const DealOfWeek = dynamic(
   () => import('@/Components/Products/layouts/DealOfWeek'),
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-[#1a1a1a] animate-pulse" /> }
 );
-const ServiceFeatures = dynamic(
-  () => import('@/Components/Products/layouts/serviceFeatures'),
-  { ssr: false, loading: () => <ServiceFeaturesSkeleton /> }
-);
+
 const FeaturedProducts = dynamic(
   () => import('@/Components/Products/layouts/FeaturedProducts'),
   { ssr: false, loading: () => <div className="w-full min-h-[500px] bg-gray-50 animate-pulse rounded-xl" /> }
@@ -42,15 +38,25 @@ const CategoryShop = dynamic(
   () => import('@/Components/Products/layouts/CategoryShop'),
   { ssr: false, loading: () => <div className="w-full min-h-[300px] bg-gray-50 animate-pulse rounded-xl" /> }
 );
+const BrandSlider = dynamic(
+  () => import('@/Components/Products/layouts/BrandSlider'),
+  { ssr: false, loading: () => <div className="w-full min-h-[180px] bg-[#991b1b] animate-pulse" /> }
+);
+const BlogInsights = dynamic(
+  () => import('@/Components/Products/layouts/BlogInsights'),
+  { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
+);
+const FooterFeatures = dynamic(
+  () => import('@/Components/Products/layouts/FooterFeatures'),
+  { ssr: false, loading: () => <div className="w-full min-h-[140px] bg-gray-50 animate-pulse rounded-xl" /> }
+);
 const TopListedItems = dynamic(
   () => import('@/Components/Products/layouts/toplisted'),
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
 );
-const FeaturedCollections = dynamic(
-  () => import('@/Components/Products/layouts/Featured'),
-  { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
-);
+
 import HeroSlider from '@/Components/Hero/slider';
+import PromotionalCards from '@/Components/Products/cards/PromotionalCards';
 
 
 interface FilterState {
@@ -236,14 +242,16 @@ export default function ProductsPage() {
 
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
         <div className="mt-0 pb-3 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 mb-4">
+          <div className="flex flex-col lg:flex-row ">
             <div className="hidden lg:block">
               <SidebarCategories />
             </div>
             <div className="flex-1 w-full min-w-0">
               <HeroSlider />
+            
             </div>
           </div>
+            <PromotionalCards />
         </div>
 
 <main className="w-full overflow-x-hidden">
@@ -268,7 +276,7 @@ export default function ProductsPage() {
                     </div>
 
                     {/* Main Heading */}
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-wider uppercase mb-8">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
                       Get Your Fashion Style
                     </h2>
 
@@ -349,7 +357,7 @@ export default function ProductsPage() {
                       transition-all duration-200 
                       ${showAllProducts
                           ? 'text-gray-600'
-                          : 'text-amber-700 hover:text-amber-800'
+                          : 'text-amber-400 hover:text-amber-400'
                         }
                     `}
                       aria-label={showAllProducts ? 'Show less products' : 'View all products'}
@@ -374,7 +382,7 @@ export default function ProductsPage() {
                         </>
                       ) : (
                         <>
-                          View All Products
+                          View More  
                           <svg
                             className="inline-block w-5 h-5 ml-2"
                             fill="none"
@@ -414,7 +422,7 @@ export default function ProductsPage() {
                   <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-wider uppercase mb-8">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
                 Get Your Fashion Style
               </h2>
             </div>
@@ -425,9 +433,15 @@ export default function ProductsPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12 flex flex-col gap-12">
           <DealOfWeek />
-          <ServiceFeatures />
           <FeaturedProducts />
           <CategoryShop />
+        </div>
+
+        <BrandSlider />
+        <BlogInsights />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-20">
+          <FooterFeatures />
         </div>
 
         <a

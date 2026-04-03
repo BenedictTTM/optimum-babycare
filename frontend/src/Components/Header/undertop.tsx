@@ -8,7 +8,7 @@ import Link from 'next/link'
 const UnderTop = () => {
     return (
         <div className="w-full bg-white border-b border-gray-100 py-6">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-6">
 
                 {/* Left: Logo */}
                 <div className="flex items-center gap-3">
