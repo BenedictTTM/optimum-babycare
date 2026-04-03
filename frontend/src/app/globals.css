@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+/* Custom Tailwind breakpoints */
+@theme {
+    --breakpoint-xs: 475px;
+
+    /* Custom colors */
+    --color-primary: #F2C94C;
+    --color-primary-light: #F4D03F;
+    --color-primary-dark: #E0B93B;
+    --color-background: #F5F5F3;
+    --color-text-primary: #333333;
+    --color-text-secondary: #6B6B6B;
+    --color-accent: #000000;
+}
+
+:root {
+    /* Primary font injected as CSS variable */
+    font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html,
+body {
+    font-family: inherit;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+/* Headings use the main Poppins font */
+header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+    font-family: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+p,
+span,
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+@supports (scrollbar-width: none) {
+    .scrollbar-hide {
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
+
+/* Smooth scrolling */
+.scroll-smooth {
+    scroll-behavior: smooth;
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+}
+
+.line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+/* Product card hover effects */
+.product-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}

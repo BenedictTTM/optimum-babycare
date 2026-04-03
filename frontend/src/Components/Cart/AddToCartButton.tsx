@@ -1,0 +1,203 @@
+'use client';
+
+import { useRef, useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { ShoppingCart, Check, Plus } from 'lucide-react';
+import { DotLoader } from '@/Components/Loaders';
+import { addToCart } from '@/lib/cart';
+import { addToLocalCart } from '@/lib/localCart';
+import { useCartStore } from '@/store/cartStore';
+
+interface AddToCartButtonProps {
+  productId: number;
+  quantity?: number;
+  variant?: 'default' | 'icon' | 'small';
+  className?: string;
+  onSuccess?: () => void;
+  onError?: (message: string) => void;
+  productData?: any; // Full product data for local storage (used when not authenticated)
+}
+
+/**
+ * Improved AddToCartButton
+ * - Supports both authenticated and anonymous users
+ * - Authenticated: Adds to server cart
+ * - Anonymous: Adds to local storage cart
+ * - Prevents multi-line text wrapping
+ * - Uses gradient background, smooth hover, and consistent sizing
+ * - Shows loader and success feedback
+ */
+export default function AddToCartButton({
+  productId,
+  quantity = 1,
+  variant = 'default',
+  className = '',
+  onSuccess,
+  onError,
+  productData,
+}: AddToCartButtonProps) {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const fetchItemCount = useCartStore((state) => state.fetchItemCount);
+  const incrementCount = useCartStore((state) => state.incrementCount);
+  const rollbackCountRef = useRef<number | null>(null);
+
+  const handleAddToCart = async () => {
+    // Prevent spamming while success feedback is shown
+    if (loading || success) return;
+
+    // Optimistic UI: show success immediately and bump count
+    const prevCount = useCartStore.getState().itemCount;
+    rollbackCountRef.current = prevCount;
+    incrementCount(quantity);
+    setSuccess(true);
+    setLoading(true);
+
+    const idempotencyKey = (globalThis as any)?.crypto?.randomUUID
+      ? (globalThis as any).crypto.randomUUID()
+      : `${Date.now()}-${productId}-${Math.random().toString(36).slice(2)}`;
+
+    // Fire-and-reconcile in background
+    try {
+      console.log('🟢 Optimistic add to cart, processing in background...');
+      const result = await addToCart(productId, quantity, { idempotencyKey });
+
+      if (result.success) {
+        // Reconcile exact count from server
+        await fetchItemCount();
+        onSuccess?.();
+      } else if (result.statusCode === 401) {
+        // Not authenticated → persist locally and reconcile count from local
+        console.log('📦 User not authenticated, adding to local cart');
+        if (!productData) {
+          console.error('❌ Product data is required for anonymous cart');
+          // Rollback optimistic count on hard failure
+          if (rollbackCountRef.current !== null) {
+            useCartStore.getState().setItemCount(rollbackCountRef.current);
+          }
+          setSuccess(false);
+          onError?.('Product data is required');
+          return;
+        }
+        addToLocalCart(productData, quantity);
+        await fetchItemCount();
+        onSuccess?.();
+      } else {
+        console.error('❌ Add to cart failed:', result.message);
+        // Roll back optimistic increment on real failure
+        if (rollbackCountRef.current !== null) {
+          useCartStore.getState().setItemCount(rollbackCountRef.current);
+        }
+        setSuccess(false);
+        onError?.(result.message || 'Failed to add to cart');
+      }
+    } catch (error: any) {
+      console.error('❌ Add to cart error:', error);
+      // Offline/network error: persist locally if possible, keep optimistic success
+      if (productData) {
+        addToLocalCart(productData, quantity);
+        await fetchItemCount();
+        onSuccess?.();
+      } else {
+        // No product data to save locally → rollback and surface error
+        if (rollbackCountRef.current !== null) {
+          useCartStore.getState().setItemCount(rollbackCountRef.current);
+        }
+        setSuccess(false);
+        onError?.(error?.message || 'Failed to add to cart');
+      }
+    } finally {
+      setLoading(false);
+      // Keep success feedback briefly for UX
+      if (success) {
+        setTimeout(() => setSuccess(false), 1500);
+      }
+    }
+  };
+
+  // Shared base styles
+  const baseStyle = `
+    flex items-center justify-center gap-2 
+    font-semibold text-white rounded-xl md:rounded-2xl 
+    transition-all duration-300 shadow-sm 
+    hover:shadow-md hover:-translate-y-0.5 
+    disabled:opacity-50 disabled:cursor-not-allowed 
+    whitespace-nowrap
+  `;
+
+  // 🔘 Icon-only button (circular + style)
+  if (variant === 'icon') {
+    return (
+      <button
+        onClick={handleAddToCart}
+        disabled={loading || success}
+        className={`flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+        aria-label="Add to cart"
+      >
+        {loading ? (
+          <DotLoader size={16} ariaLabel="Adding to cart" />
+        ) : success ? (
+          <Check className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+        ) : (
+          <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-amber-700" strokeWidth={1.5} />
+        )}
+      </button>
+    );
+  }
+
+  // 🔹 Small variant
+  if (variant === 'small') {
+    return (
+      <button
+        onClick={handleAddToCart}
+        disabled={loading || success}
+        className={`${baseStyle} px-5 py-1 text-sm bg-amber-700 ${className}`}
+      >
+        {loading ? (
+          <>
+            <DotLoader size={14} ariaLabel="Adding" />
+            Adding...
+          </>
+        ) : success ? (
+          <>
+            <Check className="h-4 w-4 text-green-300" />
+            Added!
+          </>
+        ) : (
+          <>
+            <ShoppingCart className="h-4 w-4" />
+            Add to Cart
+          </>
+        )}
+      </button>
+    );
+  }
+
+  // 🔺 Default variant
+  return (
+    <button
+      onClick={handleAddToCart}
+      disabled={loading || success}
+      className={`${baseStyle} w-full px-6 py-2.5 text-sm sm:text-base bg-amber-700 ${className}`}
+    >
+      {loading ? (
+        <>
+          <DotLoader size={18} ariaLabel="Adding to cart" />
+          Adding...
+        </>
+      ) : success ? (
+        <>
+          <Check className="h-5 w-5 text-green-300" />
+          Added!
+        </>
+      ) : (
+        <>
+          <ShoppingCart className="h-5 w-5" />
+          Add to Cart
+        </>
+      )}
+    </button>
+  );
+}

@@ -1,0 +1,246 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import {
+  LayoutGrid,
+  Tag,
+  Users,
+  Activity,
+  Bell,
+  Settings,
+  ChevronDown,
+  LogOut,
+  Menu,
+  Plus,
+  Grid3x3,
+  Calendar,
+  Folder,
+  MessageSquare,
+} from 'lucide-react';
+import Link from 'next/link';
+import { useUserStore } from '@/store/userStore';
+import { AuthService } from '@/lib/auth';
+import Image from 'next/image';
+
+export default function Sidebar() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { user, fetchUser } = useUserStore();
+
+  const [activeItem, setActiveItem] = useState('');
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  // ✅ Detect active item by route
+  useEffect(() => {
+    if (pathname.includes('/accounts/addProducts')) setActiveItem('Add Product');
+    else if (pathname.includes('/accounts/grid')) setActiveItem('Product Grid');
+    else if (pathname.includes('/accounts/addCategories')) setActiveItem('Categories');
+    else if (pathname.includes('/accounts/customers')) setActiveItem('Customers');
+    else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('Admin Feedback');
+    else if (pathname.includes('/accounts/notifications')) setActiveItem('Notifications');
+    else setActiveItem('Dashboard');
+  }, [pathname]);
+
+  // ✅ Load user profile once
+  useEffect(() => {
+    console.log('Sidebar: Mounting and fetching user...');
+    fetchUser();
+  }, [fetchUser]);
+
+  useEffect(() => {
+    console.log('Sidebar: User state updated:', user);
+  }, [user]);
+
+  const getUserInitials = () =>
+    user?.firstName && user?.lastName
+      ? `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
+      : 'U';
+
+  const getUserFullName = () =>
+    user?.firstName && user?.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : 'User';
+
+  const menuItems = [
+    { icon: LayoutGrid, label: 'Dashboard', path: '/accounts' },
+    {
+      icon: Tag,
+      label: 'Products',
+      path: '/products',
+      hasSubmenu: true,
+      submenu: [
+        { icon: Plus, label: 'Add Product', path: '/accounts/addProducts' },
+        { icon: Grid3x3, label: 'Product Grid', path: '/accounts/grid' },
+        { icon: Folder, label: 'Categories', path: '/accounts/addCategories' },
+      ],
+    },
+    { icon: Users, label: 'Customers', path: '/accounts/customers' },
+    { icon: MessageSquare, label: 'Admin Feedback', path: '/accounts/adminFeedback' },
+    { icon: Activity, label: 'Analytics', path: '/accounts/analytics' },
+    { icon: Bell, label: 'Notifications', path: '/accounts/notifications' },
+  ];
+
+  const handleLogout = async () => {
+    await AuthService.logout();
+  };
+
+  const toggleSubmenu = (label: string) => {
+    setOpenSubmenu(openSubmenu === label ? null : label);
+  };
+
+  return (
+    <>
+      {/* Top Navbar for Mobile */}
+      <div className="lg:hidden flex items-center justify-between px-6 py-6 bg-gray-100  border-gray-50">
+        <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
+          <Image src='/logo.png' alt="Logo" width={40} height={40} />
+        </Link>
+        <button
+          onClick={() => setIsMobileOpen(true)}
+          className="p-2 rounded-lg hover:bg-gray-100 transition"
+        >
+          <Menu className="w-6 h-6 text-gray-700" />
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white flex flex-col transform transition-transform duration-300 ease-in-out border-r border-gray-50
+          ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}
+      >
+        {/* Brand */}
+        <div className="hidden lg:flex items-center justify-between px-6 py-6 bg-white border-b border-gray-50">
+          <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
+            <Image src='/logo.png' alt="Logo" width={80} height={80} />
+
+          </Link>
+        </div>
+
+        {/* User Profile */}
+        <div className="px-6 py-4 border-b border-gray-50">
+          <div className="flex items-center gap-3">
+            {user?.profilePic ? (
+              <img
+                src={user.profilePic}
+                alt={getUserFullName()}
+                className="w-12 h-12 rounded-full object-cover border-1 border-gray-100"
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br  flex items-center justify-center text-amber-600 font-semibold text-sm border-2 border-gray-200">
+                {getUserInitials()}
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-semibold text-gray-900 truncate">{getUserFullName()}</h3>
+              <p className="text-xs text-gray-500">Administrator</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Nav Links */}
+        <nav className="flex-1 overflow-y-auto py-2 px-3 scrollbar-hide">
+          {menuItems.map((item, index) => (
+            <div key={index} className="mb-1">
+              <button
+                onClick={() => {
+                  if (item.hasSubmenu) {
+                    toggleSubmenu(item.label);
+                  } else {
+                    setActiveItem(item.label);
+                    router.push(item.path);
+                    setIsMobileOpen(false);
+                  }
+                }}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeItem === item.label && !item.hasSubmenu
+                  ? 'bg-red-50 text-amber-700'
+                  : 'text-gray-700 hover:bg-white hover:shadow-sm'
+                  }`}
+              >
+                <div className="flex items-center gap-3">
+                  <item.icon
+                    className={`w-5 h-5 ${activeItem === item.label && !item.hasSubmenu
+                      ? 'text-amber-700'
+                      : 'text-gray-600'
+                      }`}
+                  />
+                  <span>{item.label}</span>
+                </div>
+                {item.hasSubmenu && (
+                  <ChevronDown
+                    className={`w-4 h-4 text-gray-400 transition-transform ${openSubmenu === item.label ? 'rotate-0' : '-rotate-90'
+                      }`}
+                  />
+                )}
+              </button>
+
+              {item.hasSubmenu && openSubmenu === item.label && (
+                <div className="mt-1 ml-3 space-y-1">
+                  {item.submenu.map((subItem, subIndex) => (
+                    <button
+                      key={subIndex}
+                      onClick={() => {
+                        setActiveItem(subItem.label);
+                        router.push(subItem.path);
+                        setIsMobileOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all ${activeItem === subItem.label
+                        ? 'bg-red-50 text-amber-700 font-medium'
+                        : 'text-gray-600 hover:bg-white hover:text-gray-900'
+                        }`}
+                    >
+                      <subItem.icon
+                        className={`w-4 h-4 ${activeItem === subItem.label ? 'text-amber-700' : 'text-gray-500'
+                          }`}
+                      />
+                      <span>{subItem.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        {/* Settings + Logout */}
+        <div className="px-3 py-4 border-t border-gray-200 space-y-1 bg-white">
+          <button
+            onClick={() => {
+              setActiveItem('Settings');
+              router.push('/accounts/settings');
+              setIsMobileOpen(false);
+            }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeItem === 'Settings'
+              ? 'bg-red-50 text-amber-700'
+              : 'text-gray-700 hover:bg-white hover:shadow-sm'
+              }`}
+          >
+            <Settings
+              className={`w-5 h-5 ${activeItem === 'Settings' ? 'text-amber-700' : 'text-gray-600'
+                }`}
+            />
+            <span>Settings</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-white hover:text-amber-700 hover:shadow-sm transition-all"
+          >
+            <LogOut className="w-5 h-5 text-gray-600" />
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-30 z-40 lg:hidden"
+          onClick={() => setIsMobileOpen(false)}
+        />
+      )}
+    </>
+  );
+}

@@ -1,0 +1,10 @@
+export const useInfiniteProducts = (limit = 20) => {
+    return useInfiniteQuery({
+        queryKey: ['products', 'infinite', limit],
+        queryFn: ({ pageParam = 1 }) => products.getAll(pageParam, limit),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            return lastPage.pagination.hasNextPage ? lastPage.pagination.page + 1 : undefined;
+        },
+    });
+};

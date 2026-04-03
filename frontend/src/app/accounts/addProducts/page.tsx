@@ -1,0 +1,542 @@
+'use client';
+
+import dynamic from 'next/dynamic';
+import { useState, useEffect } from 'react';
+import type { ChangeEvent } from 'react';
+import { TfiReload } from "react-icons/tfi";
+import { useToast } from '@/Components/Toast/toast';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { apiClient } from '@/api/clients';
+
+const MAX_IMAGES = 5;
+
+// Zod validation schema
+const productSchema = z.object({
+  title: z.string()
+    .min(3, 'Title must be at least 3 characters')
+    .max(100, 'Title must be less than 100 characters'),
+  description: z.string()
+    .max(1000, 'Description must be less than 1000 characters'),
+  originalPrice: z.string()
+    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+      message: 'Original price must be a positive number',
+    }),
+  discountedPrice: z.string()
+    .refine((val) => val === '' || (!isNaN(parseFloat(val)) && parseFloat(val) >= 0), {
+      message: 'Discounted price must be a positive number or empty',
+    })
+    .optional(),
+  category: z.string()
+    .min(1, 'Please select a category'),
+  condition: z.string()
+    .min(1, 'Please select a condition'),
+  tags: z.string()
+    .min(1, 'Tags are required')
+    .refine((val) => {
+      const tagsArray = val.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+      return tagsArray.length >= 2;
+    }, {
+      message: 'Please provide at least 2 tags separated by commas',
+    }),
+  locationLat: z.string().optional(),
+  locationLng: z.string().optional(),
+  stock: z.string()
+    .refine((val) => !isNaN(parseInt(val)) && parseInt(val) >= 0, {
+      message: 'Stock must be a non-negative number',
+    }),
+  images: z.array(z.instanceof(File))
+    .min(1, 'At least one product image is required')
+    .max(MAX_IMAGES, `Maximum ${MAX_IMAGES} images allowed`),
+}).refine((data) => {
+  if (data.discountedPrice && data.discountedPrice !== '') {
+    const original = parseFloat(data.originalPrice);
+    const discounted = parseFloat(data.discountedPrice);
+    return discounted <= original;
+  }
+  return true;
+}, {
+  message: 'Discounted price must be less than or equal to original price',
+  path: ['discountedPrice'],
+});
+
+type ProductFormData = z.infer<typeof productSchema>;
+
+interface Category {
+  id: number;
+  name: string;
+  description?: string;
+}
+
+type ProductImagesSectionProps = {
+  images: File[];
+  maxImages: number;
+  onRemoveImage: (index: number) => void;
+  onImageUpload: (event: ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
+};
+
+const ProductImagesSection = dynamic<ProductImagesSectionProps>(() => import('./components/ProductImagesSection'), {
+  ssr: false,
+  loading: () => (
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+      <div className="p-5 border-b border-gray-100">
+        <h2 className="text-base font-semibold text-gray-900">Product Images *</h2>
+        <p className="text-xs text-gray-500 mt-1">Preparing uploader…</p>
+      </div>
+      <div className="p-5">
+        <div className="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-3 gap-2 mt-3">
+          {[0, 1, 2].map(item => (
+            <div key={item} className="aspect-square bg-gray-50 border border-gray-200 rounded-lg animate-pulse" />
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+});
+
+export default function CreateProductPage() {
+  const { showSuccess, showError } = useToast();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        console.log('Fetching categories...');
+        const response = await apiClient.get('/categories');
+
+        console.log('Categories response status:', response.status);
+
+        if (response.status === 200) {
+          const result = response.data;
+          console.log('Categories data:', result);
+          // Handle both direct array and wrapped response
+          const categoriesData = Array.isArray(result) ? result : (result.data || []);
+          setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+        } else {
+          console.error('Failed to fetch categories');
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+        setIsLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // React Hook Form with Zod validation
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors, isSubmitting },
+    watch,
+    reset,
+    setValue,
+    trigger,
+  } = useForm<ProductFormData>({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      originalPrice: '',
+      discountedPrice: '',
+      category: '',
+      condition: '',
+      tags: '',
+      locationLat: '',
+      locationLng: '',
+      stock: '',
+      images: [],
+    },
+  });
+
+  const [images, setImages] = useState<File[]>([]);
+
+  // Watch form values for dynamic calculations
+  const originalPrice = watch('originalPrice');
+  const discountedPrice = watch('discountedPrice');
+
+  // Debug cookies on mount
+  useEffect(() => {
+    console.log('🍪 All cookies:', document.cookie);
+    console.log('🍪 Checking for access_token...');
+
+    const cookies = document.cookie.split(';');
+    const accessTokenCookie = cookies.find(cookie =>
+      cookie.trim().startsWith('access_token=')
+    );
+
+    if (accessTokenCookie) {
+      console.log('✅ Access token cookie found:', accessTokenCookie.substring(0, 30) + '...');
+    } else {
+      console.log('❌ No access_token cookie found');
+      console.log('Available cookies:', cookies);
+    }
+  }, []);
+
+  // Calculate discount dynamically
+  const calcDiscount = () => {
+    const original = parseFloat(originalPrice || '0');
+    const discounted = parseFloat(discountedPrice || '0');
+    if (!original || !discounted || original === 0) return 0;
+    return Math.round(((original - discounted) / original) * 100);
+  };
+
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      const newImages = [...images, ...files].slice(0, MAX_IMAGES);
+      setImages(newImages);
+      setValue('images', newImages);
+      trigger('images'); // Trigger validation for images field
+    }
+  };
+
+  const removeImage = (index: number) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
+    setValue('images', newImages);
+    trigger('images'); // Trigger validation for images field
+  };
+
+  const handleSubmit = async (data: ProductFormData) => {
+    console.log('Form submitted!', data);
+
+    const discount = calcDiscount();
+
+    try {
+      const formData = new FormData();
+      images.forEach(file => formData.append('images', file));
+      formData.append('title', data.title);
+      formData.append('description', data.description || '');
+      formData.append('originalPrice', data.originalPrice);
+      formData.append('discountedPrice', data.discountedPrice || '');
+
+      // Handle category - send both ID and name
+      const selectedCategoryId = data.category;
+      const selectedCategory = categories.find(c => c.id.toString() === selectedCategoryId);
+
+      if (selectedCategory) {
+        formData.append('categoryId', selectedCategoryId);
+        formData.append('category', selectedCategory.name);
+      } else {
+        formData.append('category', data.category);
+      }
+
+      formData.append('discount', discount.toString());
+      formData.append('condition', data.condition);
+      formData.append('locationLat', data.locationLat || '');
+      formData.append('locationLng', data.locationLng || '');
+      formData.append('stock', data.stock);
+
+      const rawTags = data.tags || "";
+      const tagsArray = rawTags
+        .split(',')
+        .map(tag => tag.trim())
+        .filter((tag, index, self) => tag.length > 0 && self.indexOf(tag) === index);
+
+      tagsArray.forEach(tag => formData.append('tags', tag));
+
+      console.log("Sending response with cookies");
+
+      const response = await apiClient.post('/products', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('📊 Response status:', response.status);
+      const responseData = response.data;
+      console.log('📦 Response data:', responseData);
+
+
+
+      showSuccess('Product Created Successfully!', {
+        description: `${data.title} has been added to your store.`,
+        duration: 5000,
+        icon: '🎉',
+      });
+
+      // Reset form and images
+      reset();
+      setImages([]);
+    } catch (err: any) {
+      showError('Failed to Create Product', {
+        description: err.message || 'Please try again later.',
+        duration: 5000,
+      });
+      console.error('Error in handleSubmit:', err);
+    }
+  };
+
+  const handleReset = () => {
+    reset();
+    setImages([]);
+  };
+
+  return (
+    <div className="min-h-screen p-2">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Add Product</h1>
+              <p className="text-sm text-red-800 mt-1">Create a new product listing for your store</p>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleFormSubmit(handleSubmit)}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            {/* Main Content */}
+            <div className="lg:col-span-8 space-y-5">
+              {/* Product Information */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                <div className="p-5 border-b border-gray-100">
+                  <h2 className="text-base font-semibold text-gray-900">Product Information</h2>
+                </div>
+                <div className="p-5 space-y-5">
+                  <div>
+                    <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+                      Product Title *
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      {...register('title')}
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      placeholder="Enter product title"
+                    />
+                    {errors.title && (
+                      <p className="mt-1 text-sm text-amber-700">{errors.title.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      id="description"
+                      {...register('description')}
+                      rows={4}
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all resize-none"
+                      placeholder="Describe your product"
+                    />
+                    {errors.description && (
+                      <p className="mt-1 text-sm text-amber-700">{errors.description.message}</p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                        Category *
+                      </label>
+                      <select
+                        id="category"
+                        {...register('category')}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                        disabled={isLoadingCategories}
+                      >
+                        <option value="">{isLoadingCategories ? 'Loading categories...' : 'Select a category'}</option>
+                        {categories.map((cat) => (
+                          <option key={cat.id} value={cat.id.toString()}>
+                            {cat.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.category && (
+                        <p className="mt-1 text-sm text-amber-700">{errors.category.message}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="condition" className="block text-sm font-medium text-gray-700 mb-2">
+                        Condition *
+                      </label>
+                      <select
+                        id="condition"
+                        {...register('condition')}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      >
+                        <option value="">Select condition</option>
+                        <option value="new">New</option>
+                        <option value="like-new">Like New</option>
+                        <option value="good">Good</option>
+                        <option value="fair">Fair</option>
+                        <option value="poor">Poor</option>
+                      </select>
+                      {errors.condition && (
+                        <p className="mt-1 text-sm text-amber-700">{errors.condition.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-2">
+                      Tags * <span className="text-xs text-gray-500 font-normal">(Minimum 2 tags)</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="tags"
+                      {...register('tags')}
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      placeholder="e.g., smartphone, android, samsung (comma separated)"
+                    />
+                    {errors.tags && (
+                      <p className="mt-1 text-sm text-amber-700">{errors.tags.message}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Pricing */}
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                <div className="p-5 border-b border-gray-100">
+                  <h2 className="text-base font-semibold text-gray-900">Pricing</h2>
+                </div>
+                <div className="p-5 space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="originalPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                        Original Price (GHS) *
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">₵</span>
+                        <input
+                          type="number"
+                          id="originalPrice"
+                          {...register('originalPrice')}
+                          min="0"
+                          step="0.01"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      {errors.originalPrice && (
+                        <p className="mt-1 text-sm text-amber-700">{errors.originalPrice.message}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="discountedPrice" className="block text-sm font-medium text-gray-700 mb-2">
+                        Sale Price (GHS)
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm font-medium">₵</span>
+                        <input
+                          type="number"
+                          id="discountedPrice"
+                          {...register('discountedPrice')}
+                          min="0"
+                          step="0.01"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      {errors.discountedPrice && (
+                        <p className="mt-1 text-sm text-amber-700">{errors.discountedPrice.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {calcDiscount() > 0 && (
+                    <div className=" ">
+                      <div className="flex items-center">
+                        <div className="text-amber-700 text-sm font-semibold">
+                          <span className='text-gray-700 italic font-thin'>Discount:</span>  {calcDiscount()}% off
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-2">
+                      Stock Quantity *
+                    </label>
+                    <input
+                      type="number"
+                      id="stock"
+                      {...register('stock')}
+                      min="0"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent transition-all"
+                      placeholder="Enter stock quantity"
+                    />
+                    {errors.stock && (
+                      <p className="mt-1 text-sm text-amber-700">{errors.stock.message}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-4 space-y-5">
+              {/* Product Images */}
+              <ProductImagesSection
+                images={images}
+                maxImages={MAX_IMAGES}
+                onRemoveImage={removeImage}
+                onImageUpload={handleImageUpload}
+                errorMessage={errors.images?.message}
+              />
+
+              {/* Product Status */}
+              <div className=" ">
+                <div className="p-5 border-b border-gray-100">
+                  <h2 className="text-base font-semibold text-gray-900">Product Status</h2>
+                </div>
+                <div className="p-5">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700">Status</span>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-amber-700 border border-red-200">
+                        Active
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Visibility</span>
+                      <span className="text-sm text-gray-600 font-medium">Public</span>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Created</span>
+                      <span className="text-sm text-gray-600 font-medium">Draft</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-end mt-6">
+            <div className="flex items-center space-x-3">
+              <button
+                type="button"
+                className="p-2.5 text-gray-500 hover:text-gray-700 hover:bg-white border border-gray-200 bg-white rounded-lg transition-all shadow-sm"
+                title="Refresh"
+                onClick={handleReset}
+              >
+                <TfiReload className="w-5 h-5" />
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-5 py-2.5 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+              >
+                {isSubmitting ? 'Publishing...' : 'Add to Product'}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
