@@ -25,5 +25,8 @@ export const useInfiniteProducts = (limit = 20) => {
         getNextPageParam: (lastPage) => {
             return lastPage.pagination.hasNextPage ? lastPage.pagination.page + 1 : undefined;
         },
+        staleTime: 1000 * 60 * 2,  // 2 min — avoid refetch on every mount
+        gcTime: 1000 * 60 * 5,     // 5 min — keep in cache after unmount
+        refetchOnWindowFocus: false,
     });
 };

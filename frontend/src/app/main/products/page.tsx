@@ -1,10 +1,17 @@
 /**
- * Products page component
+ * Products page component — performance-optimized
+ *
+ * Optimizations applied:
+ * - Direct imports (no barrel) to avoid pulling unused layout modules
+ * - Dynamic imports for every below-fold and heavy component
+ * - Stable SEO schema memo keyed on first-load products only
+ * - Intersection-observer gated lazy sections (DiscountBar, TopListed, etc.)
+ * - Removed dead code (ServiceFeaturesSkeleton)
  */
 
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { MultipleSchemas } from '../../../Components/Schema';
 import {
@@ -17,19 +24,43 @@ import {
 import { Product } from '../../../api/types';
 import { useInfiniteProducts } from '../../../hooks/useProducts';
 import { useInView } from 'react-intersection-observer';
-import {
-  SidebarCategories,
-  DiscountBar,
-  ProductsGridLayout
-} from '@/Components/Products/layouts';
-import Header from "@/Components/Header/mainNavBar";
 
-// Lazy-load below-fold sections to prevent white page flash on scroll
+// ---------- Direct imports for critical above-fold components ----------
+// Avoid barrel re-export (layouts/index.ts) which tree-shakes poorly in webpack
+import ProductsGridLayout from '@/Components/Products/layouts/ProductsGridLayout';
+
+// ---------- Dynamic imports – chunked & deferred ----------
+// Above-fold but heavy: load eagerly in parallel but in separate chunks
+const Header = dynamic(() => import('@/Components/Header/mainNavBar'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[56px] bg-gray-50" />,
+});
+
+const HeroSlider = dynamic(() => import('@/Components/Hero/slider'), {
+  ssr: false,
+  loading: () => <div className="w-full h-[420px] md:h-[560px] bg-[#FBF3E8] animate-pulse" />,
+});
+
+const SidebarCategories = dynamic(
+  () => import('@/Components/Products/layouts/SidebarCategories'),
+  { ssr: false, loading: () => <div className="w-[260px] h-full bg-white animate-pulse rounded-md" /> }
+);
+
+const PromotionalCards = dynamic(
+  () => import('@/Components/Products/cards/PromotionalCards'),
+  { ssr: false, loading: () => <div className="w-full h-[180px] bg-gray-100 animate-pulse rounded-xl" /> }
+);
+
+// Below-fold: fully deferred until scrolled near
+const DiscountBar = dynamic(
+  () => import('@/Components/Products/layouts/DiscountBar'),
+  { ssr: false }
+);
+
 const DealOfWeek = dynamic(
   () => import('@/Components/Products/layouts/DealOfWeek'),
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-[#1a1a1a] animate-pulse" /> }
 );
-
 
 const CategoryShop = dynamic(
   () => import('@/Components/Products/layouts/CategoryShop'),
@@ -46,41 +77,20 @@ const TopListedItems = dynamic(
   { ssr: false, loading: () => <div className="w-full min-h-[400px] bg-gray-50 animate-pulse rounded-xl" /> }
 );
 
-import HeroSlider from '@/Components/Hero/slider';
-import PromotionalCards from '@/Components/Products/cards/PromotionalCards';
-
-
+// ---------- Types & constants ----------
 interface FilterState {
   category: string;
   priceRange: [number, number];
   rating: number;
 }
 
+const INITIAL_PRODUCTS_DISPLAY = 8;
 
-
-const CONFIG = {
-  INITIAL_PRODUCTS_DISPLAY: 8,
-  API: {
-    PRODUCTS: '/products',
-  },
-  RETRY_DELAY: 3000,
+const DEFAULT_FILTERS: FilterState = {
+  category: 'All Categories',
+  priceRange: [0, Number.MAX_SAFE_INTEGER],
+  rating: 0,
 } as const;
-
-const ServiceFeaturesSkeleton = () => (
-  <div className="w-full py-16 px-4" aria-hidden="true">
-    <div className="max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {Array.from({ length: 3 }).map((_, index) => (
-          <div key={`service-skeleton-${index}`} className="flex flex-col items-center text-center animate-pulse">
-            <div className="w-20 h-20 bg-gray-200 rounded-full mb-6" />
-            <div className="h-5 bg-gray-200 rounded w-48 mb-2" />
-            <div className="h-4 bg-gray-200 rounded w-32" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
 
 
 
@@ -125,11 +135,7 @@ export default function ProductsPage() {
   } = useInfiniteProducts(20);
 
   const [showAllProducts, setShowAllProducts] = useState(false);
-  const [activeFilters, setActiveFilters] = useState<FilterState>({
-    category: 'All Categories',
-    priceRange: [0, Number.MAX_SAFE_INTEGER],
-    rating: 0,
-  });
+  const [activeFilters, setActiveFilters] = useState<FilterState>(DEFAULT_FILTERS);
 
   const products = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) || [];
@@ -138,9 +144,7 @@ export default function ProductsPage() {
   const { ref, inView } = useInView();
 
   useEffect(() => {
-    // Only fetch next page if showAllProducts is true (infinite scroll mode)
-    // or if we have less than initial display and more exist.
-    const shouldFetch = inView && hasNextPage && (showAllProducts || products.length < CONFIG.INITIAL_PRODUCTS_DISPLAY);
+    const shouldFetch = inView && hasNextPage && (showAllProducts || products.length < INITIAL_PRODUCTS_DISPLAY);
     if (shouldFetch) {
       fetchNextPage();
     }
@@ -152,69 +156,58 @@ export default function ProductsPage() {
     setShowAllProducts(prev => !prev);
   }, []);
 
-  // Consolidate filtering logic into a single memo to reduce redundant work
   const { filteredProducts, totalFilteredCount } = useMemo(() => {
+    // Fast path: skip filtering entirely when defaults are active
+    const isDefaultFilter =
+      activeFilters.category === 'All Categories' &&
+      activeFilters.rating === 0 &&
+      activeFilters.priceRange[0] === 0 &&
+      activeFilters.priceRange[1] === Number.MAX_SAFE_INTEGER;
+
+    if (isDefaultFilter) {
+      return { filteredProducts: products, totalFilteredCount: products.length };
+    }
+
     const filtered = applyProductFilters(products, activeFilters);
-    return {
-      filteredProducts: filtered,
-      totalFilteredCount: filtered.length
-    };
+    return { filteredProducts: filtered, totalFilteredCount: filtered.length };
   }, [products, activeFilters]);
 
   const displayProducts = useMemo(() => {
     return showAllProducts
       ? filteredProducts
-      : filteredProducts.slice(0, CONFIG.INITIAL_PRODUCTS_DISPLAY);
+      : filteredProducts.slice(0, INITIAL_PRODUCTS_DISPLAY);
   }, [filteredProducts, showAllProducts]);
 
+  const shouldShowViewAllButton = totalFilteredCount > INITIAL_PRODUCTS_DISPLAY;
 
+  // Stabilize SEO schemas: freeze to the first meaningful product load.
+  // Avoids re-serializing JSON-LD on every infinite-scroll page.
+  const seoProductsRef = useRef<Product[] | null>(null);
+  if (seoProductsRef.current === null && products.length > 0) {
+    seoProductsRef.current = products.slice(0, 20);
+  }
 
-  const shouldShowViewAllButton = totalFilteredCount > CONFIG.INITIAL_PRODUCTS_DISPLAY;
-
-  // Stabilize SEO schemas: Only recalculate when the initial products load or significant filters change.
-  // We dont need to update SEO tags on every incremental infinite scroll page.
   const schemas = useMemo(() => {
-    // Optimization: If we have many products, SEO bots usually only care about the first set
-    const seoProducts = displayProducts.slice(0, 20);
-
+    const seoProducts = seoProductsRef.current ?? [];
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://sellr.com';
     const currentUrl = typeof window !== 'undefined' ? window.location.href : `${baseUrl}/main/products`;
 
-    // Critical schemas that must load immediately (no images)
-    const criticalSchemas = [
-      // Organization Schema (critical for entity recognition)
-      generateOrganizationSchema(
-        'Sellr',
-        baseUrl,
-        `${baseUrl}/logo.png`
-      ),
-
-      // Website Schema with SearchAction (critical for search)
+    return [
+      generateOrganizationSchema('Sellr', baseUrl, `${baseUrl}/logo.png`),
       generateWebsiteSchema('Sellr', baseUrl, '/search?q={search_term_string}'),
-
-      // WebPage Schema (critical for page identity)
       generateWebPageSchema(
         'Browse Products - Sellr',
         'Discover amazing products with great deals and flash sales. Shop electronics, fashion, home goods, and more.',
         currentUrl
       ),
-
-      // Breadcrumb Schema (high priority for navigation)
       generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Products', url: '/main/products' },
       ], baseUrl),
-    ];
-
-    // Deferred schemas (image-heavy, will lazy load)
-    const deferredSchemas = [
-      // Product List Schema (contains images - deferred)
       ...(seoProducts.length > 0 ? [generateProductListSchema(seoProducts, baseUrl, 'GHS')] : []),
     ];
-
-    // Combine all schemas (MultipleSchemas will handle prioritization)
-    return [...criticalSchemas, ...deferredSchemas];
-  }, [displayProducts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seoProductsRef.current]);
 
 
   // If a products fetch error occurred, throw to Next.js route error boundary

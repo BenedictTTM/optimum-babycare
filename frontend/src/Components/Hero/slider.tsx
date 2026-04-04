@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 
 type Slide = {
     image: string;
@@ -124,14 +125,17 @@ const HeroSlider: React.FC = () => {
             onMouseLeave={endDrag}
             style={wrapperStyle}
         >
-            {/* Background image (right aligned) */}
-            <div
-                className="absolute right-0 md:right-12 bottom-0 top-0 h-full w-[60%] md:w-[50%] bg-no-repeat bg-right-bottom bg-contain z-0 transition-all duration-700 ease-in-out"
-                style={{
-                    backgroundImage: `url('${current.image}')`,
-                    backgroundPosition: 'right bottom'
-                }}
-            />
+            {/* Background image (right aligned) — Next.js Image for WebP/AVIF + preload */}
+            <div className="absolute right-0 md:right-12 bottom-0 top-0 h-full w-[60%] md:w-[50%] z-0">
+                <Image
+                    src={current.image}
+                    alt={current.title}
+                    fill
+                    sizes="(max-width: 768px) 60vw, 50vw"
+                    priority={index === 0}
+                    className="object-contain object-right-bottom transition-opacity duration-700 ease-in-out"
+                />
+            </div>
 
             {/* Text Content */}
             <div className="relative z-10 w-[65%] md:w-[50%] px-4 sm:px-6 md:px-12 flex flex-col justify-center text-left h-full">
