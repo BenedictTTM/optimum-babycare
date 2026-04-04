@@ -29,11 +29,13 @@ export class TokenService {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('JWT_SECRET'),
-        expiresIn: this.configService.get<string>('JWT_EXPIRES_IN'),
+        // cast to any to satisfy jwt typings for expiresIn
+        expiresIn: this.configService.get<string>('JWT_EXPIRES_IN') as unknown as any,
       }),
       this.jwtService.signAsync(payload, {
         secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN'),
+        // cast to any to satisfy jwt typings for expiresIn
+        expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRES_IN') as unknown as any,
       }),
     ]);
 
