@@ -16,7 +16,7 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
     const [isLoading, setIsLoading] = useState(false);
     const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-    const wordCount = content.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const wordCount = content.trim().split(/\s+/).filter((word: string) => word.length > 0).length;
     const estimatedRead = wordCount > 0 ? Math.ceil(wordCount / 200) : '--';
     const isPublishDisabled = isLoading || !title.trim() || !content.trim();
 
@@ -58,10 +58,10 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
         const selected = content.slice(start, end) || '';
         const after = content.slice(end);
         const lines = selected.split('\n');
-        const allHaveDash = lines.length > 0 && lines.every(l => l.trim().startsWith('- '));
+        const allHaveDash = lines.length > 0 && lines.every((l: string) => l.trim().startsWith('- '));
         const newSel = allHaveDash
-            ? lines.map(l => l.replace(/^\s*-\s+/, '')).join('\n')
-            : lines.map(l => (l.trim().length > 0 ? `- ${l}` : l)).join('\n');
+            ? lines.map((l: string) => l.replace(/^\s*-\s+/, '')).join('\n')
+            : lines.map((l: string) => (l.trim().length > 0 ? `- ${l}` : l)).join('\n');
         const newText = before + newSel + after;
         setContent(newText);
         const newStart = start;
