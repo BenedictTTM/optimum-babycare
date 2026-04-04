@@ -50,7 +50,7 @@ export class BlogController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
-          new FileTypeValidator({ fileType: /(jpg|jpeg|png|webp|gif)$/ }),
+          new FileTypeValidator({ fileType: /^image\/(jpg|jpeg|png|webp|gif)$/ }),
         ],
         fileIsRequired: false,
       }),
@@ -71,7 +71,7 @@ export class BlogController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
-          new FileTypeValidator({ fileType: /(jpg|jpeg|png|webp|gif)$/ }),
+          new FileTypeValidator({ fileType: /^image\/(jpg|jpeg|png|webp|gif)$/ }),
         ],
         fileIsRequired: false,
       }),

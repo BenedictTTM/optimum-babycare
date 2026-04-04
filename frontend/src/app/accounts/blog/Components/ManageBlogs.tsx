@@ -12,6 +12,7 @@ interface Blog {
     category: string;
     status: string;
     createdAt: string;
+    coverImage?: string;
     coverImageUrl?: string;
     content: string;
 }
@@ -112,9 +113,9 @@ export default function ManageBlogs() {
                     </button>
                     <button 
                         onClick={handleCreateNew}
-                        className="px-4 py-2 bg-[#768bd6] hover:bg-indigo-600 text-white text-sm font-bold rounded-md transition-colors flex items-center gap-2 whitespace-nowrap"
+                        className="px-4 py-2 bg-amber-300 hover:bg-bg-amber-400 text-black text-sm font-bold rounded-md transition-colors flex items-center gap-2 whitespace-nowrap"
                     >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-4 h-4 " />
                         New Post
                     </button>
                 </div>

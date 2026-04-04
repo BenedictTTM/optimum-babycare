@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import { apiClient } from '@/api/clients';
 import { toast } from 'sonner';
 import { CloudUpload, Rocket, Bold, Italic, List } from 'lucide-react';
+import BlogCard from './BlogCard';
 
 export default function CreateBlog({ initialData, onSuccess }: { initialData?: any; onSuccess?: () => void }) {
     const [title, setTitle] = useState(initialData?.title || '');
@@ -11,8 +12,9 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
     const [category, setCategory] = useState(initialData?.category || '');
     const [status, setStatus] = useState(initialData?.status || 'DRAFT');
     const [coverImage, setCoverImage] = useState<File | null>(null);
-    const [imagePreview, setImagePreview] = useState<string | null>(initialData?.coverImageUrl || null);
+    const [imagePreview, setImagePreview] = useState<string | null>(initialData?.coverImage || initialData?.coverImageUrl || null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
     const wordCount = content.trim().split(/\s+/).filter(word => word.length > 0).length;
     const estimatedRead = wordCount > 0 ? Math.ceil(wordCount / 200) : '--';
@@ -93,14 +95,10 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
             }
 
             if (initialData?.id) {
-                await apiClient.put(`/blog/${initialData.id}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
+                await apiClient.put(`/blog/${initialData.id}`, formData);
                 toast.success(`Blog post ${forcedStatus === 'PUBLISHED' ? 'updated & published' : 'updated'} successfully!`);
             } else {
-                await apiClient.post('/blog', formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
+                await apiClient.post('/blog', formData);
                 toast.success(`Blog post ${forcedStatus === 'PUBLISHED' ? 'published' : 'saved'} successfully!`);
             }
             setTitle('');
@@ -122,14 +120,14 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
     };
 
     return (
-        <div className="w-full max-w-6xl  py-8">
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Header section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 ">
                 <div>
                     <h1 className="text-3xl font-bold text-[#222222] tracking-tight">Design the Narrative</h1>
                     <p className="text-[#6b6b6b] mt-1">Every great story starts with a single word. Compose your masterpiece.</p>
                 </div>
-                <div className="flex items-center gap-3 flex-nowrap">
+                <div className="flex items-center gap-3 flex-wrap">
                     <button 
                         onClick={() => handleAction('DRAFT')}
                         disabled={isLoading}
@@ -138,10 +136,10 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
                         Save as Placeholder
                     </button>
                     <button 
-                        className="px-4 py-2 bg-[#F2C94C] hover:bg-[#e6b83b] text-black text-sm font-medium rounded-md transition-colors whitespace-nowrap"
+                        className="px-4 py-2 border border-amber-300 hover:border-amber-400 text-black text-sm font-medium rounded-md transition-colors whitespace-nowrap"
                         onClick={(e) => {
                             e.preventDefault();
-                            toast.info("Preview mode not yet implemented.");
+                            setIsPreviewOpen(true);
                         }}
                     >
                         Preview Post
@@ -151,7 +149,7 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
 
             <div className="flex flex-col lg:flex-row gap-6">
                 {/* Left Column (Main Form) */}
-                <div className="flex-1 bg-white p-6 rounded-xl shadow-xs border border-gray-100">
+                <div className="flex-1 bg-white p-4 sm:p-6 rounded-xl shadow-xs border border-gray-100">
                     <form className="space-y-6">
                         {/* Title input */}
                         <div>
@@ -163,7 +161,7 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
                                 required
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="block w-full border-0 bg-gray-50 rounded-sm text-gray-900 focus:ring-0 sm:text-base px-4 py-3 placeholder:text-gray-300 font-medium"
+                                className="block w-full border-0 bg-gray-50 rounded-sm text-gray-900 focus:ring-0 text-base sm:text-lg px-4 py-3 placeholder:text-gray-300 font-medium"
                                 placeholder="Enter a compelling title..."
                             />
                         </div>
@@ -218,10 +216,10 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
                                 <textarea
                                     ref={textareaRef}
                                     required
-                                    rows={15}
+                                    rows={6}
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
-                                    className="block w-full border-0 focus:ring-0 sm:text-sm px-4 py-4 bg-gray-50 placeholder:text-gray-300 resize-none outline-none"
+                                    className="block w-full border-0 focus:ring-0 sm:text-sm px-3 py-3 bg-gray-50 placeholder:text-gray-300 min-h-[120px] sm:min-h-[220px] md:min-h-[360px] resize-none sm:resize-vertical outline-none"
                                     placeholder="Start typing your story here..."
                                 />
                             </div>
@@ -230,13 +228,13 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
                 </div>
 
                 {/* Right Column */}
-                <div className="w-full lg:w-72 flex flex-col gap-4">
+                <div className="w-full md:w-80 lg:w-72 flex flex-col gap-4">
                     {/* Cover image widget */}
                     <div className="bg-white p-4 rounded-xl shadow-xs border border-gray-100">
                         <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Cover Image</label>
                         <div className="border-2 border-dashed border-gray-200 rounded-sm p-4 flex flex-col items-center justify-center text-center relative hover:bg-[#FFF7E0] transition-colors">
                             {imagePreview ? (
-                                <img src={imagePreview} alt="Cover Preview" className="absolute inset-0 w-full h-full object-cover rounded-sm" />
+                                <img src={imagePreview} alt="Cover Preview" className="w-full h-40 sm:h-48 object-cover rounded-sm bg-white" />
                             ) : (
                                 <>
                                     <CloudUpload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
@@ -302,6 +300,28 @@ export default function CreateBlog({ initialData, onSuccess }: { initialData?: a
                     </div>
                 </div>
             </div>
+
+            {/* Full-Screen Preview (card-only with blurred backdrop) */}
+            {isPreviewOpen && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setIsPreviewOpen(false)}
+                >
+                    <div className="w-full max-w-sm sm:max-w-md lg:max-w-2xl" onClick={(e) => e.stopPropagation()}>
+                        <BlogCard 
+                            title={title || 'Untitled Post'}
+                            excerpt={content ? (content.substring(0, 150) + '...') : ''}
+                            content={content}
+                            author="Author"
+                            date={new Date().toLocaleDateString()}
+                            imageUrl={imagePreview || undefined}
+                            tags={category ? [category] : []}
+                            status={status === 'DRAFT' ? 'draft' : 'published'}
+                            disablePreview={true}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

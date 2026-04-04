@@ -53,21 +53,24 @@ async function runTests() {
     let postId = null;
     console.log(`\n=> [2] Testing POST /blog (Create Post)`);
     try {
+        const form = new FormData();
+        form.append('title', `E2E Test Post ${TIMESTAMP}`);
+        form.append('content', 'This is the content of the blog post created via E2E testing. It needs to be at least 10 chars.');
+        form.append('category', 'Technology');
+        form.append('status', 'PUBLISHED');
+        const fs = require('fs');
+        const fileBuf = fs.readFileSync('dummy.jpg');
+        form.append('coverImage', new Blob([fileBuf], { type: 'image/jpeg' }), 'test.jpg');
+
         const res = await fetch(`${API_URL}/blog`, {
             method: 'POST',
-            headers: authHeaders,
-            body: JSON.stringify({
-                title: `E2E Test Post ${TIMESTAMP}`,
-                content: 'This is the content of the blog post created via E2E testing. It needs to be at least 10 chars.',
-                category: 'Technology',
-                tags: ['E2E', 'Testing'],
-                status: 'PUBLISHED'
-            })
+            headers: { Authorization: `Bearer ${token}` },
+            body: form
         });
         const data = await res.json();
         if (!res.ok) throw new Error(JSON.stringify(data));
         postId = data.id;
-        console.log('✓ Successfully created post:', { id: data.id, title: data.title });
+        console.log('✓ Successfully created post:', { id: data.id, title: data.title, status: data.status, coverImage: data.coverImage });
     } catch (err) {
         console.error('✗ Create failed:', err.message);
         return;

@@ -46,3 +46,14 @@ export const products = {
         return response.data;
     }
 };
+
+export const categories = {
+    getAll: async () => {
+        const response = await apiClient.get('/categories');
+        return response.data;
+    },
+    getById: async (id: number) => {
+        const response = await apiClient.get(`/categories/${id}`);
+        return response.data;
+    }
+};

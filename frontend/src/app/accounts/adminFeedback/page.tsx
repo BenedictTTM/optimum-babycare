@@ -113,7 +113,7 @@ export default function AdminFeedbackPage() {
     return (
         <div className="container mx-auto px-4 py-6 max-w-5xl">
             <div className="bg-white border-b border-gray-200 px-6 py-4 rounded-lg mb-6 shadow-sm">
-                <h1 className="text-2xl font-bold text-gray-900"><span className="text-amber-700">Admin</span> Feedback Management</h1>
+                <h1 className="md:text-2xl text-xl sm:text-xl font-bold text-gray-900"><span className="text-amber-400">Admin</span> Feedback Management</h1>
                 <p className="text-gray-500 mt-1 text-sm">View and respond to user feedback</p>
             </div>
 

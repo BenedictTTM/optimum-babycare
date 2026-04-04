@@ -2,8 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { products } from '@/api/clients';
 
 const DealOfWeek = () => {
+    // Product data state
+    const [dealProduct, setDealProduct] = useState<any>(null);
+
     // Countdown logic
     const [timeLeft, setTimeLeft] = useState({
         days: 180,
@@ -11,6 +15,23 @@ const DealOfWeek = () => {
         minutes: 9,
         seconds: 34
     });
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                // Fetch first product for the Deal of the week
+                const data = await products.getAll(1, 1);
+                // Handle different common pagination responses
+                const firstProduct = Array.isArray(data) ? data[0] : (data?.data?.[0] || data?.items?.[0] || null);
+                if (firstProduct) {
+                    setDealProduct(firstProduct);
+                }
+            } catch (error) {
+                console.error("Failed to fetch deal of the week product:", error);
+            }
+        };
+        fetchProduct();
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -24,6 +45,8 @@ const DealOfWeek = () => {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
+
+    if (!dealProduct) return null;
 
     return (
         <section className="w-full relative overflow-hidden">
@@ -44,16 +67,18 @@ const DealOfWeek = () => {
                     <div className="bg-white rounded-lg shadow-md w-[240px] overflow-hidden">
                         <div className="relative w-full h-48 bg-neutral-50">
                             <Image
-                                src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60"
-                                alt="Promo"
+                                src={dealProduct.imageUrl?.[0] ||  dealProduct.images?.[0] || '/placeholder-product.jpg'}
+                                alt={dealProduct.title || "Promo"}
                                 fill
                                 loading="lazy"
                                 className="object-contain p-6"
                             />
                         </div>
                         <div className="p-4 border-t">
-                            <h4 className="text-xs text-gray-500">The Organic Cotton Cutaway Tank</h4>
-                            <p className="text-lg font-extrabold text-gray-900">$21.00</p>
+                            <h4 className="text-xs text-gray-500 truncate" title={dealProduct.title}>
+                                {dealProduct.title}
+                            </h4>
+                            <p className="text-lg font-extrabold text-gray-900">${dealProduct.discountedPrice || dealProduct.originalPrice}</p>
                         </div>
                     </div>
                 </div>
@@ -69,25 +94,27 @@ const DealOfWeek = () => {
                     <div className="flex items-center gap-4 mb-4 lg:hidden">
                         <div className="relative w-16 h-16 rounded-md overflow-hidden bg-neutral-50">
                             <Image
-                                src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60"
-                                alt="Promo"
+                                src={dealProduct.imageUrl?.[0] }
+                                alt={dealProduct.title || "Promo"}
                                 fill
                                 loading="lazy"
                                 className="object-contain p-2"
                             />
                         </div>
                         <div>
-                            <div className="text-sm font-semibold text-gray-900">The Organic Cotton Cutaway Tank</div>
-                            <div className="text-sm text-gray-500 font-bold">$21.00</div>
+                            <div className="text-sm font-semibold text-gray-900 truncate max-w-[200px]" title={dealProduct.title}>
+                                {dealProduct.title}
+                            </div>
+                            <div className="text-sm text-gray-500 font-bold">${dealProduct.discountedPrice || dealProduct.originalPrice}</div>
                         </div>
                     </div>
 
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900 mb-4">
-                        Roland Grand White <br className="hidden lg:block" /> short T-shirt
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900 mb-4 truncate" title={dealProduct.title}>
+                        {dealProduct.title}
                     </h2>
 
-                    <p className="text-gray-600 text-sm sm:text-base max-w-lg leading-relaxed mb-6">
-                        Our intent and our actions have always been informed by progress. We look at an impact report as a way to measure.
+                    <p className="text-gray-600 text-sm sm:text-base max-w-lg leading-relaxed mb-6 line-clamp-3">
+                        {dealProduct.description}
                     </p>
 
                     {/* Countdown as rounded boxes */}

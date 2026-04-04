@@ -39,6 +39,7 @@ export default function Sidebar() {
     else if (pathname.includes('/accounts/addCategories')) setActiveItem('Categories');
     else if (pathname.includes('/accounts/customers')) setActiveItem('Customers');
     else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('Admin Feedback');
+    else if (pathname.includes('/accounts/blog') || pathname.includes('/accounts/blogs')) setActiveItem('Blogs');
     else if (pathname.includes('/accounts/notifications')) setActiveItem('Notifications');
     else setActiveItem('Dashboard');
   }, [pathname]);
@@ -78,7 +79,7 @@ export default function Sidebar() {
     },
     { icon: Users, label: 'Customers', path: '/accounts/customers' },
     { icon: MessageSquare, label: 'Admin Feedback', path: '/accounts/adminFeedback' },
-    { icon: Activity, label: 'Blogs', path: '/accounts/blog' },
+    { icon: Activity, label: 'Blogs', path: '/accounts/blogs' },
     { icon: Bell, label: 'Notifications', path: '/accounts/notifications' },
   ];
 
@@ -93,7 +94,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Top Navbar for Mobile */}
-      <div className="lg:hidden flex items-center justify-between px-6 py-6 bg-gray-100  border-gray-50">
+      <div className="lg:hidden flex items-center justify-between px-4 py-4 bg-gray-100 border-gray-50">
         <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
           <Image src='/logo.png' alt="Logo" width={60} height={60} />
         </Link>
@@ -112,7 +113,7 @@ export default function Sidebar() {
         `}
       >
         {/* Brand */}
-        <div className="hidden lg:flex items-center justify-between px-6 py-6 bg-white border-b border-gray-50">
+        <div className="hidden lg:flex items-center justify-between px-4 py-4 bg-white border-b border-gray-50">
           <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
             <Image src='/logo.png' alt="Logo" width={120} height={120} />
 
@@ -120,7 +121,7 @@ export default function Sidebar() {
         </div>
 
         {/* User Profile */}
-        <div className="px-6 py-4 border-b border-gray-50">
+        <div className="px-4 py-3 border-b border-gray-50">
           <div className="flex items-center gap-3">
             {user?.profilePic ? (
               <img
@@ -141,7 +142,7 @@ export default function Sidebar() {
         </div>
 
         {/* Nav Links */}
-        <nav className="flex-1 overflow-y-auto py-2 px-3 scrollbar-hide">
+        <nav className="flex-1 overflow-y-auto py-1 px-3 scrollbar-hide">
           {menuItems.map((item, index) => (
             <div key={index} className="mb-1">
               <button
@@ -154,7 +155,7 @@ export default function Sidebar() {
                     setIsMobileOpen(false);
                   }
                 }}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeItem === item.label && !item.hasSubmenu
+                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${activeItem === item.label && !item.hasSubmenu
                   ? 'bg-red-50 text-amber-700'
                   : 'text-gray-700 hover:bg-white hover:shadow-sm'
                   }`}
@@ -177,7 +178,7 @@ export default function Sidebar() {
               </button>
 
               {item.hasSubmenu && openSubmenu === item.label && (
-                <div className="mt-1 ml-3 space-y-1">
+                    <div className="mt-1 ml-3 space-y-1">
                   {item.submenu.map((subItem, subIndex) => (
                     <button
                       key={subIndex}
@@ -186,7 +187,7 @@ export default function Sidebar() {
                         router.push(subItem.path);
                         setIsMobileOpen(false);
                       }}
-                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all ${activeItem === subItem.label
+                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${activeItem === subItem.label
                         ? 'bg-red-50 text-amber-700 font-medium'
                         : 'text-gray-600 hover:bg-white hover:text-gray-900'
                         }`}
@@ -205,14 +206,14 @@ export default function Sidebar() {
         </nav>
 
         {/* Settings + Logout */}
-        <div className="px-3 py-4 border-t border-gray-200 space-y-1 bg-white">
+        <div className="px-3 py-3 border-t border-gray-200 space-y-1 bg-white">
           <button
             onClick={() => {
               setActiveItem('Settings');
               router.push('/accounts/settings');
               setIsMobileOpen(false);
             }}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeItem === 'Settings'
+            className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${activeItem === 'Settings'
               ? 'bg-red-50 text-amber-700'
               : 'text-gray-700 hover:bg-white hover:shadow-sm'
               }`}
@@ -226,7 +227,7 @@ export default function Sidebar() {
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-white hover:text-amber-700 hover:shadow-sm transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-white hover:text-amber-700 hover:shadow-sm transition-all"
           >
             <LogOut className="w-5 h-5 text-gray-600" />
             <span>Logout</span>

@@ -1,45 +1,15 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import { apiClient } from '@/api/clients';
+import BlogCard from '@/app/accounts/blog/Components/BlogCard';
 
-const BLOG_POSTS = [
-    {
-        title: "ONCE THAT'S DETERMINED WITH A GOOD, YOU NEED TO COME UP WITH A NAME",
-        category: "FASHION",
-        date: "25",
-        month: "Jul",
-        author: "PARV INFOTECH",
-        authorRole: "Author",
-        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop",
-        authorImage: "https://ui-avatars.com/api/?name=PI&background=0D8ABC&color=fff"
-    },
-    {
-        title: "ONCE DETERMINED, YOU NEED TO COME UP WITH A NAME A LEGAL STRUCTURE",
-        category: "TRENDING",
-        date: "25",
-        month: "Jul",
-        author: "PARV INFOTECH",
-        authorRole: "Author",
-        image: "https://images.unsplash.com/photo-1550614000-4b95d4ebf071?q=80&w=600&auto=format&fit=crop",
-        authorImage: "https://ui-avatars.com/api/?name=PI&background=0D8ABC&color=fff"
-    },
-    {
-        title: "AT THE LIMIT, STATICALLY GENERATED, EDGE DELIVERED A FOOD",
-        category: "DESIGN",
-        date: "25",
-        month: "Jul",
-        author: "PARV INFOTECH",
-        authorRole: "Author",
-        image: "https://images.unsplash.com/photo-1485230895905-31d414dc14fd?q=80&w=600&auto=format&fit=crop",
-        authorImage: "https://ui-avatars.com/api/?name=PI&background=0D8ABC&color=fff"
-    }
-];
-
-const BlogInsights = () => {
+export default function BlogInsights() {
     const carouselRef = useRef<HTMLDivElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [posts, setPosts] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleScroll = () => {
         const el = carouselRef.current;
@@ -56,22 +26,35 @@ const BlogInsights = () => {
     };
 
     useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await apiClient.get('/blog?limit=3');
+                setPosts(response.data?.data || response.data || []);
+            } catch (error) {
+                console.error('Error fetching blogs:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchPosts();
+    }, []);
+
+    useEffect(() => {
         const el = carouselRef.current;
         if (!el) return;
-        // keep activeIndex synced when window resizes
         const onResize = () => scrollToIndex(activeIndex);
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, [activeIndex]);
 
     return (
-        <section className="w-full py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+        <section className="w-full py-3 text-left max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-12 text-center">
                 <div className="flex items-center justify-center gap-3 mb-4">
                     <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
-                    <span className="text-[#FF4A3B] font-medium text-sm">News</span>
+                    <span className="text-[#FF4A3B] font-medium text-sm">News & Articles</span>
                     <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#FF4A3B]">
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
@@ -81,7 +64,6 @@ const BlogInsights = () => {
                 </h2>
             </div>
 
-            {/* Mobile: swipeable single-card carousel; md+: grid */}
             <div className="relative">
                 {/* Prev/Next buttons (mobile only) */}
                 <div className="absolute inset-y-0 left-2 flex items-center z-20 md:hidden">
@@ -118,63 +100,40 @@ const BlogInsights = () => {
 
                 <div
                     ref={carouselRef}
-                    className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 overflow-x-auto snap-x snap-mandatory md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                    className={`flex md:grid md:grid-cols-2 ${posts.length === 0 ? 'lg:grid-cols-1' : 'lg:grid-cols-3'} gap-6 overflow-x-auto snap-x snap-mandatory md:overflow-visible [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
                     onScroll={handleScroll}
                 >
-                {BLOG_POSTS.map((post, index) => (
-                    <article
-                        key={index}
-                        data-index={index}
-                        className="snap-start shrink-0 w-full md:w-auto md:shrink bg-white group cursor-pointer border border-gray-100 shadow-xs hover:shadow-sm transition-shadow duration-300"
-                    >
-                        {/* Image Container with Date Badge */}
-                        <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                            <Image
-                                src={post.image}
-                                alt={post.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                            {/* Date Badge */}
-                            <div className="absolute bottom-[-20px] right-6 bg-white px-4 py-2 shadow-sm flex flex-col items-center justify-center z-10 w-16">
-                                <span className="text-xl font-bold text-gray-900 leading-none">{post.date}</span>
-                                <span className="text-xs text-gray-500 font-medium uppercase mt-1">{post.month}</span>
+                    {isLoading ? (
+                        <div className="md:col-span-3 py-10 text-center text-gray-500 w-full">Loading insights...</div>
+                    ) : posts.length === 0 ? (
+                        <div className="md:col-span-3 py-10 text-center text-gray-500 w-full">No posts found.</div>
+                    ) : (
+                        posts.map((post, index) => (
+                            <div
+                                key={post.id || index}
+                                data-index={index}
+                                className="snap-start shrink-0 w-full md:w-auto md:shrink"
+                            >
+                                <BlogCard
+                                    title={post.title}
+                                    excerpt={post.content ? (post.content.substring(0, 100) + '...') : ''}
+                                    content={post.content}
+                                    imageUrl={post.coverImage || post.coverImageUrl}
+                                    author={post.author?.firstName ? `${post.author.firstName} ${post.author.lastName || ''}` : 'Admin'}
+                                    date={new Date(post.createdAt || Date.now()).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                    tags={post.category ? [post.category] : []}
+                                    status={post.status?.toLowerCase() || 'published'}
+                                    disablePreview={true}
+                                />
                             </div>
-                        </div>
+                        ))
+                    )}
+                </div>
 
-                        {/* Content Area */}
-                        <div className="p-6 pt-10">
-                            <p className="text-[#FF4A3B] text-[11px] font-bold tracking-wider uppercase mb-3">
-                                {post.category}
-                            </p>
-                            <h3 className="text-[14px] leading-relaxed font-extrabold text-gray-900 mb-6 group-hover:text-[#FF4A3B] transition-colors line-clamp-3">
-                                {post.title}
-                            </h3>
-
-                            {/* Author Info */}
-                            <div className="flex items-center gap-3 pt-4 border-t border-gray-100 line">
-                                <div className="relative w-8 h-8 rounded-full overflow-hidden shrink-0">
-                                    <Image
-                                        src={post.authorImage}
-                                        alt={post.author}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-[12px] font-bold text-gray-900">{post.author}</span>
-                                    <span className="text-[10px] text-gray-500 uppercase">{post.authorRole}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                ))}
-                    </div>
-
-                    {/* Dot indicators (mobile only) */}
+                {/* Dot indicators (mobile only) */}
+                {posts.length > 0 && (
                     <div className="flex items-center justify-center gap-2 mt-4 md:hidden z-20">
-                        {BLOG_POSTS.map((_, i) => (
+                        {posts.map((_, i) => (
                             <button
                                 key={i}
                                 onClick={() => scrollToIndex(i)}
@@ -183,9 +142,14 @@ const BlogInsights = () => {
                             />
                         ))}
                     </div>
-                </div>
+                )}
+            </div>
+            
+            <div className="text-center mt-10">
+                <Link href="/blog" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-sm text-[#FF4A3B] bg-white hover:bg-gray-50 transition-colors shadow-sm">
+                    View All Articles
+                </Link>
+            </div>
         </section>
     );
-};
-
-export default BlogInsights;
+}

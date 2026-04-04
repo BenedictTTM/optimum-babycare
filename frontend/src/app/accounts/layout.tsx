@@ -56,7 +56,7 @@ export default function AccountsLayout({
         )}
 
         {/* Main content area */}
-        <main className="flex-1 p-4 sm:p-6 overflow-y-auto bg-white">
+        <main className="flex-1 p-3 sm:p-4 overflow-y-auto bg-white">
           {children}
         </main>
       </div>

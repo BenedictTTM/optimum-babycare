@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { FileSizeExceptionFilter } from './common/filters/file-size-exception.filter';
 
 import { json } from 'express';
 import { AppModule } from './app.module';
@@ -48,6 +49,9 @@ async function bootstrap() {
     skipNullProperties: false,
     skipUndefinedProperties: false,
   }));
+
+  // Global filter to present friendlier file upload validation messages
+  app.useGlobalFilters(new FileSizeExceptionFilter());
 
   const port = process.env.PORT || 3001;
   console.log('DATABASE_URL configured:', !!process.env.DATABASE_URL);

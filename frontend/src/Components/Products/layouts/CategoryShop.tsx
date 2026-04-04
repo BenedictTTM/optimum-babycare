@@ -1,34 +1,35 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { categories as categoriesApi } from '../../../api/clients';
 
-const CATEGORIES = [
-    {
-        title: 'SALES',
-        subtitle: 'Sales',
-        description: 'Curated sale items with limited time offers. Discover discounted favorites across categories.',
-    },
-    {
-        title: 'CASUAL',
-        subtitle: 'Casual',
-        description: 'Relax in style with our Casual Collection, featuring comfortable yet trendy pieces.',
-    },
-    {
-        title: 'MATERNITY',
-        subtitle: 'Maternity',
-        description: 'Celebrate motherhood with our Maternity Collection, offering stylish and comfortable essentials.',
-    },
-    {
-        title: 'TIMELESS',
-        subtitle: 'Timeless',
-        description: 'Classic staples that never go out of style — explore the essentials for every wardrobe.',
-    }
-];
+interface Category {
+    id: number;
+    name: string;
+    description: string | null;
+}
 
 const CategoryShop = () => {
     const mobileRef = useRef<HTMLDivElement | null>(null);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const data = await categoriesApi.getAll();
+                // Depending on API response structure, we use data directly if it is an array
+                setCategories(Array.isArray(data) ? data : data.data || []);
+            } catch (error) {
+                console.error("Failed to fetch categories:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     const scrollBy = (dir: 'next' | 'prev') => {
         const el = mobileRef.current;
@@ -37,19 +38,19 @@ const CategoryShop = () => {
         el.scrollBy({ left: dir === 'next' ? amount : -amount, behavior: 'smooth' });
     };
 
-    const renderCard = (cat: typeof CATEGORIES[number], index: number, extraClasses = '') => (
+    const renderCard = (cat: Category, index: number, extraClasses = '') => (
         <div key={index} className={`bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 ${extraClasses}`}>
             <h3 className="text-xl font-bold text-[#1a1a2e] tracking-widest uppercase mb-2">
-                {cat.title}
+                {cat.name}
             </h3>
 
             <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#F5A623]/60 to-transparent mb-3" />
 
             <p className="text-gray-500 text-[14px] leading-relaxed mb-4 flex-1">
-                {cat.title === 'SALES' ? cat.subtitle : cat.description}
+                {cat.description || `Explore our ${cat.name} collection featuring exclusive items.`}
             </p>
 
-            <Link href="/main/products" className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-[#F5A623] hover:bg-[#F5A623] hover:text-white rounded-md transition-colors text-sm tracking-widest uppercase font-bold text-center">
+            <Link href={`/main/products?category=${encodeURIComponent(cat.name)}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-[#F5A623] hover:bg-[#F5A623] hover:text-white rounded-md transition-colors text-sm tracking-widest uppercase font-bold text-center">
                 VIEW COLLECTION
             </Link>
         </div>
@@ -76,29 +77,37 @@ const CategoryShop = () => {
                     </div>
                 </div>
 
-                {/* Mobile slider: visible on small screens only */}
-                <div className="md:hidden relative mb-6">
-                    <div
-                            ref={mobileRef}
-                            className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 py-2 touch-pan-x scroll-pl-4" style={{ WebkitOverflowScrolling: 'touch' }}
-                        >
-                            {CATEGORIES.map((cat, index) => renderCard(cat, index, 'min-w-[90%] snap-center'))}
-                        </div>
-
-                    <div className="absolute right-3 top-3 flex items-center gap-2">
-                        <button aria-label="Previous category" onClick={() => scrollBy('prev')} className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
-                            ‹
-                        </button>
-                        <button aria-label="Next category" onClick={() => scrollBy('next')} className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
-                            ›
-                        </button>
+                {isLoading ? (
+                    <div className="flex justify-center items-center py-12">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F5A623]"></div>
                     </div>
-                </div>
+                ) : categories.length === 0 ? (
+                    <div className="text-center text-gray-500 py-12">No categories found.</div>
+                ) : (
+                    <>
+                        {/* Scrollable slider for all screens */}
+                        <div className="relative mb-6 group">
+                            <div
+                                ref={mobileRef}
+                                className="flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 py-4 touch-pan-x scroll-pl-4 hide-scrollbar" 
+                                style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            >
+                                {categories.map((cat, index) => renderCard(cat, index, 'min-w-[85%] sm:min-w-[45%] md:min-w-[30%] lg:min-w-[23%] snap-center shrink-0 transition-transform duration-300 hover:scale-[1.02]'))}
+                            </div>
 
-                {/* Desktop grid: hidden on small screens */}
-                <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {CATEGORIES.map((cat, index) => renderCard(cat, index))}
-                </div>
+                            {categories.length > 1 && (
+                                <div className="absolute right-4 -top-12 flex items-center gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                                    <button aria-label="Previous category" onClick={() => scrollBy('prev')} className="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-[#F5A623] hover:border-[#F5A623] shadow-md flex items-center justify-center transition-colors">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    </button>
+                                    <button aria-label="Next category" onClick={() => scrollBy('next')} className="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-[#F5A623] hover:border-[#F5A623] shadow-md flex items-center justify-center transition-colors">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
             </div>
         </section>
     );
