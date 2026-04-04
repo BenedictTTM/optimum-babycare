@@ -15,6 +15,7 @@ import { OrderModule } from './order/order.module';
 import { CategoryModule } from './category/category.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { HealthModule } from './health/health.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { HealthModule } from './health/health.module';
     CategoryModule,
     OrderModule,
     FeedbackModule,
+    BlogModule,
   ],
   providers: [
     {

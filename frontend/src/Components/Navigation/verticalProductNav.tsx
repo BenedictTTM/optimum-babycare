@@ -78,7 +78,7 @@ export default function Sidebar() {
     },
     { icon: Users, label: 'Customers', path: '/accounts/customers' },
     { icon: MessageSquare, label: 'Admin Feedback', path: '/accounts/adminFeedback' },
-    { icon: Activity, label: 'Analytics', path: '/accounts/analytics' },
+    { icon: Activity, label: 'Blogs', path: '/accounts/blog' },
     { icon: Bell, label: 'Notifications', path: '/accounts/notifications' },
   ];
 

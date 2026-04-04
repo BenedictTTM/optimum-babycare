@@ -31,8 +31,10 @@ model User {
   sentMessages         Message[] @relation("SentMessages")
   payments             Payment[]
   products             Product[]
-  reviews              Review[]  @relation("ReviewerReviews")
+  reviews              Review[]      @relation("ReviewerReviews")
   feedbacks            Feedback[]
+  blogPosts            BlogPost[]    @relation("BlogAuthor")
+  blogComments         BlogComment[] @relation("BlogCommenter")
 
   @@index([createdAt])
   @@index([role])
@@ -229,6 +231,54 @@ model Feedback {
 enum Role {
   USER
   ADMIN
+}
+
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model BlogPost {
+  id          Int            @id @default(autoincrement())
+  title       String
+  slug        String         @unique
+  content     String
+  excerpt     String?
+  coverImage  String?
+  category    String
+  tags        String[]       @default([])
+  status      BlogPostStatus @default(DRAFT)
+  featured    Boolean        @default(false)
+  views       Int            @default(0)
+  likedBy     Int[]          @default([])
+  authorId    Int
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  publishedAt DateTime?
+  author      User           @relation("BlogAuthor", fields: [authorId], references: [id])
+  comments    BlogComment[]
+
+  @@index([authorId])
+  @@index([status])
+  @@index([category])
+  @@index([featured])
+  @@index([createdAt(sort: Desc)])
+  @@index([slug])
+}
+
+model BlogComment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  postId    Int
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User     @relation("BlogCommenter", fields: [authorId], references: [id])
+
+  @@index([postId])
+  @@index([authorId])
 }
 
 model TopBarSettings {
