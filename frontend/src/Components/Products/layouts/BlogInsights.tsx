@@ -59,7 +59,7 @@ export default function BlogInsights() {
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-wider uppercase">
+                <h2 className="text-2xl md:text-4xl font-extrabold text-gray-900 tracking-wider uppercase">
                     Blog & Insights
                 </h2>
             </div>

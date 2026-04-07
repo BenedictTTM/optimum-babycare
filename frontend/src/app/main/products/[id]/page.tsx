@@ -193,7 +193,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       {/* Spacer for fixed navbar */}
       <div className="h-10 md:h-12 lg:h-17" aria-hidden="true" />
 
-      <div className="px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-6 sm:py-8 md:py-15  min-h-screen">
+      <div className="px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12   min-h-screen">
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-10">
             {/* Left: Product Gallery - Render immediately */}

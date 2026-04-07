@@ -64,7 +64,7 @@ const DealOfWeek = () => {
                 {/* Desktop absolute product card (kept) - mobile snapshot will be embedded inside the Deal card */}
 
                 <div className="hidden lg:block absolute left-20 top-12 z-20">
-                    <div className="bg-white rounded-lg shadow-md w-[240px] overflow-hidden">
+                    <div className="bg-white rounded-lg shadow-xs w-[240px] overflow-hidden">
                         <div className="relative w-full h-48 bg-neutral-50">
                             <Image
                                 src={dealProduct.imageUrl?.[0] ||  dealProduct.images?.[0] || '/placeholder-product.jpg'}
@@ -84,21 +84,21 @@ const DealOfWeek = () => {
                 </div>
 
                 {/* Right content card */}
-                <div className="w-full max-w-2xl bg-white p-6 sm:p-10 rounded-md shadow-lg relative z-30 mx-auto lg:mx-0 lg:ml-auto">
+                <div className="w-full max-w-2xl bg-white p-6 sm:p-10 rounded-md shadow-sm relative z-30 mx-auto lg:mx-0 lg:ml-auto">
                     <div className="flex items-center gap-3 mb-4">
-                        <span className="w-8 h-[2px] bg-red-500 inline-block" />
-                        <span className="text-[12px] font-bold tracking-[0.2em] text-red-500 uppercase">Deal Of The Week</span>
+                        <span className=" sm:w-3 md:w-8 md:h-[2px] bg-red-500 inline-block" />
+                        <span className="text-md md:text-lg font-bold tracking-[0.2em] text-red-500 uppercase">Deal Of The Week</span>
                     </div>
 
                     {/* Mobile: small product snapshot inside the deal card */}
                     <div className="flex items-center gap-4 mb-4 lg:hidden">
-                        <div className="relative w-16 h-16 rounded-md overflow-hidden bg-neutral-50">
+                        <div className="relative w-16 h-16 rounded-sm overflow-hidden ">
                             <Image
                                 src={dealProduct.imageUrl?.[0] }
                                 alt={dealProduct.title || "Promo"}
                                 fill
                                 loading="lazy"
-                                className="object-contain p-2"
+                                className="object-contain"
                             />
                         </div>
                         <div>
@@ -108,10 +108,6 @@ const DealOfWeek = () => {
                             <div className="text-sm text-gray-500 font-bold">${dealProduct.discountedPrice || dealProduct.originalPrice}</div>
                         </div>
                     </div>
-
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-gray-900 mb-4 truncate" title={dealProduct.title}>
-                        {dealProduct.title}
-                    </h2>
 
                     <p className="text-gray-600 text-sm sm:text-base max-w-lg leading-relaxed mb-6 line-clamp-3">
                         {dealProduct.description}
