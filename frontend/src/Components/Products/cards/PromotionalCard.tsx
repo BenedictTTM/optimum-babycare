@@ -20,26 +20,26 @@ const PromotionalCard: React.FC<PromotionalCardProps> = ({
   buttonText,
   imageUrl,
   gradientClass = 'from-blue-50 to-cyan-50',
-  titleClass = 'text-2xl md:text-3xl font-extrabold mb-2 text-red-600',
-  textClass = 'text-xs md:text-sm text-gray-600'
+  titleClass = 'text-lg md:text-3xl font-extrabold mb-2 text-red-600',
+  textClass = 'text-[12px] md:text-sm text-gray-600'
 }) => {
   return (
-    <div className={`relative overflow-hidden rounded-lg bg-gradient-to-r ${gradientClass} shadow-xs hover:shadow-sm transition-shadow duration-300 min-h-[180px]`}>
+    <div className={`relative overflow-hidden rounded-lg bg-gradient-to-r ${gradientClass} shadow-xs hover:shadow-sm transition-shadow duration-300 min-h-[140px] md:min-h-[180px]`}>
       {/* Image: absolutely fills the right half, bleeds left to overlap text */}
       {imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imageUrl}
           alt="promo"
-          className="absolute bottom-0 right-0 h-[110%] w-1/2 object-contain object-bottom z-20"
+          className="absolute bottom-0 right-0 h-[105%] w-1/3 md:w-1/2 object-contain object-bottom z-20"
         />
       )}
 
       {/* Text panel: takes 3/5 width, sits behind the image */}
-      <div className="relative z-10 w-3/5 px-6 py-6 flex flex-col justify-center min-h-[180px]">
+      <div className="relative z-10 w-2/3 md:w-3/5 px-4 md:px-6 py-4 md:py-6 flex flex-col justify-center min-h-[140px] md:min-h-[180px]">
         {badge && (
           (typeof badge === 'string' || typeof badge === 'number') ? (
-            <p className="text-xs md:text-sm font-medium text-gray-600 mb-2 tracking-wide">{badge}</p>
+            <p className="text-[11px] md:text-sm font-medium text-gray-600 mb-2 tracking-wide">{badge}</p>
           ) : (
             <div className="mb-2">{badge}</div>
           )

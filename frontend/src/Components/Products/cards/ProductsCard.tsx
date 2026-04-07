@@ -20,15 +20,6 @@ export default function ProductsCard({ product }: ProductsCardProps) {
 
   return (
     <div className="group flex flex-col h-full bg-white relative">
-      <button
-        aria-label="Add to cart"
-        className="absolute left-3 top-3 w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-md z-30 border border-gray-100"
-      >
-        <svg className="w-4 h-4 text-gray-700" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
-          <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-        </svg>
-      </button>
-
       <Link href={`/main/products/${product.id}`} className="block flex-grow flex flex-col">
         <div className="relative aspect-square overflow-hidden bg-[#F5F5F5] rounded-sm">
           <Image
@@ -38,7 +29,7 @@ export default function ProductsCard({ product }: ProductsCardProps) {
             className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          {discountPercentage > 0 && (
+          {discountPercentage > 20 && (
             <div className="absolute top-3 left-12 bg-[#FF4545] text-white px-2 py-0.5 rounded-sm text-[10px] font-bold z-10 tracking-wider">
               -{discountPercentage}%
             </div>
@@ -61,22 +52,7 @@ export default function ProductsCard({ product }: ProductsCardProps) {
               {product.title}
             </h3>
 
-            <div className="flex items-center gap-1.5 mb-2.5">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className={`w-3 h-3 ${
-                      i < Math.floor(product.averageRating || 0)
-                        ? 'text-gray-900 fill-current'
-                        : 'text-gray-200 fill-current'
-                    }`}
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
+            <div className="flex items-center gap-1.5 md:mb-2.5 mb-1">
               <span className="text-[12px] text-gray-500 font-medium">
                 ({product.totalReviews || 0})
               </span>
@@ -84,11 +60,22 @@ export default function ProductsCard({ product }: ProductsCardProps) {
           </div>
 
           <div className="mt-3">
-            <div className="flex items-baseline gap-3">
-              <span className="text-[18px] font-bold text-gray-900">${price.toFixed(2)}</span>
-              {originalPrice && (
-                <span className="text-[13px] font-medium text-gray-400 line-through decoration-gray-400">${originalPrice.toFixed(2)}</span>
-              )}
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-baseline gap-3">
+                <span className="md:text-lg sm:text-sm  font-bold text-gray-900">${price.toFixed(2)}</span>
+                {/* {originalPrice && (
+                  <span className="text-[12px] text-gray-500 line-through">${originalPrice.toFixed(2)}</span>
+                )} */}
+              </div>
+
+              <button
+                aria-label="Add to cart"
+                className="w-9 h-9 rounded-xl bg-amber-950 p-2 m-2 flex items-center justify-center shadow-xs z-30 border border-amber-900"
+              >
+                <svg className="w-4 h-4 text-gray-100" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+                  <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

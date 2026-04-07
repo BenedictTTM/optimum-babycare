@@ -77,6 +77,13 @@ const nextConfig: NextConfig = {
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  // Allow these dev origins to load `/_next/*` assets during development
+  allowedDevOrigins: [
+    'http://172.25.160.240',
+    'http://172.25.160.240:3000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+  ],
   async rewrites() {
     return [
       {

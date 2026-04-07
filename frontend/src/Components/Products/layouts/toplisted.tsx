@@ -18,7 +18,7 @@ const TopListedItems = () => {
     }, []);
 
     return (
-        <section className="w-full py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <section className="w-full py-5 sm:py-8  sm:px-3 lg:px-8 max-w-7xl mx-auto">
             <div className="flex bg-white rounded-lg border border-gray-100 shadow-xs overflow-hidden flex-col lg:flex-row">
                 {/* Left side: Product Grid */}
                 <div className="flex-1 p-6 sm:p-8">

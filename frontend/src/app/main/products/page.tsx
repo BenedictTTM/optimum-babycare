@@ -242,7 +242,7 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:mb-5 mb-12">
             <PromotionalCards />
         </div>
 
@@ -257,7 +257,7 @@ export default function ProductsPage() {
                   {/* Header */}
                   <div className="mb-10 text-center px-4 sm:px-6 lg:px-8">
                     {/* Featured label with decorative squiggles */}
-                    <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="flex items-center justify-center gap-3 sm:mb-2 md:mb-4">
                       <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-500">
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
@@ -268,12 +268,12 @@ export default function ProductsPage() {
                     </div>
 
                     {/* Main Heading */}
-                    <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase mb-8">
+                    <h2 className="text-lg md:text-3xl lg:text-5xl font-bold text-gray-900 tracking-wider uppercase md:mb-8 sm:mb-4">
                       Get Your Fashion Style
                     </h2>
 
                     {/* Filter Tabs */}
-                    <div className="flex items-center justify-center gap-4 text-base font-semibold">
+                    <div className="flex items-center justify-center gap-6 text-xs font-semibold">
                       <button className="text-amber-500 hover:text-amber-500 transition-colors">Latest</button>
                       <span className="w-2 h-2 rounded-full bg-gray-300" />
                       <button className="text-gray-500 hover:text-amber-500 transition-colors">Popular</button>
