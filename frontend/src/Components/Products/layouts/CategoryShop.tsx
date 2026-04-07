@@ -39,7 +39,7 @@ const CategoryShop = () => {
     };
 
     const renderCard = (cat: Category, index: number, extraClasses = '') => (
-        <div key={index} className={`bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 w-[300px] sm:w-[360px] md:w-[420px] lg:w-[480px] h-[200px] ${extraClasses}`}>
+        <div key={index} className={`bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 w-[300px] sm:w-[360px] md:w-[420px] lg:w-[480px] h-[260px] md:h-[200px] ${extraClasses}`}>
             <h3 className="md:text-xl text-md font-bold text-[#1a1a2e] tracking-widest uppercase mb-2">
                 {cat.name}
             </h3>

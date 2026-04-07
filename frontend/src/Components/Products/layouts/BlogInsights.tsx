@@ -145,11 +145,7 @@ export default function BlogInsights() {
                 )}
             </div>
             
-            <div className="text-center mt-10">
-                <Link href="/blog" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-sm text-[#FF4A3B] bg-white hover:bg-gray-50 transition-colors shadow-sm">
-                    View All Articles
-                </Link>
-            </div>
+           
         </section>
     );
 }
