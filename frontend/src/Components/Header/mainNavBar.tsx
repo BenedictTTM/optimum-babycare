@@ -8,6 +8,7 @@ import { useCartCount } from '@/hooks/useCartCount';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchComponent from './searchComponent';
+import SidebarCategories from '../Products/layouts/SidebarCategories';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -18,6 +19,7 @@ export default function MainNavBar() {
   const [isSmallScreen, setIsSmallScreen] = React.useState(false);
   const [cartMenuOpen, setCartMenuOpen] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [categoriesOpen, setCategoriesOpen] = React.useState(false); // State for dropdown
   const { itemCount, shouldPulse } = useCartCount();
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -73,10 +75,10 @@ export default function MainNavBar() {
         }
         transition={{ type: 'spring', stiffness: 200, damping: 28 }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[60px] md:h-[72px]">
+          <div className="flex items-center justify-between w-full h-full">
             {/* Left: Mobile hamburger and Desktop Category Toggle */}
-            <div className="flex items-center lg:w-[260px]">
+            <div className="flex items-center lg:w-[260px] self-stretch">
               {isSmallScreen && (
                 <button
                   onClick={() => setMobileMenuOpen(true)}
@@ -87,16 +89,40 @@ export default function MainNavBar() {
                 </button>
               )}
               
+              {/* Desktop Category Toggle - rounded pill */}
+              <div
+                className="hidden lg:flex items-center justify-between w-[220px] bg-[#FF6B6B] text-white px-4 cursor-pointer rounded-full h-10 md:h-12 relative shadow-sm"
+                onClick={() => setCategoriesOpen(!categoriesOpen)}
+                role="button"
+                aria-expanded={categoriesOpen}
+              >
+                <span className="font-bold text-[15px] tracking-wide">All Categories</span>
+                <ChevronDown className={`w-4 h-4 text-white/90 transition-transform duration-300 ${categoriesOpen ? 'rotate-180' : ''}`} />
+
+                {/* Dropdown Menu */}
+                <AnimatePresence>
+                  {categoriesOpen && (
+                    <motion.div
+                      key="categories-dropdown"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 w-[280px] z-50 shadow-[0_10px_30px_rgba(0,0,0,0.08)] bg-white rounded-bl-md rounded-br-md border border-gray-100 border-t-0 overflow-hidden"
+                      onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+                    >
+                      <SidebarCategories />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               {/* Mobile Search */}
               <div className="md:hidden">
                 <SearchComponent />
               </div>
 
-              {/* Desktop Category Toggle - matches sidebar width */}
-              <div className="hidden lg:flex items-center justify-between w-full bg-red-500 text-white px-5 py-4 cursor-pointer rounded-tr-md rounded-tl-md">
-                <span className="font-bold text-[15px]">All Categories</span>
-                <ChevronDown className="w-4 h-4 text-white/90" />
-              </div>
+
             </div>
 
             {/* Center: Navigation Links */}

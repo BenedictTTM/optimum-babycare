@@ -1,6 +1,7 @@
 import Footer from "@/Components/Footer/footer";
 
 import Topbar from '@/Components/Header/topbar';
+import Header from '@/Components/Header/mainNavBar';
 import UnderTop from '@/Components/Header/undertop';
 
 export default function MainLayout({
@@ -11,8 +12,8 @@ export default function MainLayout({
   return (
     <>
       <Topbar />
-      <UnderTop />
-    
+      <UnderTop/>
+      <Header />
       <div className="pt-0">
         {children}
       </div>

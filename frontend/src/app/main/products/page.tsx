@@ -218,7 +218,7 @@ export default function ProductsPage() {
 
   return (
     <>
-    <Header></Header>
+
       <MultipleSchemas schemas={schemas} deferImageSchemas={true} />
 
       <div className="min-h-screen bg-gray-50 overflow-x-hidden">
@@ -232,8 +232,8 @@ export default function ProductsPage() {
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
             <div className="flex flex-col lg:flex-row h-full">
-              <div className="hidden lg:flex flex-col z-20 h-full">
-                <SidebarCategories />
+              <div className="hidden lg:flex flex-col z-20 h-full w-[260px] flex-shrink-0">
+                {/* Space reserved for where the mega-menu drops down, keeping slider correctly aligned */}
               </div>
               <div className="flex-1 w-full min-w-0 h-full">
                 <HeroSlider />

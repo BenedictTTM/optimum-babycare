@@ -115,7 +115,7 @@ const HeroSlider: React.FC = () => {
 
     return (
         <div
-            className="relative w-full h-[360px] md:h-[420px] overflow-hidden bg-transparent flex flex-col md:flex-row items-center"
+            className="relative w-full h-[360px] md:h-full overflow-hidden bg-transparent flex flex-col md:flex-row items-center"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -133,7 +133,7 @@ const HeroSlider: React.FC = () => {
                     fill
                     sizes="(max-width: 768px) 60vw, 50vw"
                     priority={index === 0}
-                    className="object-contain object-center md:object-right-bottom transition-opacity duration-700 ease-in-out"
+                    className="object-contain object-center md:object-right transition-opacity duration-700 ease-in-out"
                 />
             </div>
 

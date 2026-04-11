@@ -1,13 +1,16 @@
 'use client'
 
 import React from 'react'
-import { ChevronDown, Phone } from 'lucide-react'
+import { ChevronDown, Phone, Menu, Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const UnderTop = () => {
     return (
-        <div className="hidden md:block w-full bg-white border-b border-gray-100 py-4 sm:py-6">
+        <>
+
+
+            <div className="hidden md:block w-full bg-white border-b border-gray-100 py-4 sm:py-6">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4 sm:gap-6">
 
                 {/* Left: Logo */}
@@ -63,6 +66,7 @@ const UnderTop = () => {
 
             </div>
         </div>
+        </>
     )
 }
 

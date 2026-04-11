@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { categoryService, Category } from "@/app/accounts/addCategories/lib/categoryService";
+import { ChevronDown } from 'lucide-react';
 
 // Fallback categories when the backend is unavailable
 const FALLBACK_CATEGORIES: Category[] = [
@@ -43,7 +44,7 @@ const SidebarCategories: React.FC = () => {
 
     if (loading) {
         return (
-            <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:flex flex-col h-full overflow-y-auto scrollbar-hide">
+            <div className="w-full bg-white rounded-bl-md rounded-br-md shadow-sm border border-gray-100 flex-shrink-0 hidden lg:flex flex-col overflow-y-auto scrollbar-hide py-2">
                 <div className="flex flex-col py-2">
                     {[...Array(7)].map((_, i) => (
                         <div key={i} className="px-6 py-3 animate-pulse">
@@ -60,7 +61,7 @@ const SidebarCategories: React.FC = () => {
     }
 
     return (
-        <div className="w-[260px] bg-white rounded-bl-md rounded-br-md shadow-[2px_0_10px_rgba(0,0,0,0.05)] border border-gray-100 flex-shrink-0 hidden lg:flex flex-col h-full overflow-y-auto scrollbar-hide">
+        <div className="w-full bg-white max-h-[500px] rounded-bl-md rounded-br-md shadow-sm xl:shadow-[2px_0_10px_rgba(0,0,0,0.05)] border-0 xl:border border-gray-100 flex-shrink-0 lg:flex flex-col overflow-y-auto scrollbar-hide">
             <div className="flex flex-col">
                 {displayCategories.map((cat) => (
                     <Link
