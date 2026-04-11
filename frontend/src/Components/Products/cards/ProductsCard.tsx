@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '../../../types/products';
+import AddToCartButton from '../../Cart/AddToCartButton';
 
 interface ProductsCardProps {
   product: Product;
@@ -46,7 +47,7 @@ export default function ProductsCard({ product }: ProductsCardProps) {
           )}
         </div>
 
-        <div className="pt-4 flex flex-col flex-grow justify-between bg-white text-left">
+        <div className="pt-4 px-3 flex flex-col flex-grow justify-between bg-white text-left">
           <div>
             <h3 className="font-medium text-[13px] text-gray-900 mb-2 leading-snug">
               {product.title}
@@ -68,14 +69,20 @@ export default function ProductsCard({ product }: ProductsCardProps) {
                 )} */}
               </div>
 
-              <button
-                aria-label="Add to cart"
-                className="w-9 h-9 rounded-xl bg-amber-950 p-2 m-2 flex items-center justify-center shadow-xs z-30 border border-amber-900"
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
               >
-                <svg className="w-4 h-4 text-gray-100" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
-                  <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-                </svg>
-              </button>
+                <AddToCartButton
+                  productId={product.id}
+                  quantity={1}
+                  variant="cart-icon"
+                  productData={product}
+                  className="w-10 h-10 rounded-xl bg-[#111827] text-white hover:bg-black flex justify-center items-center shadow-md active:scale-95"
+                />
+              </div>
             </div>
           </div>
         </div>

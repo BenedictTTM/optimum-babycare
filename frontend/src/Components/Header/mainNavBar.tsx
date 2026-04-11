@@ -131,18 +131,19 @@ export default function MainNavBar() {
                 <span>Home</span>
                 <span className="text-red-500 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/products" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
-                <span>Shop</span>
+              <Link href="/main/orders" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+                <span>Orders</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="#" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
-                <span>Pages</span>
+              <Link href="/main/cart" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+                <span>Cart</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/blog" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
-                <span>Blog</span>
+                <Link href="/profile" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+                <span>Profile</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
+             
               <Link href="/main/contact" className={`text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Contact</span>
               </Link>
@@ -172,7 +173,7 @@ export default function MainNavBar() {
                 href="/profile"
                 aria-label="Account"
                 title="Account"
-                className="w-10 h-10 bg-white  flex items-center justify-center rounded-full hover:bg-gray-50 transition group"
+                className="w-10 h-10 bg-white  flex items-center justify-center rounded-full hover:bg-gray-50 transition group lg:hidden"
               >
                 <User className="w-5 h-5 text-gray-800 group-hover:text-red-500 transition-colors" />
               </Link>
@@ -194,7 +195,7 @@ export default function MainNavBar() {
                     }
                   }}
                   aria-expanded={cartMenuOpen}
-                  className={`w-10 h-10 bg-white  flex items-center justify-center rounded-full transition-all relative group`}
+                  className={`w-10 h-10 bg-white  flex items-center justify-center rounded-full transition-all relative group lg:hidden`}
                 >
                   <ShoppingBag className="w-5 h-5 text-gray-800 group-hover:text-red-500 transition-colors" />
                   {itemCount > 0 && (

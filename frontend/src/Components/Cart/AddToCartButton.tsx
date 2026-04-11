@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { ShoppingCart, Check, Plus } from 'lucide-react';
+import { MdOutlineAddShoppingCart } from 'react-icons/md';
 import { DotLoader } from '@/Components/Loaders';
 import { addToCart } from '@/lib/cart';
 import { addToLocalCart } from '@/lib/localCart';
@@ -11,7 +12,7 @@ import { useCartStore } from '@/store/cartStore';
 interface AddToCartButtonProps {
   productId: number;
   quantity?: number;
-  variant?: 'default' | 'icon' | 'small';
+  variant?: 'default' | 'icon' | 'small' | 'cart-icon';
   className?: string;
   onSuccess?: () => void;
   onError?: (message: string) => void;
@@ -147,7 +148,27 @@ export default function AddToCartButton({
     );
   }
 
-  // 🔹 Small variant
+  // � Cart Icon-only variant
+  if (variant === 'cart-icon') {
+    return (
+      <button
+        onClick={handleAddToCart}
+        disabled={loading || success}
+        className={`flex items-center justify-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+        aria-label="Add to cart"
+      >
+        {loading ? (
+          <DotLoader size={18} ariaLabel="Adding to cart" />
+        ) : success ? (
+          <Check className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
+        ) : (
+          <MdOutlineAddShoppingCart className="h-2 w-3 sm:h-5 sm:w-5" />
+        )}
+      </button>
+    );
+  }
+
+  // �🔹 Small variant
   if (variant === 'small') {
     return (
       <button
