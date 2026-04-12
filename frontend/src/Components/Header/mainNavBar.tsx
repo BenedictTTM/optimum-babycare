@@ -91,13 +91,13 @@ export default function MainNavBar() {
               
               {/* Desktop Category Toggle - rounded pill */}
               <div
-                className="hidden lg:flex items-center justify-between w-[220px] bg-[#FF6B6B] text-white px-4 cursor-pointer rounded-full h-10 md:h-12 relative shadow-sm"
+                className="hidden lg:flex items-center justify-between w-[220px] bg-white text-black px-4 cursor-pointer rounded-full h-12 md:h-12 relative shadow-sm border border-gray-200 hover:shadow-lg transition-all focus-within:ring-2 focus-within:ring-amber-200 ring-1 ring-amber-300/40 hover:ring-amber-400/60 hover:ring-2"
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
                 role="button"
                 aria-expanded={categoriesOpen}
               >
-                <span className="font-bold text-[15px] tracking-wide">All Categories</span>
-                <ChevronDown className={`w-4 h-4 text-white/90 transition-transform duration-300 ${categoriesOpen ? 'rotate-180' : ''}`} />
+                <span className="font-bold text-[15px] tracking-wide text-gray-900">All Categories</span>
+                <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${categoriesOpen ? 'rotate-180' : ''}`} />
 
                 {/* Dropdown Menu */}
                 <AnimatePresence>
