@@ -50,7 +50,7 @@ const CategoryShop = () => {
                 {cat.description || `Explore our ${cat.name} collection featuring exclusive items.`}
             </p>
 
-            <Link href={`/main/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-[#F5A623] hover:bg-[#F5A623] hover:text-white rounded-md transition-colors text-sm tracking-widest uppercase font-bold text-center">
+            <Link href={`/main/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-amber-600 hover:bg-amber-100 rounded-md transition-colors text-sm tracking-widest uppercase font-thin text-center">
                 VIEW COLLECTION
             </Link>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-
+import { BsTags } from "react-icons/bs";
 export interface BlogCardProps {
   id?: string;
   title: string;
@@ -48,7 +48,19 @@ export default function BlogCard({
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           </div>
         )}
-        
+        {tags.length > 0 && (
+            <div className="flex items-center flex-wrap gap-2 px-2">
+              <BsTags className="text-amber-400 w-4 h-4 flex-shrink-0" />
+              {tags.slice(0, 3).map((tag, idx) => (
+                <span key={idx} className=" text-amber-400 text-[10px] uppercase font-semibold tracking-wider px-2 py-1 rounded">
+                  {tag}
+                </span>
+              ))}
+              {tags.length > 3 && (
+                <span className="text-xs text-amber-400 self-center font-medium">+{tags.length - 3}</span>
+              )}
+            </div>
+          )}
         <div className="p-4 flex flex-col flex-grow">
           <div className="flex justify-between items-start gap-4 mb-4">
             <h3 className="text-lg font-bold text-gray-900 line-clamp-2 leading-tight">{title}</h3>
@@ -60,27 +72,16 @@ export default function BlogCard({
           </div>
           
           <div className="flex items-center text-xs text-gray-500 mb-4 space-x-2">
-            <span>{date}</span>
+            <span className="italic">{date}</span>
             <span>&bull;</span>
-            <span className="font-medium text-gray-700">{author}</span>
+            <span className="font-thin text-gray-700">{author}</span>
           </div>
 
-          <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed flex-grow">
+          <p className="text-gray-800 text-sm line-clamp-3 leading-relaxed flex-grow">
             {excerpt}
           </p>
 
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {tags.slice(0, 3).map((tag, idx) => (
-                <span key={idx} className="bg-blue-50 text-blue-600 text-[10px] uppercase font-semibold tracking-wider px-2 py-1 rounded">
-                  {tag}
-                </span>
-              ))}
-              {tags.length > 3 && (
-                <span className="text-xs text-gray-400 self-center">+{tags.length - 3}</span>
-              )}
-            </div>
-          )}
+          
 
           <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
             { !disablePreview && (
