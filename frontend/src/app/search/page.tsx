@@ -228,7 +228,7 @@ export default function SearchPage() {
                     <span>Call Owner</span>
                   </a>
                   <a
-                    href="https://wa.me/233544566921"
+                    href="https://wa.me/233274847107"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-xl hover:bg-[#20bd5a] transition-colors font-medium shadow-sm hover:shadow-md active:scale-95 duration-200"

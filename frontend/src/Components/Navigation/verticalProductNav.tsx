@@ -39,7 +39,7 @@ export default function Sidebar() {
     else if (pathname.includes('/accounts/addCategories')) setActiveItem('Categories');
     else if (pathname.includes('/accounts/customers')) setActiveItem('Customers');
     else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('Admin Feedback');
-    else if (pathname.includes('/accounts/blog') || pathname.includes('/accounts/blogs')) setActiveItem('Blogs');
+    else if (pathname.includes('/accounts/blog') || pathname.includes('/accounts/blog')) setActiveItem('Blogs');
     else if (pathname.includes('/accounts/notifications')) setActiveItem('Notifications');
     else setActiveItem('Dashboard');
   }, [pathname]);
@@ -79,7 +79,7 @@ export default function Sidebar() {
     },
     { icon: Users, label: 'Customers', path: '/accounts/customers' },
     { icon: MessageSquare, label: 'Admin Feedback', path: '/accounts/adminFeedback' },
-    { icon: Activity, label: 'Blogs', path: '/accounts/blogs' },
+    { icon: Activity, label: 'Blogs', path: '/accounts/blog' },
     { icon: Bell, label: 'Notifications', path: '/accounts/notifications' },
   ];
 
