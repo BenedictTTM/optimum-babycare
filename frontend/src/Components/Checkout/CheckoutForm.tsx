@@ -45,7 +45,7 @@ export default function CheckoutForm({
             <p className="text-gray-700 font-medium text-[13px] sm:text-sm md:text-base">{product.title}</p>
             <p className="text-[11px] sm:text-xs md:text-sm text-gray-500 mt-1">Quantity: {quantity}</p>
             {product.stock && product.stock < 10 && (
-              <p className="text-[10px] sm:text-[11px] md:text-xs text-amber-700 mt-1">Only {product.stock} left in stock</p>
+              <p className="text-[10px] sm:text-[11px] md:text-xs text-amber-500 mt-1">Only {product.stock} left in stock</p>
             )}
           </div>
           <span className="font-semibold text-gray-800 text-sm sm:text-base">
@@ -144,7 +144,7 @@ export default function CheckoutForm({
           onClick={onConfirm}
           disabled={isSubmitting}
           className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${
-            isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-700 hover:bg-red-700 text-white'
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-500 hover:bg-red-700 text-white'
           }`}
         >
           {isSubmitting ? (

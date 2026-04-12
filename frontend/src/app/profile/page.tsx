@@ -87,7 +87,7 @@ export default function ProfilePage() {
                 />
               ) : (
                 <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E8D5C4] flex items-center justify-center">
-                  <span className="text-lg sm:text-2xl font-semibold text-amber-700">{initials}</span>
+                  <span className="text-lg sm:text-2xl font-semibold text-amber-500">{initials}</span>
                 </div>
               )}
 
@@ -108,7 +108,7 @@ export default function ProfilePage() {
             {/* Edit Profile Button */}
             <button
               onClick={() => router.push('/profile/edit')}
-              className="w-full sm:w-auto mt-3 sm:mt-0 px-6 text-amber-700 text-sm font-medium rounded-lg hover:text-amber-800 transition-colors"
+              className="w-full sm:w-auto mt-3 sm:mt-0 px-6 text-amber-500 text-sm font-medium rounded-lg hover:text-amber-800 transition-colors"
             >
               Edit Profile
             </button>
@@ -172,7 +172,7 @@ export default function ProfilePage() {
             </p>
             <button
               onClick={() => router.push('/main/products')}
-              className="w-full px-6 py-3 bg-amber-700 text-white text-sm font-medium rounded-lg hover:bg-[#5A4D44] transition-colors"
+              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-[#5A4D44] transition-colors"
             >
               Shop Now
             </button>
@@ -186,7 +186,7 @@ export default function ProfilePage() {
             </p>
             <button
               onClick={() => router.push('/main/orders')}
-              className="w-full px-6 py-3 bg-amber-700 text-white text-sm font-medium rounded-lg hover:bg-[#5A4D44] transition-colors"
+              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-[#5A4D44] transition-colors"
             >
               View Orders
             </button>
@@ -201,7 +201,7 @@ export default function ProfilePage() {
               </p>
               <button
                 onClick={() => router.push('/accounts/addProducts')}
-                className="w-full px-6 py-3 text-amber-700 text-sm font-medium rounded-lg hover:text-amber-800 transition-colors"
+                className="w-full px-6 py-3 text-amber-500 text-sm font-medium rounded-lg hover:text-amber-800 transition-colors"
               >
                 Go to Admin
               </button>

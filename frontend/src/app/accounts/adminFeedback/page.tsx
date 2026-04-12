@@ -139,7 +139,7 @@ export default function AdminFeedbackPage() {
                                             className="w-10 h-10 rounded-full ring-2 ring-gray-100"
                                         />
                                     ) : (
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white text-sm font-semibold shadow-inner">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-amber-500 flex items-center justify-center text-white text-sm font-semibold shadow-inner">
                                             {feedback.user?.username?.[0]?.toUpperCase() || 'U'}
                                         </div>
                                     )}
@@ -204,7 +204,7 @@ export default function AdminFeedbackPage() {
                             {/* Reactions Stats */}
                             <div className="flex items-center gap-4 mb-3 text-xs text-gray-500 border-b border-gray-100 pb-3">
                                 <div className="flex items-center gap-1.5">
-                                    <ThumbsUp size={14} className="text-amber-700" />
+                                    <ThumbsUp size={14} className="text-amber-500" />
                                     <span>{feedback.likedBy.length} likes</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
@@ -232,7 +232,7 @@ export default function AdminFeedbackPage() {
                                     {!isReplying ? (
                                         <button
                                             onClick={() => setReplyingTo(feedback.id)}
-                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-700 text-white text-sm rounded bg-opacity-90 hover:bg-opacity-100 transition-all shadow-sm"
+                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 text-white text-sm rounded bg-opacity-90 hover:bg-opacity-100 transition-all shadow-sm"
                                         >
                                             <MessageSquare size={14} />
                                             Reply
@@ -245,7 +245,7 @@ export default function AdminFeedbackPage() {
                                             <textarea
                                                 value={replyText}
                                                 onChange={(e) => setReplyText(e.target.value)}
-                                                className="w-full border border-gray-300 rounded p-2 mb-2 text-sm focus:ring-1 focus:ring-amber-700 focus:border-transparent outline-none bg-white font-normal"
+                                                className="w-full border border-gray-300 rounded p-2 mb-2 text-sm focus:ring-1 focus:ring-amber-500 focus:border-transparent outline-none bg-white font-normal"
                                                 rows={3}
                                                 placeholder="Write a reply..."
                                             />
@@ -253,7 +253,7 @@ export default function AdminFeedbackPage() {
                                                 <button
                                                     onClick={() => handleReply(feedback.id)}
                                                     disabled={submitting}
-                                                    className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-700 text-white text-sm rounded hover:bg-amber-800 transition-colors disabled:opacity-50 shadow-sm"
+                                                    className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 text-white text-sm rounded hover:bg-amber-800 transition-colors disabled:opacity-50 shadow-sm"
                                                 >
                                                     <Send size={14} />
                                                     {submitting ? 'Sending...' : 'Reply'}

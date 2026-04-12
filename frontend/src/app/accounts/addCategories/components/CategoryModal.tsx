@@ -164,7 +164,7 @@ export default function CategoryModal({
                         </button>
                         <button
                             type="submit"
-                            className="flex-1 rounded-lg bg-amber-700 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex-1 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={isSubmitting}
                         >
                             {isSubmitting ? 'Saving...' : mode === 'add' ? 'Add Category' : 'Save Changes'}

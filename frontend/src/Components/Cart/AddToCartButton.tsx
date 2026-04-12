@@ -142,7 +142,7 @@ export default function AddToCartButton({
         ) : success ? (
           <Check className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
         ) : (
-          <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-amber-700" strokeWidth={1.5} />
+          <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500" strokeWidth={1.5} />
         )}
       </button>
     );
@@ -174,7 +174,7 @@ export default function AddToCartButton({
       <button
         onClick={handleAddToCart}
         disabled={loading || success}
-        className={`${baseStyle} px-5 py-1 text-sm bg-amber-700 ${className}`}
+        className={`${baseStyle} px-5 py-1 text-sm bg-amber-500 ${className}`}
       >
         {loading ? (
           <>
@@ -201,7 +201,7 @@ export default function AddToCartButton({
     <button
       onClick={handleAddToCart}
       disabled={loading || success}
-      className={`${baseStyle} w-full px-6 py-2.5 text-sm sm:text-base bg-amber-700 ${className}`}
+      className={`${baseStyle} w-full px-6 py-2.5 text-sm sm:text-base bg-amber-500 ${className}`}
     >
       {loading ? (
         <>

@@ -366,9 +366,9 @@ interface CartCountResponse {
 ### Colors
 
 - Primary: `bg-amber-500` / `text-amber-500`
-- Hover: `hover:bg-amber-700`
+- Hover: `hover:bg-amber-500`
 - Success: `text-green-600`
-- Error: `text-amber-700` / `bg-red-50`
+- Error: `text-amber-500` / `bg-red-50`
 - Gray scale: `gray-50`, `gray-100`, `gray-300`, `gray-600`, `gray-800`
 
 ### Spacing
@@ -385,7 +385,7 @@ interface CartCountResponse {
 
 ### Buttons
 
-- Primary: `bg-amber-500 hover:bg-amber-700 text-white font-semibold`
+- Primary: `bg-amber-500 hover:bg-amber-500 text-white font-semibold`
 - Icon: `w-10 h-10 rounded`
 - Disabled: `disabled:opacity-50 disabled:cursor-not-allowed`
 

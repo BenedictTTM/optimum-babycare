@@ -23,7 +23,7 @@ export default function SimpleLoader({
 
   return (
     <div 
-      className={`${sizeClass} inline-block animate-spin rounded-full border-amber-700 border-t-transparent`}
+      className={`${sizeClass} inline-block animate-spin rounded-full border-amber-500 border-t-transparent`}
       role="status"
       aria-label={ariaLabel}
     >

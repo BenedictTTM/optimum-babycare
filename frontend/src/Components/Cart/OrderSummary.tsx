@@ -166,7 +166,7 @@ function CheckoutButton({ isAuthenticated, onCheckout }: CheckoutButtonProps) {
     <>
       <button
         onClick={onCheckout}
-        className="w-full bg-amber-500 hover:bg-amber-700 active:bg-red-700 text-white font-semibold py-1.5 sm:py-2 md:py-2.5 rounded-md transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 mb-3 sm:mb-4 text-sm sm:text-base md:text-lg shadow-sm hover:shadow-sm"
+        className="w-full bg-amber-500 hover:bg-amber-500 active:bg-red-700 text-white font-semibold py-1.5 sm:py-2 md:py-2.5 rounded-md transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 mb-3 sm:mb-4 text-sm sm:text-base md:text-lg shadow-sm hover:shadow-sm"
       >
         Proceed to Checkout
         <ArrowRight size={18} className="sm:w-5 sm:h-5" />

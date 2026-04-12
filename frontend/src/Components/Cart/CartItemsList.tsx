@@ -133,7 +133,7 @@ function CartItem({
   return (
     <div
       className={`p-2 sm:p-2.5 md:p-3 ${!isLastItem ? 'border-b border-gray-100' : ''
-        } ${isUpdating ? 'opacity-50 pointer-events-none' : ''} ${isSelected ? 'bg-red-50 border-l-2 border-l-amber-700' : ''
+        } ${isUpdating ? 'opacity-50 pointer-events-none' : ''} ${isSelected ? 'bg-red-50 border-l-2 border-l-amber-500' : ''
         }`}
     >
       <div className="flex gap-1.5 sm:gap-2 min-w-0">
@@ -145,7 +145,7 @@ function CartItem({
               name="cart-item-selection"
               checked={isSelected}
               onChange={onSelect}
-              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700 focus:ring-amber-500 cursor-pointer"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 focus:ring-amber-500 cursor-pointer"
               aria-label={`Select ${product.title}`}
             />
           </div>
@@ -206,7 +206,7 @@ function CartItem({
 
       {/* Selection Indicator */}
       {showSelection && isSelected && (
-        <div className="mt-1.5 flex items-center gap-1.5 text-xs text-amber-700 font-medium">
+        <div className="mt-1.5 flex items-center gap-1.5 text-xs text-amber-500 font-medium">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>

@@ -79,7 +79,7 @@ function ResetPasswordForm() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-50 mb-4">
-              <Lock className="w-6 h-6 text-amber-700" />
+              <Lock className="w-6 h-6 text-amber-500" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Reset Password</h1>
             <p className="text-sm text-gray-500">
@@ -170,7 +170,7 @@ function ResetPasswordForm() {
               </div>
 
               {confirmPassword && !passwordsMatch && (
-                <p className="mt-2 text-xs text-amber-700 flex items-center gap-1">
+                <p className="mt-2 text-xs text-amber-500 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" /> Passwords do not match
                 </p>
               )}
@@ -185,7 +185,7 @@ function ResetPasswordForm() {
             <button
               type="submit"
               disabled={loading || !token || !passwordsMatch || !password || !confirmPassword}
-              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {loading ? 'Resetting password...' : 'Reset Password'}
             </button>
@@ -194,7 +194,7 @@ function ResetPasswordForm() {
           {/* Footer */}
           <p className="text-center text-sm text-gray-600 mt-8">
             Remember your password?{' '}
-            <Link href="/auth/login" className="text-amber-500 hover:text-amber-700 font-medium transition-colors">
+            <Link href="/auth/login" className="text-amber-500 hover:text-amber-500 font-medium transition-colors">
               Sign in
             </Link>
           </p>

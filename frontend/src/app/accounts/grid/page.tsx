@@ -87,7 +87,7 @@ export default function ProductList() {
 
   const getStockStatus = (product: Product) => {
     if (product.isSold || !product.stock || product.stock === 0)
-      return { label: 'Sold Out', color: 'text-amber-700 bg-red-50' };
+      return { label: 'Sold Out', color: 'text-amber-500 bg-red-50' };
     if (product.stock <= 5)
       return { label: 'Low Stock', color: 'text-yellow-600 bg-yellow-50' };
     return { label: 'In Stock', color: 'text-green-600 bg-green-50' };
@@ -337,7 +337,7 @@ export default function ProductList() {
                           </button>
                           <button
                             onClick={() => handleDelete(product)}
-                            className="p-1.5 text-gray-600 hover:text-amber-700 hover:bg-red-50 rounded"
+                            className="p-1.5 text-gray-600 hover:text-amber-500 hover:bg-red-50 rounded"
                             aria-label={`Delete ${product.title}`}
                           >
                             <Trash2 className="w-4 h-4" />

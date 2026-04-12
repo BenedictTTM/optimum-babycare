@@ -188,7 +188,7 @@ export default function OrdersPage() {
           <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-800">My Orders</h1>
           <button
             onClick={() => router.push("/main/products")}
-            className="w-full sm:w-auto px-4 py-2 text-xs sm:text-sm text-amber-700 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="w-full sm:w-auto px-4 py-2 text-xs sm:text-sm text-amber-500 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Continue Shopping
           </button>
@@ -301,18 +301,18 @@ export default function OrdersPage() {
                       href={`tel:${'0554493554'}`}
                       title={order.callNumber || 'Call seller'}
                       aria-label={`Call ${order.callNumber || 'seller'}`}
-                      className="flex-1 inline-flex items-center justify-center gap-2 text-amber-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors"
+                      className="flex-1 inline-flex items-center justify-center gap-2 text-amber-500 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors"
                     >
-                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a2 2 0 011.9 1.37l.7 2.11a2 2 0 01-.45 2.05L8.91 11.09a16.06 16.06 0 007 7l2.51-1.02a2 2 0 012.05-.45l2.11.7A2 2 0 0121 17.72V21a2 2 0 01-2 2A19 19 0 013 5z" />
                       </svg>
-                      <span className="hidden sm:inline text-amber-700 ">Lets Talk</span>
+                      <span className="hidden sm:inline text-amber-500 ">Lets Talk</span>
                     </a>
 
                     {order.paymentStatus === 'UNPAID' && (
                       <button
                         onClick={() => router.push(`/main/orders/${order.id}/pay`)}
-                        className="flex-1 bg-amber-700 hover:bg-amber-800 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs"
+                        className="flex-1 bg-amber-500 hover:bg-amber-800 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs"
                       >
                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />

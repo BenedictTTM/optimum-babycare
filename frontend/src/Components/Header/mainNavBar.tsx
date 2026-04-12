@@ -127,7 +127,7 @@ export default function MainNavBar() {
 
             {/* Center: Navigation Links */}
             <div className="hidden md:flex items-center space-x-10">
-              <Link href="/main" className={`flex items-center space-x-1 text-[15px] font-bold text-red-500 hover:text-red-600 transition-colors ${clashDisplay.className}`}>
+              <Link href="/main/products" className={`flex items-center space-x-1 text-[15px] font-bold text-red-500 hover:text-red-600 transition-colors ${clashDisplay.className}`}>
                 <span>Home</span>
                 <span className="text-red-500 font-medium text-[16px]">+</span>
               </Link>
@@ -151,7 +151,7 @@ export default function MainNavBar() {
             
             {/* Center Logo for Mobile */}
             <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
-            <Link href="/main">
+            <Link href="/main/products">
               <Image
                 src="/logo.png"
                 alt="babylist logo"

@@ -314,7 +314,7 @@ export default function CreateProductPage() {
                       placeholder="Enter product title"
                     />
                     {errors.title && (
-                      <p className="mt-1 text-sm text-amber-700">{errors.title.message}</p>
+                      <p className="mt-1 text-sm text-amber-500">{errors.title.message}</p>
                     )}
                   </div>
 
@@ -330,7 +330,7 @@ export default function CreateProductPage() {
                       placeholder="Describe your product"
                     />
                     {errors.description && (
-                      <p className="mt-1 text-sm text-amber-700">{errors.description.message}</p>
+                      <p className="mt-1 text-sm text-amber-500">{errors.description.message}</p>
                     )}
                   </div>
 
@@ -353,7 +353,7 @@ export default function CreateProductPage() {
                         ))}
                       </select>
                       {errors.category && (
-                        <p className="mt-1 text-sm text-amber-700">{errors.category.message}</p>
+                        <p className="mt-1 text-sm text-amber-500">{errors.category.message}</p>
                       )}
                     </div>
 
@@ -374,7 +374,7 @@ export default function CreateProductPage() {
                         <option value="poor">Poor</option>
                       </select>
                       {errors.condition && (
-                        <p className="mt-1 text-sm text-amber-700">{errors.condition.message}</p>
+                        <p className="mt-1 text-sm text-amber-500">{errors.condition.message}</p>
                       )}
                     </div>
                   </div>
@@ -391,7 +391,7 @@ export default function CreateProductPage() {
                       placeholder="e.g., smartphone, android, samsung (comma separated)"
                     />
                     {errors.tags && (
-                      <p className="mt-1 text-sm text-amber-700">{errors.tags.message}</p>
+                      <p className="mt-1 text-sm text-amber-500">{errors.tags.message}</p>
                     )}
                   </div>
                 </div>
@@ -421,7 +421,7 @@ export default function CreateProductPage() {
                         />
                       </div>
                       {errors.originalPrice && (
-                        <p className="mt-1 text-sm text-amber-700">{errors.originalPrice.message}</p>
+                        <p className="mt-1 text-sm text-amber-500">{errors.originalPrice.message}</p>
                       )}
                     </div>
 
@@ -442,7 +442,7 @@ export default function CreateProductPage() {
                         />
                       </div>
                       {errors.discountedPrice && (
-                        <p className="mt-1 text-sm text-amber-700">{errors.discountedPrice.message}</p>
+                        <p className="mt-1 text-sm text-amber-500">{errors.discountedPrice.message}</p>
                       )}
                     </div>
                   </div>
@@ -450,7 +450,7 @@ export default function CreateProductPage() {
                   {calcDiscount() > 0 && (
                     <div className=" ">
                       <div className="flex items-center">
-                        <div className="text-amber-700 text-sm font-semibold">
+                        <div className="text-amber-500 text-sm font-semibold">
                           <span className='text-gray-700 italic font-thin'>Discount:</span>  {calcDiscount()}% off
                         </div>
                       </div>
@@ -470,7 +470,7 @@ export default function CreateProductPage() {
                       placeholder="Enter stock quantity"
                     />
                     {errors.stock && (
-                      <p className="mt-1 text-sm text-amber-700">{errors.stock.message}</p>
+                      <p className="mt-1 text-sm text-amber-500">{errors.stock.message}</p>
                     )}
                   </div>
                 </div>
@@ -497,7 +497,7 @@ export default function CreateProductPage() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-gray-700">Status</span>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-amber-700 border border-red-200">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-amber-500 border border-red-200">
                         Active
                       </span>
                     </div>
@@ -529,7 +529,7 @@ export default function CreateProductPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
               >
                 {isSubmitting ? 'Publishing...' : 'Add to Product'}
               </button>

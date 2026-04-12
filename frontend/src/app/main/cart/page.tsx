@@ -330,7 +330,7 @@ function ErrorMessage({ error }: { error: string | null }) {
 
   return (
     <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg">
-      <p className="text-amber-700 text-xs sm:text-sm break-words">{error}</p>
+      <p className="text-amber-500 text-xs sm:text-sm break-words">{error}</p>
     </div>
   );
 }

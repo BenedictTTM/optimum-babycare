@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
           <div className="bg-white p-8 space-y-6">
             {/* Header */}
             <div className="text-center space-y-2">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full text-amber-700">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full text-amber-500">
                 <Mail className="w-9 h-9" />
               </div>
               <h1 className="text-2xl font-semibold text-gray-900">Forgot Password</h1>
@@ -117,7 +117,7 @@ export default function ForgotPasswordPage() {
             {/* Footer */}
             <p className="text-center text-sm text-gray-500">
               Remember your password?{' '}
-              <Link href="/auth/login" className="text-amber-500 hover:text-amber-700 font-medium">
+              <Link href="/auth/login" className="text-amber-500 hover:text-amber-500 font-medium">
                 Sign in
               </Link>
             </p>

@@ -52,7 +52,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <button
             onClick={handleBackToHome}
-            className="bg-amber-500 hover:bg-amber-700 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+            className="bg-amber-500 hover:bg-amber-500 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
           >
             Back to Home
           </button>

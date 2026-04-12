@@ -46,14 +46,14 @@ export function ErrorMessage({ message, subText, onRetry }: ErrorMessageProps) {
   return (
     <div className="p-6 max-w-4xl mx-auto text-center">
       <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-        <div className="text-amber-700 font-semibold text-lg mb-2">{message}</div>
+        <div className="text-amber-500 font-semibold text-lg mb-2">{message}</div>
         {subText && (
           <div className="text-amber-500 text-sm mb-4">{subText}</div>
         )}
         {onRetry && (
           <button
             onClick={onRetry}
-            className="px-4 py-2 bg-amber-700 text-white rounded hover:bg-red-700 transition-colors"
+            className="px-4 py-2 bg-amber-500 text-white rounded hover:bg-red-700 transition-colors"
           >
             Try Again
           </button>

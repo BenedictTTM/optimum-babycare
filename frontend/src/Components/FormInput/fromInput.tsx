@@ -27,7 +27,7 @@ export function FormInput({
       />
       <div className="min-h-[1rem]">
         {error && (
-          <p className="text-amber-700 text-xs transition-opacity duration-300 ease-in-out">
+          <p className="text-amber-500 text-xs transition-opacity duration-300 ease-in-out">
             {error}
           </p>
         )}

@@ -156,14 +156,14 @@ export default function Sidebar() {
                   }
                 }}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all ${activeItem === item.label && !item.hasSubmenu
-                  ? 'bg-red-50 text-amber-700'
+                  ? 'bg-red-50 text-amber-500'
                   : 'text-gray-700 hover:bg-white hover:shadow-sm'
                   }`}
               >
                 <div className="flex items-center gap-3">
                   <item.icon
                     className={`w-5 h-5 ${activeItem === item.label && !item.hasSubmenu
-                      ? 'text-amber-700'
+                      ? 'text-amber-500'
                       : 'text-gray-600'
                       }`}
                   />
@@ -188,12 +188,12 @@ export default function Sidebar() {
                         setIsMobileOpen(false);
                       }}
                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${activeItem === subItem.label
-                        ? 'bg-red-50 text-amber-700 font-medium'
+                        ? 'bg-red-50 text-amber-500 font-medium'
                         : 'text-gray-600 hover:bg-white hover:text-gray-900'
                         }`}
                     >
                       <subItem.icon
-                        className={`w-4 h-4 ${activeItem === subItem.label ? 'text-amber-700' : 'text-gray-500'
+                        className={`w-4 h-4 ${activeItem === subItem.label ? 'text-amber-500' : 'text-gray-500'
                           }`}
                       />
                       <span>{subItem.label}</span>
@@ -214,12 +214,12 @@ export default function Sidebar() {
               setIsMobileOpen(false);
             }}
             className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${activeItem === 'Settings'
-              ? 'bg-red-50 text-amber-700'
+              ? 'bg-red-50 text-amber-500'
               : 'text-gray-700 hover:bg-white hover:shadow-sm'
               }`}
           >
             <Settings
-              className={`w-5 h-5 ${activeItem === 'Settings' ? 'text-amber-700' : 'text-gray-600'
+              className={`w-5 h-5 ${activeItem === 'Settings' ? 'text-amber-500' : 'text-gray-600'
                 }`}
             />
             <span>Settings</span>
@@ -227,7 +227,7 @@ export default function Sidebar() {
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-white hover:text-amber-700 hover:shadow-sm transition-all"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-white hover:text-amber-500 hover:shadow-sm transition-all"
           >
             <LogOut className="w-5 h-5 text-gray-600" />
             <span>Logout</span>

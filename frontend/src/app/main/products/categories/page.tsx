@@ -58,7 +58,7 @@ export default function CategoryPage() {
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <h2 className="text-2xl font-bold text-gray-800">No Category Selected</h2>
         <p className="mt-2 text-gray-600">Please select a category to view.</p>
-        <Link href="/main/products" className="mt-6 rounded-lg bg-amber-500 px-6 py-2 text-white hover:bg-amber-700">
+        <Link href="/main/products" className="mt-6 rounded-lg bg-amber-500 px-6 py-2 text-white hover:bg-amber-500">
           Back to Products
         </Link>
       </div>

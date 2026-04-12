@@ -22,7 +22,7 @@ export default function EmptyCartState() {
       {/* Continue Shopping Button */}
       <Link
         href="/main/products"
-        className="inline-flex items-center justify-center gap-2 bg-amber-700 hover:bg-red-700 active:bg-red-800 text-white font-semibold px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg text-xs sm:text-sm md:text-base w-full sm:w-auto"
+        className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-red-700 active:bg-red-800 text-white font-semibold px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg text-xs sm:text-sm md:text-base w-full sm:w-auto"
       >
         Continue Shopping
       </Link>

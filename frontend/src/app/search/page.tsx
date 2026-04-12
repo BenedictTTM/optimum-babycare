@@ -221,7 +221,7 @@ export default function SearchPage() {
 
                 <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md justify-center px-4">
                   <a
-                    href="tel:+233544566921"
+                    href="tel:+233274847107"
                     className="flex items-center justify-center gap-2 px-6 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition-colors font-medium shadow-sm hover:shadow-md active:scale-95 duration-200"
                   >
                     <Phone className="w-5 h-5" />

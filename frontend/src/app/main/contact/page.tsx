@@ -69,7 +69,7 @@ export default function ContactPage() {
               href={`https://wa.me/${normalizeWhatsAppNumber(PHONE_NUMBER)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-amber-500 hover:bg-amber-700 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-2 sm:py-3 rounded-md text-sm sm:text-sm font-medium transition-colors"
+              className="bg-amber-500 hover:bg-amber-500 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-2 sm:py-3 rounded-md text-sm sm:text-sm font-medium transition-colors"
             >
               Chat Now
             </a>
@@ -144,7 +144,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={!isValid || submitted}
-              className="bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-700 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-3 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
+              className="bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-500 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-3 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
             >
               {submitted ? 'Message Sent!' : 'Send Message'}
             </button>

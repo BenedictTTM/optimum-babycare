@@ -116,7 +116,7 @@ export default function SettingsPage() {
                                         placeholder="e.g. University of Ghana this is your plug"
                                     />
                                     {errors.topic && (
-                                        <p className="mt-1 text-sm text-amber-700">{errors.topic.message}</p>
+                                        <p className="mt-1 text-sm text-amber-500">{errors.topic.message}</p>
                                     )}
                                 </div>
 
@@ -132,7 +132,7 @@ export default function SettingsPage() {
                                         placeholder="e.g. +233 55 555 5555"
                                     />
                                     {errors.callNumber && (
-                                        <p className="mt-1 text-sm text-amber-700">{errors.callNumber.message}</p>
+                                        <p className="mt-1 text-sm text-amber-500">{errors.callNumber.message}</p>
                                     )}
                                 </div>
 
@@ -148,7 +148,7 @@ export default function SettingsPage() {
                                         placeholder="e.g. Instant deliveries!"
                                     />
                                     {errors.discountPercentage && (
-                                        <p className="mt-1 text-sm text-amber-700">{errors.discountPercentage.message}</p>
+                                        <p className="mt-1 text-sm text-amber-500">{errors.discountPercentage.message}</p>
                                     )}
                                 </div>
 
@@ -179,7 +179,7 @@ export default function SettingsPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
                             >
                                 {isSubmitting ? 'Saving...' : 'Save Changes'}
                             </button>

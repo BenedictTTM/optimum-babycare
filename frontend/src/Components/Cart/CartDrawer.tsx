@@ -202,7 +202,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <Link
                   href="/main/cart"
                   onClick={onClose}
-                  className="block w-full bg-amber-500 hover:bg-amber-700 text-white font-semibold py-3 rounded-lg text-center transition-colors"
+                  className="block w-full bg-amber-500 hover:bg-amber-500 text-white font-semibold py-3 rounded-lg text-center transition-colors"
                 >
                   View Full Cart
                 </Link>

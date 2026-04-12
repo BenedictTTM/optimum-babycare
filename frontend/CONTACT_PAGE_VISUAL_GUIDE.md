@@ -74,7 +74,7 @@
 
 ### 1. **Header Section**
 
-- **Background:** Gradient from amber-500 to amber-700
+- **Background:** Gradient from amber-500 to amber-500
 - **Text:** White, centered
 - **Title:** "Let's Talk" (4xl - 6xl responsive)
 - **Subtitle:** Descriptive text in red-100
@@ -432,11 +432,11 @@ Tab Order:
 ```typescript
 // Replace all instances of:
 amber-500 → blue-500
-amber-700 → blue-600
+amber-500 → blue-600
 red-100 → blue-100
 
 // Example:
-className="bg-amber-500 hover:bg-amber-700"
+className="bg-amber-500 hover:bg-amber-500"
 // becomes:
 className="bg-blue-500 hover:bg-blue-600"
 ```
@@ -444,7 +444,7 @@ className="bg-blue-500 hover:bg-blue-600"
 ### Add Company Logo
 
 ```typescript
-<div className="bg-gradient-to-r from-amber-500 to-amber-700 text-white py-16">
+<div className="bg-gradient-to-r from-amber-500 to-amber-500 text-white py-16">
   <div className="container mx-auto px-4 text-center">
     <img src="/logo.png" alt="Company Logo" className="h-16 mx-auto mb-6" />
     <h1 className="text-5xl font-bold mb-4">Let's Talk</h1>

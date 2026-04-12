@@ -422,7 +422,7 @@ Update Tailwind classes to match your brand:
 
 ```typescript
 // Replace amber-500 with your primary color
-className = "bg-amber-500 hover:bg-amber-700";
+className = "bg-amber-500 hover:bg-amber-500";
 // to
 className = "bg-blue-500 hover:bg-blue-600";
 ```

@@ -126,7 +126,7 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
           onClick={onConfirm}
           disabled={isSubmitting}
           className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${
-            isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-700 hover:bg-red-700 text-white'
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-500 hover:bg-red-700 text-white'
           }`}
         >
           {isSubmitting ? (
