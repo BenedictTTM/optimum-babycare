@@ -24,7 +24,7 @@ export default function MainNavBar() {
   const [categoriesOpen, setCategoriesOpen] = React.useState(false); // State for dropdown
   const { itemCount, shouldPulse } = useCartCount();
   const { orderCount, fetchOrderCount } = useOrderStore();
-  const { user } = useUserStore();
+  const { user, fetchUser } = useUserStore();
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const categoriesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -32,6 +32,15 @@ export default function MainNavBar() {
     // Initial fetch optimized via Zustand
     fetchOrderCount();
   }, [fetchOrderCount]);
+
+  // Hydrate user on mount — only when actually logged in (token present).
+  // Zustand already deduplicates: if another component fetched the user first,
+  // the cached value is returned and no extra network request is made.
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem('token')) {
+      fetchUser();
+    }
+  }, [fetchUser]);
 
   const openCartMenu = () => {
     if (closeTimeoutRef.current) {

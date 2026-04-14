@@ -27,6 +27,11 @@ export const useUserStore = create<UserState>((set) => ({
     setUser: (user) => set({ user }),
 
     fetchUser: async () => {
+        // Skip if already loaded — prevents duplicate /auth/me calls
+        // when multiple components (Navbar + Sidebar) call this simultaneously.
+        const { user, isLoading } = useUserStore.getState();
+        if (user || isLoading) return;
+
         set({ isLoading: true, error: null });
         try {
             const response = await apiClient.get('/auth/me');
