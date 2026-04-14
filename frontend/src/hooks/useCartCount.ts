@@ -80,14 +80,10 @@ export function useCartCount(options?: {
     refreshCount();
   }, [refreshCount]);
 
-  // Set up polling for automatic updates
+  // Initial fetch on mount
   useEffect(() => {
-    if (pollInterval <= 0) return;
-
-    const interval = setInterval(refreshCount, pollInterval);
-    
-    return () => clearInterval(interval);
-  }, [pollInterval, refreshCount]);
+    refreshCount();
+  }, [refreshCount]);
 
   // Trigger pulse animation when count increases
   useEffect(() => {

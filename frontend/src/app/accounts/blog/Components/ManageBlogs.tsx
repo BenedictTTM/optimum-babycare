@@ -100,7 +100,7 @@ export default function ManageBlogs() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
                 <div>
                     <h1 className="text-3xl font-bold text-[#222222] tracking-tight">Manage Blogs</h1>
-                    <p className="text-[#6b6b6b] mt-1">Review, edit, and publish your stories.</p>
+                    <p className="text-amber-800 mt-1">Review, edit, and publish your stories.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <button 

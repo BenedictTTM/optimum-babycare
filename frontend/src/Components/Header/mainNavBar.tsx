@@ -9,7 +9,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SearchComponent from './searchComponent';
 import SidebarCategories from '../Products/layouts/SidebarCategories';
-
+import { fetchMyOrders } from '@/lib/orders';
+import { useOrderStore } from '@/store/orderStore';
+import { useUserStore } from '@/store/userStore';
 
 const inter = Inter({ subsets: ['latin'] });
 const clashDisplay = Montserrat({ subsets: ['latin'], weight: '700' });
@@ -21,7 +23,15 @@ export default function MainNavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [categoriesOpen, setCategoriesOpen] = React.useState(false); // State for dropdown
   const { itemCount, shouldPulse } = useCartCount();
+  const { orderCount, fetchOrderCount } = useOrderStore();
+  const { user } = useUserStore();
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const categoriesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    // Initial fetch optimized via Zustand
+    fetchOrderCount();
+  }, [fetchOrderCount]);
 
   const openCartMenu = () => {
     if (closeTimeoutRef.current) {
@@ -39,11 +49,31 @@ export default function MainNavBar() {
     }, delay);
   };
 
+  const openCategories = () => {
+    if (categoriesTimeoutRef.current) {
+      clearTimeout(categoriesTimeoutRef.current);
+      categoriesTimeoutRef.current = null;
+    }
+    setCategoriesOpen(true);
+  };
+
+  const scheduleCloseCategories = (delay = 200) => {
+    if (categoriesTimeoutRef.current) clearTimeout(categoriesTimeoutRef.current);
+    categoriesTimeoutRef.current = setTimeout(() => {
+      setCategoriesOpen(false);
+      categoriesTimeoutRef.current = null;
+    }, delay);
+  };
+
   React.useEffect(() => {
     return () => {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
         closeTimeoutRef.current = null;
+      }
+      if (categoriesTimeoutRef.current) {
+        clearTimeout(categoriesTimeoutRef.current);
+        categoriesTimeoutRef.current = null;
       }
     };
   }, []);
@@ -93,6 +123,8 @@ export default function MainNavBar() {
               <div
                 className="hidden lg:flex items-center justify-between w-[220px] bg-white text-black px-4 cursor-pointer rounded-full h-12 md:h-12 relative shadow-sm border border-gray-200 hover:shadow-lg transition-all focus-within:ring-2 focus-within:ring-amber-200 ring-1 ring-amber-300/40 hover:ring-amber-400/60 hover:ring-2"
                 onClick={() => setCategoriesOpen(!categoriesOpen)}
+                onMouseEnter={openCategories}
+                onMouseLeave={() => scheduleCloseCategories()}
                 role="button"
                 aria-expanded={categoriesOpen}
               >
@@ -133,11 +165,19 @@ export default function MainNavBar() {
               </Link>
               <Link href="/main/orders" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Orders</span>
-                <span className="text-gray-400 font-medium text-[16px]">+</span>
+                {orderCount > 0 ? (
+                  <span className="flex items-center justify-center bg-red-500 text-white text-[10px] w-5 h-5 rounded-full font-bold shadow-sm">{orderCount > 99 ? '99+' : orderCount}</span>
+                ) : (
+                  <span className="text-gray-400 font-medium text-[16px]">+</span>
+                )}
               </Link>
               <Link href="/main/cart" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Cart</span>
-                <span className="text-gray-400 font-medium text-[16px]">+</span>
+                {itemCount > 0 ? (
+                  <span className="flex items-center justify-center bg-red-500 text-white text-[10px] w-5 h-5 rounded-full font-bold shadow-sm">{itemCount > 99 ? '99+' : itemCount}</span>
+                ) : (
+                  <span className="text-gray-400 font-medium text-[16px]">+</span>
+                )}
               </Link>
                 <Link href="/profile" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Profile</span>
@@ -165,7 +205,28 @@ export default function MainNavBar() {
 
             {/* Right: navigation and cart + user */}
             <div className="flex items-center justify-end space-x-3 sm:space-x-4">
-              <div className="hidden md:block">
+              {/* Desktop User Greeting (Right Side, replaces Search on lg) */}
+              <div className="hidden lg:flex items-center space-x-2 mr-2 cursor-pointer hover:bg-gray-50 rounded-full px-2 py-1 transition-colors" onClick={() => window.location.href='/profile'}>
+                <div className="relative">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  </svg>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="absolute top-0 left-0 hover:scale-105 transition-transform">
+                    <circle cx="12" cy="7" r="4" fill="#ebe720ff" />
+                  </svg>
+                  <div className="absolute -bottom-1 -right-1 bg-gray-800 rounded-full flex items-center justify-center border-2 border-white w-[14px] h-[14px]">
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                </div>
+                <span className={`font-semibold text-gray-800 text-[18px] tracking-tight whitespace-nowrap ${inter.className}`}>
+                  Hi, {user?.firstName || 'Guest'}
+                </span>
+              </div>
+
+              {/* Search visible on medium screens, hidden on lg */}
+              <div className="hidden md:block lg:hidden">
                 <SearchComponent />
               </div>
 

@@ -14,13 +14,13 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
       <div
         className={`inline-flex items-center gap-2 sm:gap-2.5 rounded-md px-3 py-1.5 sm:px-3.5 sm:py-2 border text-xs sm:text-sm font-medium ${
           inStock
-            ? "border-green-100 bg-green-50 text-green-700"
+            ? "border-amber-100 bg-black text-amber-700"
             : "border-red-200 bg-red-50 text-red-700"
         }`}
       >
         {inStock ? (
           <>
-            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+            <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
             <span>In Stock</span>
           </>
         ) : (

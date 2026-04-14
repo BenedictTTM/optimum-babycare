@@ -8,12 +8,16 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { AddToCartDto, UpdateCartItemDto, MergeCartDto } from './dto';
+import { MailService } from '../services/mail/mail.service';
 
 @Injectable()
 export class CartService {
   private readonly logger = new Logger(CartService.name);
 
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mailService: MailService
+  ) { }
 
   async addToCart(userId: number, addToCartDto: AddToCartDto) {
     const { productId, quantity } = addToCartDto;
@@ -84,6 +88,26 @@ export class CartService {
           },
         });
       });
+
+      // Fetch user to send CartAdded email asynchronously
+      this.prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, firstName: true }
+      }).then(user => {
+        if (user && user.email) {
+          const frontendBase = process.env.FRONTEND_URL || 'http://localhost:3000';
+          const normalizedBase = frontendBase.endsWith('/') ? frontendBase.slice(0, -1) : frontendBase;
+          this.mailService.sendMail({
+            to: user.email,
+            template: 'CartAdded',
+            data: {
+              name: user.firstName || 'Customer',
+              productName: product.title,
+              cartUrl: `${normalizedBase}/cart`
+            }
+          }).catch(err => this.logger.error('Failed to send CartAdded email', err));
+        }
+      }).catch(err => this.logger.error('Error fetching user for cart email', err));
 
       return this.formatCartResponse(result);
     } catch (error) {

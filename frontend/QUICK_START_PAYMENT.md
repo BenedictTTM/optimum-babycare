@@ -95,7 +95,7 @@ export default function OrderDetailsPage({ order }) {
       {/* Error Display */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <p className="text-red-800 text-sm">{error}</p>
+          <p className="text-amber-800 text-sm">{error}</p>
           <button
             onClick={reset}
             className="text-red-600 text-sm font-medium mt-2"

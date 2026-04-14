@@ -5,6 +5,7 @@ import OrdersLoading from './loading';
 import { useRouter, usePathname } from "next/navigation";
 import { fetchMyOrders } from "../../../lib/orders";
 import NoOrders from '../../../Components/Order/NoOder';
+import { useOrderStore } from '@/store/orderStore';
 interface OrderItem {
   id: number;
   productId: number;
@@ -81,7 +82,10 @@ export default function OrdersPage() {
       }
 
       if (result.success) {
-        setOrders(result.data || []);
+        const fetchedOrders = result.data || [];
+        setOrders(fetchedOrders);
+        // Explicitly sync the global store with the actual returned list
+        useOrderStore.getState().setOrderCount(fetchedOrders.length);
       } else {
         setError(result.message || "Failed to load orders");
       }
@@ -162,6 +166,7 @@ export default function OrdersPage() {
       if (result.success) {
         // Optimistically remove or reload
         setOrders(prev => prev.filter(o => o.id !== orderId));
+        useOrderStore.getState().decrementCount();
       } else {
         alert(result.message || 'Failed to cancel order');
       }
@@ -324,7 +329,7 @@ export default function OrdersPage() {
                     {order.status === 'PENDING' && (
                       <button
                         onClick={() => handleCancelOrder(order.id)}
-                        className="px-4 py-2 text-red-600 hover:text-red-800 text-sm font-medium transition-colors"
+                        className="px-4 py-2 text-red-600 hover:text-amber-800 text-sm font-medium transition-colors"
                       >
                         Cancel Order
                       </button>

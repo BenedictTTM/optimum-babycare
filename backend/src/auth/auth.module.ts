@@ -15,7 +15,7 @@ import { LogoutService } from './services/logout.service';
 import { OAuthService } from './services/oauth.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PasswordResetService } from './services/passwordReset.service';
-import { EmailModule } from '../email/email.module';
+import { MailModule } from '../services/mail/mail.module';
 import { GoogleStrategy } from './strategies/google.strategy';
 
 
@@ -23,7 +23,7 @@ import { GoogleStrategy } from './strategies/google.strategy';
   imports: [
     PrismaModule,
     ConfigModule,
-    EmailModule,
+    MailModule,
     PassportModule.register({
       defaultStrategy: 'jwt',
       session: false, // Stateless authentication

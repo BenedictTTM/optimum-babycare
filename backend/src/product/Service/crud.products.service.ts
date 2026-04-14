@@ -121,10 +121,6 @@ export class CrudService {
       throw new NotFoundException(`Product with ID ${productId} not found`);
     }
 
-    if (product.userId !== userId) {
-      throw new ForbiddenException('You can only update your own products');
-    }
-
 
     try {
       const updated = await (this.prisma as any).product.update({

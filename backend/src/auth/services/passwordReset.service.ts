@@ -2,13 +2,15 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { PrismaService } from '../../prisma/prisma.service';
 import * as crypto from 'crypto';
 import * as argon2 from 'argon2';
-import { EmailService } from '../../email/email.service';
+import { MailService } from '../../services/mail/mail.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PasswordResetService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly emailService: EmailService,
+    private readonly mailService: MailService,
+    private readonly configService: ConfigService,
   ) { }
 
   async requestPasswordReset(email: string): Promise<{ message: string; resetToken?: string }> {
@@ -33,7 +35,15 @@ export class PasswordResetService {
         }
       });
 
-      await this.emailService.sendPasswordResetEmail(user.email, resetToken);
+      const frontendBase = this.configService.get<string>('FRONTEND_URL') ?? 'http://localhost:3000';
+      const normalizedBase = frontendBase.endsWith('/') ? frontendBase.slice(0, -1) : frontendBase;
+      const resetUrl = `${normalizedBase}/main/reset-password?token=${resetToken}`;
+
+      await this.mailService.sendMail({
+        to: user.email,
+        template: 'ResetPassword',
+        data: { resetUrl }
+      });
 
       return {
         message: 'Password reset link has been sent to your email',

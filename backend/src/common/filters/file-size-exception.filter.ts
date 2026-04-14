@@ -49,6 +49,15 @@ export class FileSizeExceptionFilter implements ExceptionFilter {
       return response.status(status).json(resBody);
     }
 
+    if (exception instanceof Error && exception.message && exception.message.includes('Not allowed by CORS')) {
+      return response.status(HttpStatus.FORBIDDEN).json({
+        statusCode: HttpStatus.FORBIDDEN,
+        error: 'Forbidden',
+        message: 'CORS policy does not allow access from this origin',
+        path: request.url,
+      });
+    }
+
     // Not an HttpException: default internal server error
     console.error('Non-http exception caught by FileSizeExceptionFilter:', exception);
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

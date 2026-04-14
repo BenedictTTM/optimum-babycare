@@ -287,7 +287,7 @@ export default function CreateProductPage() {
           <div className="flex items-center justify-between mb-2">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Add Product</h1>
-              <p className="text-sm text-red-800 mt-1">Create a new product listing for your store</p>
+              <p className="text-sm text-amber-800 mt-1">Create a new product listing for your store</p>
             </div>
           </div>
         </div>

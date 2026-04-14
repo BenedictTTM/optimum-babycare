@@ -69,9 +69,16 @@ const SidebarCategories: React.FC = () => {
                         href={`/main/products/categories?category=${cat.id}`}
                         className="group flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors"
                     >
-                        <span className="text-[15px] font-medium text-gray-800 group-hover:text-[#f59e0b] transition-colors">
-                            {cat.name}
-                        </span>
+                        <div className="flex items-center gap-3">
+                            <span className="text-[15px] font-medium text-gray-800 group-hover:text-[#f59e0b] transition-colors">
+                                {cat.name}
+                            </span>
+                            {cat._count?.products !== undefined && (
+                                <span className="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded-full group-hover:bg-amber-100 group-hover:text-amber-600 transition-colors">
+                                    {cat._count.products}
+                                </span>
+                            )}
+                        </div>
                         <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#f59e0b] transition-colors" />
                     </Link>
                 ))}

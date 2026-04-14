@@ -16,6 +16,7 @@ import {
 import { AuthService } from '@/lib/auth';
 import { Cart, CartItem } from '@/types/cart';
 import { CartItemsList, OrderSummary, DisplayCartItem, EmptyState as EmptyCartState, CartHeader } from '@/Components/Cart';
+import { useCartStore } from '@/store/cartStore';
 
 
 export default function ShoppingCart() {
@@ -143,6 +144,9 @@ export default function ShoppingCart() {
       next.delete(itemId);
       return next;
     });
+
+    // Update global cart store immediately
+    useCartStore.getState().fetchItemCount();
   };
 
   const handleRemoveItem = async (itemId: number | string, productId: number) => {
@@ -193,6 +197,9 @@ export default function ShoppingCart() {
       next.delete(itemId);
       return next;
     });
+
+    // Update global cart store immediately
+    useCartStore.getState().fetchItemCount();
   };
 
   const handleCheckout = async () => {
@@ -311,7 +318,7 @@ function AuthStatusBanner({ isAuthenticated }: { isAuthenticated: boolean | null
 
   return (
     <div className="mb-3 sm:mb-4 p-3 sm:py-2  ">
-      <p className="text-red-800 text-xs">
+      <p className="text-amber-800 text-xs">
         Browsing as a guest.{' '}
         <Link href="/auth/login" className="font-semibold underline hover:text-red-900">
           Sign in

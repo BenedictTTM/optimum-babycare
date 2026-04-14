@@ -200,7 +200,7 @@ export default function ProductList() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-3">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Product List</h1>
-          <p className="text-sm text-red-900 mt-1">
+          <p className="text-sm text-amber-800 mt-1">
             Track stock levels, availability, and restocking needs in real time.
           </p>
         </div>
@@ -252,17 +252,18 @@ export default function ProductList() {
             <table className="min-w-full">
               <thead className="bg-gray-50">
                 <tr className="border-b border-gray-200">
-                  <th className="px-4 sm:px-6 py-3">
+                  <th className="px-4 sm:px-6 py-2.5">
                     <input
                       type="checkbox"
                       checked={selectedProducts.length === products.length && products.length > 0}
                       onChange={toggleSelectAll}
-                      className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black"
+                      className="w-3.5 h-3.5 rounded border-gray-300 text-black focus:ring-black"
                       aria-label="Select all products"
                     />
                   </th>
                   {[
                     'Product ID',
+                    'Image',
                     'Name',
                     'Category',
                     'Price',
@@ -272,7 +273,7 @@ export default function ProductList() {
                   ].map((heading) => (
                     <th
                       key={heading}
-                      className="px-4 sm:px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap"
+                      className="px-4 sm:px-6 py-2.5 text-left text-[11px] font-semibold text-gray-600 uppercase tracking-wider whitespace-nowrap"
                     >
                       {heading}
                     </th>
@@ -289,58 +290,73 @@ export default function ProductList() {
 
                   return (
                     <tr key={product.id} className="hover:bg-gray-50 transition">
-                      <td className="px-4 sm:px-6 py-4">
+                      <td className="px-4 sm:px-6 py-3">
                         <input
                           type="checkbox"
                           checked={selectedProducts.includes(product.id)}
                           onChange={() => toggleSelect(product.id)}
-                          className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black"
+                          className="w-3.5 h-3.5 rounded border-gray-300 text-black focus:ring-black"
                           aria-label={`Select product ${product.title}`}
                         />
                       </td>
-                      <td className="px-4 sm:px-6 py-4 text-sm font-medium text-gray-900">
+                      <td className="px-4 sm:px-6 py-3 text-xs font-medium text-gray-900">
                         #{product.id}
                       </td>
-                      <td className="px-4 sm:px-6 py-4 text-sm text-gray-800">{product.title}</td>
-                      <td className="px-4 sm:px-6 py-4 text-sm text-gray-600">
+                      <td className="px-4 sm:px-6 py-3">
+                        <div className="w-10 h-10 shrink-0">
+                          {product.images?.[0] || product.imageUrl?.[0] ? (
+                            <img
+                              src={product.images?.[0] || product.imageUrl?.[0]}
+                              alt={product.title}
+                              className="w-10 h-10 object-cover rounded"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-100 rounded flex items-center justify-center text-[10px] text-gray-400">
+                              -
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 sm:px-6 py-3 text-xs text-gray-800">{product.title}</td>
+                      <td className="px-4 sm:px-6 py-3 text-xs text-gray-600">
                         {product.category || 'Uncategorized'}
                       </td>
-                      <td className="px-4 sm:px-6 py-4 text-sm">
+                      <td className="px-4 sm:px-6 py-3 text-xs">
                         <span className="font-medium text-gray-900">
                           {formatGhs(product.discountedPrice)}
                         </span>
                         {discountPercent > 0 && (
-                          <span className="text-xs text-gray-400 line-through ml-1">
+                          <span className="text-[10px] text-gray-400 line-through ml-1">
                             {formatGhs(product.originalPrice)}
                           </span>
                         )}
                       </td>
-                      <td className="px-4 sm:px-6 py-4 text-sm text-gray-900">
+                      <td className="px-4 sm:px-6 py-3 text-xs text-gray-900">
                         {product.views || 0}
                       </td>
-                      <td className="px-4 sm:px-6 py-4">
+                      <td className="px-4 sm:px-6 py-3 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${stockStatus.color}`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium whitespace-nowrap ${stockStatus.color}`}
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                          <span className="w-1 h-1 rounded-full bg-current shrink-0"></span>
                           {stockStatus.label}
                         </span>
                       </td>
-                      <td className="px-4 sm:px-6 py-4">
+                      <td className="px-4 sm:px-6 py-3">
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleEdit(product)}
-                            className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded"
+                            className="p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded"
                             aria-label={`Edit ${product.title}`}
                           >
-                            <Edit2 className="w-4 h-4" />
+                            <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(product)}
-                            className="p-1.5 text-gray-600 hover:text-amber-500 hover:bg-red-50 rounded"
+                            className="p-1 text-gray-600 hover:text-amber-500 hover:bg-red-50 rounded"
                             aria-label={`Delete ${product.title}`}
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </td>

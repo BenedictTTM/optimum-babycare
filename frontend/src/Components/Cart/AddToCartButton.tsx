@@ -8,6 +8,7 @@ import { DotLoader } from '@/Components/Loaders';
 import { addToCart } from '@/lib/cart';
 import { addToLocalCart } from '@/lib/localCart';
 import { useCartStore } from '@/store/cartStore';
+import { useToast } from '@/Components/Toast/toast';
 
 interface AddToCartButtonProps {
   productId: number;
@@ -44,77 +45,62 @@ export default function AddToCartButton({
   const fetchItemCount = useCartStore((state) => state.fetchItemCount);
   const incrementCount = useCartStore((state) => state.incrementCount);
   const rollbackCountRef = useRef<number | null>(null);
+  const { showSuccess, showError } = useToast();
 
   const handleAddToCart = async () => {
-    // Prevent spamming while success feedback is shown
-    if (loading || success) return;
+    // Prevent duplicate spamming while optimistic state is visible
+    if (success) return;
 
-    // Optimistic UI: show success immediately and bump count
+    // 1. Optimistic Update: Update UI & Global State Immediately
     const prevCount = useCartStore.getState().itemCount;
-    rollbackCountRef.current = prevCount;
     incrementCount(quantity);
     setSuccess(true);
-    setLoading(true);
+
+    // Show success toast
+    const productName = productData?.name || 'Product';
+    showSuccess(`${productName} added to cart`, {
+      description: quantity > 1 ? `${quantity} items added` : undefined,
+    });
+
+    // Auto-revert the success icon/text after 2 seconds for a seamless loop
+    const successTimeout = setTimeout(() => setSuccess(false), 2000);
 
     const idempotencyKey = (globalThis as any)?.crypto?.randomUUID
       ? (globalThis as any).crypto.randomUUID()
       : `${Date.now()}-${productId}-${Math.random().toString(36).slice(2)}`;
 
-    // Fire-and-reconcile in background
+    // 2. Background Async Request (Fire and Reconcile)
     try {
-      console.log('🟢 Optimistic add to cart, processing in background...');
       const result = await addToCart(productId, quantity, { idempotencyKey });
 
       if (result.success) {
-        // Reconcile exact count from server
-        await fetchItemCount();
+        // Success: silently verify real server count in background
+        fetchItemCount();
         onSuccess?.();
       } else if (result.statusCode === 401) {
-        // Not authenticated → persist locally and reconcile count from local
-        console.log('📦 User not authenticated, adding to local cart');
-        if (!productData) {
-          console.error('❌ Product data is required for anonymous cart');
-          // Rollback optimistic count on hard failure
-          if (rollbackCountRef.current !== null) {
-            useCartStore.getState().setItemCount(rollbackCountRef.current);
-          }
-          setSuccess(false);
-          onError?.('Product data is required');
-          return;
-        }
+        // Anonymous fallback
+        if (!productData) throw new Error('Product data is required for local cart');
         addToLocalCart(productData, quantity);
-        await fetchItemCount();
+        fetchItemCount();
         onSuccess?.();
       } else {
-        console.error('❌ Add to cart failed:', result.message);
-        // Roll back optimistic increment on real failure
-        if (rollbackCountRef.current !== null) {
-          useCartStore.getState().setItemCount(rollbackCountRef.current);
-        }
-        setSuccess(false);
-        onError?.(result.message || 'Failed to add to cart');
+        throw new Error(result.message || 'Failed to add to remote cart');
       }
     } catch (error: any) {
-      console.error('❌ Add to cart error:', error);
-      // Offline/network error: persist locally if possible, keep optimistic success
-      if (productData) {
-        addToLocalCart(productData, quantity);
-        await fetchItemCount();
-        onSuccess?.();
-      } else {
-        // No product data to save locally → rollback and surface error
-        if (rollbackCountRef.current !== null) {
-          useCartStore.getState().setItemCount(rollbackCountRef.current);
-        }
-        setSuccess(false);
-        onError?.(error?.message || 'Failed to add to cart');
-      }
-    } finally {
-      setLoading(false);
-      // Keep success feedback briefly for UX
-      if (success) {
-        setTimeout(() => setSuccess(false), 1500);
-      }
+      // 3. Graceful Rollback on Failure
+      console.error('Optimistic Cart Add Failed. Rolling back:', error);
+      
+      // Revert the global counter
+      useCartStore.getState().setItemCount(prevCount);
+      
+      // Immediately revert the button UI
+      clearTimeout(successTimeout);
+      setSuccess(false);
+      
+      // Notify the user of the failure so they understand the rollback
+      const errorMessage = error?.message || 'Network error. Failed to add item.';
+      showError(errorMessage);
+      onError?.(errorMessage);
     }
   };
 

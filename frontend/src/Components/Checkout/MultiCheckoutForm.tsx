@@ -52,9 +52,8 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
               value={hall}
               onChange={(e) => onChange('hall', e.target.value)}
               placeholder="Location"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                errors.hall ? 'border-amber-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.hall ? 'border-amber-500' : 'border-gray-300'
+                }`}
             />
             {errors.hall && <p className="text-amber-500 text-xs mt-1">{errors.hall}</p>}
           </div>
@@ -65,9 +64,8 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
               value={whatsapp}
               onChange={(e) => onChange('whatsapp', e.target.value)}
               placeholder="WhatsApp Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                errors.whatsapp ? 'border-amber-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.whatsapp ? 'border-amber-500' : 'border-gray-300'
+                }`}
             />
             {errors.whatsapp && <p className="text-amber-500 text-xs mt-1">{errors.whatsapp}</p>}
           </div>
@@ -78,9 +76,8 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
               value={callNumber}
               onChange={(e) => onChange('callNumber', e.target.value)}
               placeholder="Call Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${
-                errors.callNumber ? 'border-amber-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.callNumber ? 'border-amber-500' : 'border-gray-300'
+                }`}
             />
             {errors.callNumber && <p className="text-amber-500 text-xs mt-1">{errors.callNumber}</p>}
           </div>
@@ -117,7 +114,7 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
 
       {errors.submit && (
         <div className="bg-red-50 border border-red-200 rounded-lg px-3 py-2.5">
-          <p className="text-red-800 text-sm">{errors.submit}</p>
+          <p className="text-amber-800 text-sm">{errors.submit}</p>
         </div>
       )}
 
@@ -125,9 +122,8 @@ export default function MultiCheckoutForm({ items, currency, subtotal, hall, wha
         <button
           onClick={onConfirm}
           disabled={isSubmitting}
-          className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${
-            isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-500 hover:bg-red-700 text-white'
-          }`}
+          className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-500 hover:bg-red-700 text-white'
+            }`}
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">

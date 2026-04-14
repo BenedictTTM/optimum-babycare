@@ -33,8 +33,9 @@ export default function AccountsLayout({
       {/* Main content area */}
       <div className="flex flex-1 relative">
         {/* Sidebar for large screens */}
-        <aside className="hidden lg:flex w-64 bg-gray-50 border-r border-gray-200">
+        <aside className="hidden lg:flex w-64 bg-gray-50 relative">
           <VerticalNavigation />
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-[75%] bg-gray-200 rounded-full"></div>
         </aside>
 
         {/* Mobile Navigation Sidebar (slide-in from right) */}

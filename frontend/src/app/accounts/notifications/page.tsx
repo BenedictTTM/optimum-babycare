@@ -143,7 +143,7 @@ export default function MyOrdersPage() {
       case 'COMPLETED':
         return 'bg-green-100 text-green-800';
       case 'CANCELLED':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-100 text-amber-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -158,7 +158,7 @@ export default function MyOrdersPage() {
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800 border border-yellow-300';
       case 'FAILED':
-        return 'bg-red-100 text-red-800 border border-red-300';
+        return 'bg-red-100 text-amber-800 border border-red-300';
       default:
         return 'bg-gray-100 text-gray-800 border border-gray-200';
     }

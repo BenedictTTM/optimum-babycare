@@ -3,10 +3,15 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderStatus } from './dto/update-order-status.dto';
 import { PaymentService } from '../payment/payment.service';
+import { MailService } from '../services/mail/mail.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService, private readonly paymentService: PaymentService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly paymentService: PaymentService,
+    private readonly mailService: MailService
+  ) { }
   async createOrder(buyerId: number, dto: CreateOrderDto) {
     const { productId, quantity, whatsappNumber, callNumber, location, message, items } = dto as any;
 
@@ -97,6 +102,7 @@ export class OrderService {
 
       const results = await this.prisma.$transaction(tx as any);
       const createdOrder = results[results.length - 1];
+      this.sendOrderConfirmation(buyerId, createdOrder);
       return createdOrder;
     }
 
@@ -167,7 +173,34 @@ export class OrderService {
       }),
     ]);
 
+    this.sendOrderConfirmation(buyerId, order);
     return order;
+  }
+
+  private sendOrderConfirmation(buyerId: number, order: any) {
+    this.prisma.user.findUnique({
+      where: { id: buyerId },
+      select: { email: true, firstName: true }
+    }).then(user => {
+      if (user && user.email) {
+        const items = order.items ? order.items.map((item: any) => ({
+          name: item.productName || (item.product ? item.product.title : 'Product'),
+          quantity: item.quantity,
+          price: (item.unitPrice * item.quantity).toFixed(2),
+        })) : [];
+        
+        this.mailService.sendMail({
+          to: user.email,
+          template: 'OrderConfirmation',
+          data: {
+            orderId: String(order.id),
+            name: user.firstName || 'Customer',
+            total: order.totalAmount ? `GHS ${Number(order.totalAmount).toFixed(2)}` : 'GHS 0.00',
+            items: items,
+          }
+        }).catch(err => console.error('Failed to send OrderConfirmation email', err));
+      }
+    }).catch(err => console.error('Error fetching user for order email', err));
   }
 
   async getAllOrdersAdmin() {

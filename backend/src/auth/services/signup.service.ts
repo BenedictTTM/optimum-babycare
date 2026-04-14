@@ -5,6 +5,7 @@ import { SignUpDto } from "../dto/signUp.dto";
 import { JwtService } from '@nestjs/jwt';
 import { TokenService } from './token.service';
 import * as argon from 'argon2';
+import { MailService } from '../../services/mail/mail.service';
 
 @Injectable()
 export class SignupService {
@@ -12,7 +13,8 @@ export class SignupService {
 
   constructor(private prismaService: PrismaService,
     private jwtService: JwtService,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
+    private readonly mailService: MailService
   ) { }
 
   async signup(dto: SignUpDto) {
@@ -52,6 +54,19 @@ export class SignupService {
 
       const tokens = await this.tokenService.generateTokens(user.id, user.email, user.role);
       await this.tokenService.storeRefreshToken(user.id, tokens.refresh_token);
+
+      const frontendBase = process.env.FRONTEND_URL || 'http://localhost:3000';
+      const normalizedBase = frontendBase.endsWith('/') ? frontendBase.slice(0, -1) : frontendBase;
+      const verifyUrl = `${normalizedBase}/verify-email`;
+
+      this.mailService.sendMail({
+        to: user.email,
+        template: 'VerifyEmail',
+        data: {
+          name: user.firstName || 'Customer',
+          verifyUrl
+        }
+      }).catch(err => this.logger.error('Failed to send VerifyEmail', err));
 
       return {
         success: true,
