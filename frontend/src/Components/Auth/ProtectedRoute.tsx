@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { DotLoader } from '@/Components/Loaders';
-import { apiClient } from '@/api/clients';
+import { useUserStore } from '@/store/userStore';
+import { AuthService } from '@/lib/auth';
 
 /**
  * ProtectedRoute Component
@@ -17,6 +18,8 @@ import { apiClient } from '@/api/clients';
  * - Shows loading state during auth check
  * - Preserves intended destination in redirect URL
  * - Handles session expiry gracefully
+ * - Uses Zustand store as single source of truth (no duplicate /auth/me calls)
+ * - Fast-rejects unauthenticated users without a network call
  * 
  * @example
  * ```tsx
@@ -43,32 +46,19 @@ export default function ProtectedRoute({
 }: ProtectedRouteProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const checkAuthentication = useCallback(async () => {
-    try {
-      setIsLoading(true);
-
-      // Call session check endpoint
-
-      await apiClient.get('/auth/me');
-
-      setIsAuthenticated(true);
-    } catch (error) {
-      console.error('Authentication check failed:', error);
-      setIsAuthenticated(false);
-      // Redirect on error (network issue, etc.)
-      const signupUrl = `${redirectTo}?redirect=${encodeURIComponent(pathname)}`;
-      router.push(signupUrl);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [pathname, redirectTo, router]);
+  const { user, isLoading, fetchUser } = useUserStore();
 
   useEffect(() => {
-    checkAuthentication();
-  }, [checkAuthentication]);
+    // Fast-reject: no token in localStorage → instant redirect, no network call
+    if (!AuthService.isAuthenticated()) {
+      const signupUrl = `${redirectTo}?redirect=${encodeURIComponent(pathname)}`;
+      router.push(signupUrl);
+      return;
+    }
+
+    // Token exists → hydrate user via store (deduped across all components)
+    fetchUser();
+  }, [pathname, redirectTo, router, fetchUser]);
 
   // Show loading state
   if (isLoading) {
@@ -85,7 +75,7 @@ export default function ProtectedRoute({
   }
 
   // Show nothing while redirecting
-  if (!isAuthenticated) {
+  if (!user) {
     return null;
   }
 

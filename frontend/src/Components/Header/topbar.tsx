@@ -78,7 +78,7 @@ const Topbar = () => {
       <div
         className="
           topbar-root
-          hidden sm:flex items-center
+          flex items-center
           w-full overflow-hidden
           relative
           bg-gradient-to-r from-neutral-900 via-zinc-800 to-neutral-900

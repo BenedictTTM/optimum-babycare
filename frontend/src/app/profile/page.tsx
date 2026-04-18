@@ -1,49 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import SharedLoading from '@/Components/Loaders/SharedLoading';
-import { apiClient } from '@/api/clients';
-
-interface UserProfile {
-  id: number;
-  email: string;
-  firstName: string | null;
-  lastName: string | null;
-  profilePic: string | null;
-  storeName: string | null;
-  phone: string | null;
-  role: string;
-  rating?: number;
-  totalRatings?: number;
-  createdAt: string;
-}
+import { useAuthGuard } from '@/hooks/useAuthGuard';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  const fetchProfile = async () => {
-    try {
-      setLoading(true);
-
-      const response = await apiClient.get('/auth/me');
-
-      setProfile(response.data);
-    } catch (err) {
-      console.error('Profile fetch error:', err);
-      // Determine if we should show error or if interceptor handled it
-      // The interceptor handles 401 redirect, but other errors might fall through
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { user: profile, isLoading } = useAuthGuard();
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -53,13 +17,7 @@ export default function ProfilePage() {
     });
   };
 
-  useEffect(() => {
-    if (!loading && !profile) {
-      router.push('/auth/login');
-    }
-  }, [loading, profile, router]);
-
-  if (loading) {
+  if (isLoading) {
     return <SharedLoading size={64} color="#E43C3C" message="Loading your profile..." subMessage="Just a moment" />;
   }
 
@@ -156,7 +114,7 @@ export default function ProfilePage() {
                 Account Created
               </label>
               <p className="text-gray-900">
-                {formatDate(profile.createdAt)}
+                {profile.createdAt ? formatDate(profile.createdAt) : '—'}
               </p>
             </div>
           </div>

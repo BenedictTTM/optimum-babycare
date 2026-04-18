@@ -135,15 +135,11 @@ export class AuthService {
   }
 
   /**
-   * Get current user profile
+   * Get current user profile from store.
+   * Prefer using `useUserStore()` directly in components.
    */
-  static async getUser(): Promise<any> {
-    try {
-      const response = await apiClient.get('/auth/me');
-      return response.data;
-    } catch (error) {
-      return null;
-    }
+  static getUser(): any {
+    return useUserStore.getState().user;
   }
 
   /**

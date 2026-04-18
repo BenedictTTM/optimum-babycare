@@ -42,6 +42,8 @@ export class AuthGuard implements CanActivate {
         select: {
           id: true, email: true, role: true, isDeleted: true,
           firstName: true, lastName: true, createdAt: true,
+          profilePic: true, storeName: true, phone: true,
+          rating: true, totalRatings: true,
         },
       });
 

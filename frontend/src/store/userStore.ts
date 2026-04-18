@@ -3,11 +3,16 @@ import { apiClient } from '@/api/clients';
 
 export interface User {
     id: string | number;
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
     email: string;
-    profilePic?: string;
+    profilePic?: string | null;
+    storeName?: string | null;
+    phone?: string | null;
     role?: string;
+    rating?: number;
+    totalRatings?: number;
+    createdAt?: string;
 }
 
 interface UserState {
