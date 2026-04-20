@@ -1,146 +1,123 @@
 import { PrismaClient } from '@prisma/client';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log('Seeding database...');
 
-    // 1. Seed Categories
-    const categories = [
-        { name: 'Electronics', description: 'Gadgets and devices' },
-        { name: 'Fashion', description: 'Clothing and accessories' },
-        { name: 'Home', description: 'Furniture and home decor' },
-        { name: 'Beauty', description: 'Cosmetics and skincare' },
-        { name: 'Sports', description: 'Sporting goods and equipment' },
-        { name: 'Books', description: 'Books and literature' },
-        { name: 'Feeding', description: 'Baby bottles, breastfeeding, formula, and feeding accessories' },
-        { name: 'Diapering & Changing', description: 'Diapers, wipes, changing pads, and diapering essentials' },
-        { name: 'Nursery & Sleeping', description: 'Cribs, bassinets, baby monitors, and nursery decor' },
-        { name: 'Clothing & Apparel', description: 'Baby and toddler clothing, shoes, and accessories' },
-        { name: 'Bathing & Grooming', description: 'Baby tubs, shampoos, grooming kits, and skincare' },
-        { name: 'Travel & Transportation', description: 'Strollers, car seats, baby carriers, and travel gear' },
-        { name: 'Toys & Entertainment', description: 'Educational toys, rattles, play mats, and activity centers' },
-        { name: 'Health & Safety', description: 'Baby health products, safety gates, monitors, and first aid' },
-        { name: 'Weaning & Toddler Feeding', description: 'Weaning spoons, sippy cups, high chairs, and toddler snacks' },
-    ];
+    // Create Dummy Admin
+    console.log('Creating dummy admin user...');
+    const dummyAdmin = await prisma.user.upsert({
+        where: { email: 'dummy_admin@optimum.com' },
+        update: {},
+        create: {
+            email: 'dummy_admin@optimum.com',
+            username: 'dummy_admin',
+            passwordHash: '$2b$10$placeholder_hash_for_seeding',
+            role: 'ADMIN',
+            firstName: 'Dummy',
+            lastName: 'Admin'
+        }
+    });
 
-    for (const cat of categories) {
-        await prisma.category.upsert({
-            where: { name: cat.name },
-            update: {},
-            create: cat,
-        });
-    }
-
-    console.log('Categories seeded.');
-
-    // Fetch categories to get IDs
-    const electronics = await prisma.category.findUnique({ where: { name: 'Electronics' } });
-    const fashion = await prisma.category.findUnique({ where: { name: 'Fashion' } });
-    const home = await prisma.category.findUnique({ where: { name: 'Home' } });
-    const beauty = await prisma.category.findUnique({ where: { name: 'Beauty' } });
-
-    // 2. Seed Products
-    const products = [
-        {
-            title: 'Smartphone X',
-            description: 'Latest model with high-resolution camera and fast processor.',
-            imageUrl: ['https://images.unsplash.com/photo-1598327771866-54047641bc48?w=500&auto=format&fit=crop&q=60'],
-            category: 'Electronics',
-            categoryId: electronics?.id,
-            originalPrice: 999.99,
-            discountedPrice: 899.99,
-            stock: 50,
-            condition: 'New',
-            tags: ['smartphone', 'tech', 'mobile'],
-            isActive: true,
-        },
-        {
-            title: 'Wireless Headphones',
-            description: 'Noise-cancelling over-ear headphones with long battery life.',
-            imageUrl: ['https://images.unsplash.com/photo-1546435770-a3e2feadf12e?w=500&auto=format&fit=crop&q=60'],
-            category: 'Electronics',
-            categoryId: electronics?.id,
-            originalPrice: 199.99,
-            discountedPrice: 149.99,
-            stock: 100,
-            condition: 'New',
-            tags: ['audio', 'headphones', 'music'],
-            isActive: true,
-        },
-        {
-            title: 'Casual T-Shirt',
-            description: 'Cotton t-shirt available in multiple colors.',
-            imageUrl: ['https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=60'],
-            category: 'Fashion',
-            categoryId: fashion?.id,
-            originalPrice: 29.99,
-            discountedPrice: 19.99,
-            stock: 200,
-            condition: 'New',
-            tags: ['clothing', 't-shirt', 'casual'],
-            isActive: true,
-        },
-        {
-            title: 'Denim Jacket',
-            description: 'Classic denim jacket for all seasons.',
-            imageUrl: ['https://images.unsplash.com/photo-1551488852-08016580c85c?w=500&auto=format&fit=crop&q=60'],
-            category: 'Fashion',
-            categoryId: fashion?.id,
-            originalPrice: 79.99,
-            discountedPrice: 59.99,
-            stock: 80,
-            condition: 'New',
-            tags: ['clothing', 'jacket', 'denim'],
-            isActive: true,
-        },
-        {
-            title: 'Modern Sofa',
-            description: 'Comfortable 3-seater sofa with modern design.',
-            imageUrl: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&auto=format&fit=crop&q=60'],
-            category: 'Home',
-            categoryId: home?.id,
-            originalPrice: 1200.00,
-            discountedPrice: 999.00,
-            stock: 10,
-            condition: 'New',
-            tags: ['furniture', 'sofa', 'living room'],
-            isActive: true,
-        },
-        {
-            title: 'Skin Care Set',
-            description: 'Complete set for daily skin care routine.',
-            imageUrl: ['https://images.unsplash.com/photo-1596462502278-27bfdd403cc2?w=500&auto=format&fit=crop&q=60'],
-            category: 'Beauty',
-            categoryId: beauty?.id,
-            originalPrice: 150.00,
-            discountedPrice: 120.00,
-            stock: 100,
-            condition: 'New',
-            tags: ['beauty', 'skincare', 'cosmetics'],
-            isActive: true,
-        },
-    ];
-
-    for (const product of products) {
-        // Check if product exists by title to avoid duplicates if run multiple times
-        const existing = await prisma.product.findFirst({
-            where: { title: product.title }
-        });
-
-        if (!existing) {
-            await prisma.product.create({
-                data: product
+    const scriptsDir = path.join(__dirname, '../scripts');
+    
+    // Seed Categories
+    console.log('Seeding Categories...');
+    const categoriesPath = path.join(scriptsDir, 'Category.json');
+    if (fs.existsSync(categoriesPath)) {
+        const rawData = fs.readFileSync(categoriesPath, 'utf8');
+        const categories = JSON.parse(rawData);
+        for (const cat of categories) {
+            await prisma.category.upsert({
+                where: { name: cat.name },
+                update: { description: cat.description },
+                create: { name: cat.name, description: cat.description }
             });
         }
+        console.log(`✅ Seeded ${categories.length} Categories.`);
     }
 
-    console.log('Products seeded.');
+    // Seed Products
+    console.log('Seeding Products...');
+    const productsPath = path.join(scriptsDir, 'Product.json');
+    if (fs.existsSync(productsPath)) {
+        const rawData = fs.readFileSync(productsPath, 'utf8');
+        const products = JSON.parse(rawData);
+        let count = 0;
+        for (const prod of products) {
+            let categoryId: number | null = null;
+            if (prod.category) {
+                const catInfo = await prisma.category.findUnique({ where: { name: prod.category }});
+                if (catInfo) categoryId = catInfo.id;
+            }
+
+            const existing = await prisma.product.findFirst({ where: { title: prod.title } });
+            if (!existing) {
+                await prisma.product.create({
+                    data: {
+                        title: prod.title,
+                        description: prod.description,
+                        imageUrl: prod.imageUrl || [],
+                        category: prod.category || 'Uncategorized',
+                        categoryId: categoryId,
+                        originalPrice: prod.originalPrice || 0,
+                        discountedPrice: prod.discountedPrice || 0,
+                        stock: prod.stock || 0,
+                        isActive: prod.isActive ?? true,
+                        isSold: prod.isSold ?? false,
+                        condition: prod.condition || 'New',
+                        tags: prod.tags || [],
+                        views: prod.views || 0,
+                        userId: dummyAdmin.id
+                    }
+                });
+                count++;
+            }
+        }
+        console.log(`✅ Seeded ${count} Products.`);
+    }
+
+    // Seed BlogPosts
+    console.log('Seeding Blog Posts...');
+    const blogPostsPath = path.join(scriptsDir, 'BlogPost.json');
+    if (fs.existsSync(blogPostsPath)) {
+        const rawData = fs.readFileSync(blogPostsPath, 'utf8');
+        const posts = JSON.parse(rawData);
+        let count = 0;
+        for (const post of posts) {
+             const existing = await prisma.blogPost.findUnique({ where: { slug: post.slug } });
+             if (!existing) {
+                 await prisma.blogPost.create({
+                     data: {
+                         title: post.title,
+                         slug: post.slug,
+                         content: post.content,
+                         excerpt: post.excerpt,
+                         coverImage: post.coverImage,
+                         category: post.category || 'Uncategorized',
+                         tags: post.tags || [],
+                         status: post.status || 'PUBLISHED',
+                         featured: post.featured || false,
+                         views: post.views || 0,
+                         authorId: dummyAdmin.id,
+                         publishedAt: post.publishedAt ? new Date(post.publishedAt) : null,
+                     }
+                 });
+                 count++;
+             }
+        }
+        console.log(`✅ Seeded ${count} Blog Posts.`);
+    }
+
+    console.log('🎉 Database seeding completed!');
 }
 
 main()
     .catch((e) => {
-        console.error(e);
+        console.error('Error seeding database:', e);
         process.exit(1);
     })
     .finally(async () => {
