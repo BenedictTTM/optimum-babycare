@@ -36,10 +36,9 @@ export default function ProductActionsClient({ product, inStock }: ProductAction
 
     if (result.success) {
       console.log("✅ Successfully added to cart:", product.title);
-      alert(`${product.title} (${quantity}) added to cart successfully!`);
       setQuantity(1);
     } else {
-        console.error("❌ Failed to add to cart:", result.message);
+      console.error("❌ Failed to add to cart:", result.message);
     }
 
     setAddingToCart(false);
