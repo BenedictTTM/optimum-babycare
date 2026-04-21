@@ -86,9 +86,9 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
     else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('adminfeedback');
     else if (pathname.includes('/accounts/notifications')) setActiveItem('notifications');
     else if (pathname.includes('/accounts/settings')) setActiveItem('settings');
-    else if (pathname.includes('/main/cart')) setActiveItem('carts');
+    else if (pathname.includes('/cart')) setActiveItem('carts');
     else if (pathname.includes('/accounts')) setActiveItem('home');
-    else if (pathname.includes('/main/products')) setActiveItem('home');
+    else if (pathname.includes('/products')) setActiveItem('home');
     else setActiveItem('home');
   }, [pathname]);
 
@@ -146,7 +146,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
                   className="w-12 h-12 rounded-full object-cover border-2 border-red-100"
                 />
               ) : (
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-400 to-amber-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-red-400 to-amber-400 flex items-center justify-center text-white font-semibold text-sm shadow-md">
                   {initials}
                 </div>
               )}
@@ -193,7 +193,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
                   <button
                     onClick={() => handleNavClick(item)}
                     className={`w-full flex items-center justify-between px-4 py-3.5 rounded-lg transition-all duration-200 ${isActive && !item.hasSubmenu
-                      ? 'bg-red-50 text-amber-500 font-semibold shadow-sm'
+                      ? 'bg-red-50 text-amber-400 font-semibold shadow-sm'
                       : 'text-gray-700 hover:bg-gray-50 font-medium'
                       }`}
                   >
@@ -223,7 +223,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
                             <button
                               onClick={() => handleSubmenuClick(subItem)}
                               className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all duration-200 ${isSubActive
-                                ? 'bg-red-50 text-amber-500 font-semibold shadow-sm'
+                                ? 'bg-red-50 text-amber-400 font-semibold shadow-sm'
                                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 font-medium'
                                 }`}
                             >
@@ -245,14 +245,14 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
         <div className="px-5 py-4 border-t border-gray-100 bg-gradient-to-br from-gray-50 to-white">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-500 transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-700 hover:bg-gray-100 hover:text-amber-400 transition-colors"
           >
             <LogOut size={18} />
             <span className="font-medium">Logout</span>
           </button>
 
           <p className="mt-3 text-xs text-gray-400 text-center">
-            © 2025 <span className="text-amber-500 font-bold">Buddies</span>. All rights reserved.
+            © 2025 <span className="text-amber-400 font-bold">Buddies</span>. All rights reserved.
           </p>
         </div>
       </div>

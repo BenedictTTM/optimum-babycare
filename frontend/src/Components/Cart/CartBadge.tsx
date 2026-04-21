@@ -24,10 +24,10 @@ export default function CartBadge() {
 
   useEffect(() => {
     fetchCount();
-    
+
     // Refresh count every 30 seconds
     const interval = setInterval(fetchCount, 30000);
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -40,11 +40,11 @@ export default function CartBadge() {
   };
 
   return (
-    <Link href="/main/cart" className="relative">
-      <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-amber-500 transition-colors" />
-      
+    <Link href="/cart" className="relative">
+      <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-amber-400 transition-colors" />
+
       {!loading && count > 0 && (
-        <span className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
+        <span className="absolute -top-2 -right-2 bg-amber-400 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
           {count > 99 ? '99+' : count}
         </span>
       )}

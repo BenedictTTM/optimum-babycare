@@ -12,11 +12,10 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
     <section className="mt-5 w-full px-3 sm:px-5 md:px-6 space-y-3 sm:space-y-4">
       {/* Stock Status */}
       <div
-        className={`inline-flex items-center gap-2 sm:gap-2.5 rounded-md px-3 py-1.5 sm:px-3.5 sm:py-2 border text-xs sm:text-sm font-medium ${
-          inStock
+        className={`inline-flex items-center gap-2 sm:gap-2.5 rounded-md px-3 py-1.5 sm:px-3.5 sm:py-2 border text-xs sm:text-sm font-medium ${inStock
             ? "border-amber-100 bg-black text-amber-700"
             : "border-red-200 bg-red-50 text-red-700"
-        }`}
+          }`}
       >
         {inStock ? (
           <>
@@ -26,7 +25,7 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
         ) : (
           <>
             <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-red-100 flex items-center justify-center">
-              <span className="text-amber-500 text-[10px] sm:text-xs">✕</span>
+              <span className="text-amber-400 text-[10px] sm:text-xs">✕</span>
             </div>
             <span>Out of Stock</span>
           </>
@@ -39,7 +38,7 @@ export default function ProductInfo({ product, inStock }: ProductInfoProps) {
         <p className="flex-1">
           <span className=" text-gray-800 text-xs">Estimated delivery:</span>{" "}
           2–3 business days.{" "}
-          <button className="text-amber-500 hover:underline font-medium transition-colors">
+          <button className="text-amber-400 hover:underline font-medium transition-colors">
             Details
           </button>
         </p>

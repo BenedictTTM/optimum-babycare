@@ -306,7 +306,7 @@ export default function CheckoutPage() {
     setOrderSuccess(true);
     // Redirect to orders page after 2 seconds
     setTimeout(() => {
-      router.push("/main/orders");
+      router.push("/orders");
     }, 2000);
   };
 
@@ -381,7 +381,7 @@ export default function CheckoutPage() {
             isOpen={showPaymentModal}
             onClose={() => {
               setShowPaymentModal(false);
-              router.push("/main/orders");
+              router.push("/orders");
             }}
             orderId={createdOrderId}
             amount={orderTotal}
@@ -444,7 +444,7 @@ export default function CheckoutPage() {
           onClose={() => {
             setShowPaymentModal(false);
             // Redirect to orders page even if payment is cancelled
-            router.push("/main/orders");
+            router.push("/orders");
           }}
           orderId={createdOrderId}
           amount={orderTotal}

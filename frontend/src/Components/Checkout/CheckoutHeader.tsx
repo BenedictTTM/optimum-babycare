@@ -8,7 +8,7 @@ interface CheckoutHeaderProps {
 
 export default function CheckoutHeader({
   title = "Checkout",
-  backHref = "/main/cart",
+  backHref = "/cart",
   className = "",
 }: CheckoutHeaderProps) {
   return (

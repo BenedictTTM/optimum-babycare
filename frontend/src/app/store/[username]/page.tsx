@@ -98,7 +98,7 @@ export default function PublicStorePage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Store className="w-8 h-8 text-amber-500" />
+            <Store className="w-8 h-8 text-amber-400" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Store Not Found</h1>
           <p className="text-gray-600 mb-4">
@@ -106,7 +106,7 @@ export default function PublicStorePage() {
           </p>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-red-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2 bg-amber-400 text-white rounded-lg hover:bg-red-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Home
@@ -166,7 +166,7 @@ export default function PublicStorePage() {
                     </p>
                     <div className="flex items-center gap-2">
                       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-900 border border-red-200">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
                         {products.length} Product{products.length !== 1 ? 's' : ''} Available
                       </span>
                     </div>
@@ -176,8 +176,8 @@ export default function PublicStorePage() {
                   <button
                     onClick={copyStoreLink}
                     className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition-colors ${copied
-                        ? 'border-green-500 bg-green-50 text-green-700'
-                        : 'border-gray-300 hover:bg-gray-50 text-gray-700'
+                      ? 'border-green-500 bg-green-50 text-green-700'
+                      : 'border-gray-300 hover:bg-gray-50 text-gray-700'
                       }`}
                   >
                     <Share2 className="w-4 h-4" />

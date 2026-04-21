@@ -421,8 +421,8 @@ if (Object.keys(newErrors).length > 0) {
 Update Tailwind classes to match your brand:
 
 ```typescript
-// Replace amber-500 with your primary color
-className = "bg-amber-500 hover:bg-amber-500";
+// Replace amber-400 with your primary color
+className = "bg-amber-400 hover:bg-amber-400";
 // to
 className = "bg-blue-500 hover:bg-blue-600";
 ```

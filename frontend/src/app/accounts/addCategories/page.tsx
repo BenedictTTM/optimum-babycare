@@ -149,7 +149,7 @@ export default function CategoriesPage() {
                     </div>
                     <div className="rounded-lg bg-white border border-gray-200 p-4">
                         <p className="text-sm text-gray-600">Total Products</p>
-                        <p className="mt-1 text-2xl font-bold text-amber-500">{totalProducts}</p>
+                        <p className="mt-1 text-2xl font-bold text-amber-400">{totalProducts}</p>
                     </div>
                 </div>
 
@@ -172,7 +172,7 @@ export default function CategoriesPage() {
                         {/* Add button */}
                         <button
                             onClick={() => setIsAddModalOpen(true)}
-                            className="flex items-center gap-2 rounded-lg bg-amber-500 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800"
+                            className="flex items-center gap-2 rounded-lg bg-amber-400 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800"
                         >
                             <Plus className="h-4 w-4" />
                             Add Category
@@ -260,7 +260,7 @@ export default function CategoriesPage() {
             {/* Toast */}
             {toast && (
                 <div
-                    className={`fixed bottom-6 right-6 z-50 rounded-lg px-6 py-3 shadow-lg ${toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-amber-500 text-white'}`}
+                    className={`fixed bottom-6 right-6 z-50 rounded-lg px-6 py-3 shadow-lg ${toast.type === 'success' ? 'bg-green-600 text-white' : 'bg-amber-400 text-white'}`}
                 >
                     <p className="text-sm font-medium">{toast.message}</p>
                 </div>

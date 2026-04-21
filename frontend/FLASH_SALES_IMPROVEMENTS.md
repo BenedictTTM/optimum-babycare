@@ -182,7 +182,7 @@ When less than 10 minutes remain:
   isExpiring && (
     <div className="mt-4 sm:mt-6" role="alert" aria-live="assertive">
       <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-amber-500 to-orange-500" />
+        <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500" />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MessageCircle, Phone, Copy, Check } from 'lucide-react';
 
 // Phone constants (could be moved to env or config later)
-const PHONE_NUMBER = "0558885040"; // Display number provided
+const PHONE_NUMBER = "0274847107"; // Display number provided
 const COUNTRY_CODE = "233"; // Assumed Ghana; adjust if different.
 
 const normalizeWhatsAppNumber = (input: string): string => {
@@ -59,7 +59,7 @@ export default function ContactPage() {
           {/* WhatsApp Card */}
           <div className="rounded-2xl border border-gray-100 bg-white p-6 sm:p-8 lg:p-10 hover:shadow-xs transition-shadow duration-200 flex flex-col items-center text-center w-full">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-50 flex items-center justify-center mb-5">
-              <MessageCircle className="w-6 sm:w-9 h-6 sm:h-9 text-amber-500" aria-hidden="true" />
+              <MessageCircle className="w-6 sm:w-9 h-6 sm:h-9 text-amber-400" aria-hidden="true" />
             </div>
             <h3 className="font-semibold mb-2 text-gray-900">Chat on WhatsApp</h3>
             <p className="text-gray-600 mb-6 text-sm leading-relaxed max-w-full sm:max-w-xs">
@@ -69,7 +69,7 @@ export default function ContactPage() {
               href={`https://wa.me/${normalizeWhatsAppNumber(PHONE_NUMBER)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-amber-500 hover:bg-amber-500 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-2 sm:py-3 rounded-md text-sm sm:text-sm font-medium transition-colors"
+              className="bg-amber-400 hover:bg-amber-400 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-2 sm:py-3 rounded-md text-sm sm:text-sm font-medium transition-colors"
             >
               Chat Now
             </a>
@@ -78,7 +78,7 @@ export default function ContactPage() {
           {/* Call Card */}
           <div className="rounded-2xl border border-gray-100 bg-white p-6 sm:p-8 lg:p-10 hover:shadow-xs transition-shadow duration-200 flex flex-col items-center text-center w-full">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-50 flex items-center justify-center mb-5">
-              <Phone className="w-6 sm:w-9 h-6 sm:h-9 text-amber-500" aria-hidden="true" />
+              <Phone className="w-6 sm:w-9 h-6 sm:h-9 text-amber-400" aria-hidden="true" />
             </div>
             <h3 className="font-semibold mb-2 text-gray-900">Call Me</h3>
             <p className="text-gray-600 mb-6 text-sm">{PHONE_NUMBER}</p>
@@ -144,7 +144,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={!isValid || submitted}
-              className="bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-500 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-3 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
+              className="bg-amber-400 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-amber-400 focus:ring-2 focus:ring-red-400 focus:ring-offset-2 text-white w-full py-3 rounded-md text-sm font-medium transition-colors flex items-center justify-center"
             >
               {submitted ? 'Message Sent!' : 'Send Message'}
             </button>

@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
           <div className="bg-white p-8 space-y-6">
             {/* Header */}
             <div className="text-center space-y-2">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full text-amber-500">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full text-amber-400">
                 <Mail className="w-9 h-9" />
               </div>
               <h1 className="text-2xl font-semibold text-gray-900">Forgot Password</h1>
@@ -86,11 +86,10 @@ export default function ForgotPasswordPage() {
             {/* Message Alert */}
             {message && (
               <div
-                className={`flex items-start gap-2 rounded-lg border px-3 py-2 text-sm ${
-                  message.type === 'success'
+                className={`flex items-start gap-2 rounded-lg border px-3 py-2 text-sm ${message.type === 'success'
                     ? 'border-green-200 bg-green-50 text-green-700'
                     : 'border-red-200 bg-red-50 text-red-700'
-                }`}
+                  }`}
               >
                 {message.type === 'success' ? (
                   <CheckCircle className="w-4 h-4 mt-0.5" />
@@ -117,7 +116,7 @@ export default function ForgotPasswordPage() {
             {/* Footer */}
             <p className="text-center text-sm text-gray-500">
               Remember your password?{' '}
-              <Link href="/auth/login" className="text-amber-500 hover:text-amber-500 font-medium">
+              <Link href="/auth/login" className="text-amber-400 hover:text-amber-400 font-medium">
                 Sign in
               </Link>
             </p>

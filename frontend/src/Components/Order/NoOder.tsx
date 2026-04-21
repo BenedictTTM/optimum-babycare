@@ -6,7 +6,7 @@ export default function NoOrdersPage() {
   const router = useRouter();
 
   const handleStartShopping = () => {
-    router.push('/shop'); // Change this to your actual shopping page (e.g. /main/products)
+    router.push('/products'); // Change this to your actual shopping page (e.g. /products)
   };
 
   return (
@@ -16,7 +16,7 @@ export default function NoOrdersPage() {
         <div className="mx-auto rounded-full p-3 sm:p-4 mb-4 flex items-center justify-center bg-transparent shadow-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-amber-500"
+            className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-amber-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -44,7 +44,7 @@ export default function NoOrdersPage() {
         <div className="flex items-center justify-center mt-2">
           <button
             onClick={handleStartShopping}
-            className="bg-amber-500 hover:bg-red-700 text-white font-semibold px-5 py-2 sm:px-6 sm:py-2 rounded-md transition focus:outline-none focus:ring-2 focus:ring-red-100 shadow-none"
+            className="bg-amber-400 hover:bg-red-700 text-white font-semibold px-5 py-2 sm:px-6 sm:py-2 rounded-md transition focus:outline-none focus:ring-2 focus:ring-red-100 shadow-none"
           >
             Start Shopping
           </button>

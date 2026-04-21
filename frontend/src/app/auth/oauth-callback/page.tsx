@@ -79,8 +79,8 @@ export default function OAuthCallbackPage() {
 
         // Redirect to dashboard after showing message
         setTimeout(() => {
-          console.log('🧭 [OAUTH-CALLBACK] Redirecting to /main/products');
-          router.push('/main/products');
+          console.log('🧭 [OAUTH-CALLBACK] Redirecting to /products');
+          router.push('/products');
         }, 1500);
       };
 
@@ -112,7 +112,7 @@ export default function OAuthCallbackPage() {
             {/* Loading State */}
             <div className="flex justify-center mb-6 sm:mb-8">
               <svg
-                className="animate-spin h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 text-amber-500"
+                className="animate-spin h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 text-amber-400"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -147,7 +147,7 @@ export default function OAuthCallbackPage() {
             <div className="flex justify-center mb-6 sm:mb-8">
               <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-red-50 rounded-full flex items-center justify-center ring-4 ring-red-100 transition-transform duration-300 hover:scale-110">
                 <svg
-                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-amber-500"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-amber-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -168,7 +168,7 @@ export default function OAuthCallbackPage() {
               You have successfully signed in with Google.
             </p>
             <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-500 bg-gray-50 px-4 py-2 rounded-full">
-              <svg className="animate-spin h-3 w-3 sm:h-4 sm:w-4 text-amber-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-3 w-3 sm:h-4 sm:w-4 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -183,7 +183,7 @@ export default function OAuthCallbackPage() {
             <div className="flex justify-center mb-6 sm:mb-8">
               <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-red-50 rounded-full flex items-center justify-center ring-4 ring-red-100 transition-transform duration-300 hover:scale-110">
                 <svg
-                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-amber-500"
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-amber-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -205,7 +205,7 @@ export default function OAuthCallbackPage() {
             </p>
             <button
               onClick={() => router.push('/auth/login')}
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-amber-500 text-white text-sm sm:text-base font-semibold rounded-lg hover:bg-red-700 active:bg-red-800 transition-all duration-200 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-amber-400 text-white text-sm sm:text-base font-semibold rounded-lg hover:bg-red-700 active:bg-red-800 transition-all duration-200 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-red-300"
             >
               Back to Login
             </button>

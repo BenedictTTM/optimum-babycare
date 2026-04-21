@@ -71,7 +71,7 @@ export default function CategoryTable({ categories, loading, onEdit, onDelete }:
 										<button
 											onClick={() => onDelete(cat)}
 											aria-label={`Delete ${cat.name}`}
-											className="rounded-md p-2 text-amber-500 hover:bg-amber-50"
+											className="rounded-md p-2 text-amber-400 hover:bg-amber-50"
 										>
 											<Trash2 className="h-4 w-4" />
 										</button>
@@ -104,7 +104,7 @@ export default function CategoryTable({ categories, loading, onEdit, onDelete }:
 								<button
 									onClick={() => onDelete(cat)}
 									aria-label={`Delete ${cat.name}`}
-									className="inline-flex items-center justify-center rounded-md bg-amber-50 p-2 text-amber-500 hover:bg-amber-100"
+									className="inline-flex items-center justify-center rounded-md bg-amber-50 p-2 text-amber-400 hover:bg-amber-100"
 								>
 									<Trash2 className="h-4 w-4" />
 								</button>

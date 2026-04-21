@@ -55,7 +55,7 @@ export default function OrderPaymentPage() {
     console.log('Payment successful:', reference);
     setShowPaymentModal(false);
     // Redirect to orders page
-    router.push('/main/orders');
+    router.push('/orders');
   };
 
   const handlePaymentError = (error: string) => {
@@ -87,7 +87,7 @@ export default function OrderPaymentPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-2">Error</h2>
           <p className="text-gray-600 mb-6">{error || 'Order not found'}</p>
           <button
-            onClick={() => router.push('/main/orders')}
+            onClick={() => router.push('/orders')}
             className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Back to Orders
@@ -109,7 +109,7 @@ export default function OrderPaymentPage() {
           <h2 className="text-xl font-bold text-gray-900 mb-2">Already Paid</h2>
           <p className="text-gray-600 mb-6">This order has already been paid for.</p>
           <button
-            onClick={() => router.push('/main/orders')}
+            onClick={() => router.push('/orders')}
             className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Back to Orders
@@ -140,7 +140,7 @@ export default function OrderPaymentPage() {
             Proceed to Payment
           </button>
           <button
-            onClick={() => router.push('/main/orders')}
+            onClick={() => router.push('/orders')}
             className="w-full bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
           >
             Cancel
@@ -153,7 +153,7 @@ export default function OrderPaymentPage() {
         isOpen={showPaymentModal}
         onClose={() => {
           setShowPaymentModal(false);
-          router.push('/main/orders');
+          router.push('/orders');
         }}
         orderId={orderId}
         amount={order.totalAmount}

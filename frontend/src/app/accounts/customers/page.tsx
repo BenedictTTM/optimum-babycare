@@ -179,7 +179,7 @@ export default function CustomersPage() {
                   setCurrentPage(1);
                 }}
                 className={`rounded-md px-3 py-1 text-sm font-medium transition ${timePeriod === period
-                  ? 'bg-amber-500 text-white'
+                  ? 'bg-amber-400 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
               >
@@ -210,7 +210,7 @@ export default function CustomersPage() {
                 <ArrowUpDown className="h-4 w-4 text-gray-500" />
                 Sort
               </button>
-              <button className="flex items-center justify-center gap-2 rounded-lg bg-amber-500 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#cc2f2b]">
+              <button className="flex items-center justify-center gap-2 rounded-lg bg-amber-400 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#cc2f2b]">
                 <Plus className="h-4 w-4" />
                 Add Customer
               </button>
@@ -238,7 +238,7 @@ export default function CustomersPage() {
 
                 {!loading && error && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-sm text-amber-500">{error}</td>
+                    <td colSpan={6} className="px-6 py-8 text-center text-sm text-amber-400">{error}</td>
                   </tr>
                 )}
 
@@ -270,7 +270,7 @@ export default function CustomersPage() {
                         <button className="rounded-full p-2 transition hover:bg-gray-100 hover:text-gray-600" aria-label={`Edit ${customer.name}`}>
                           <Pencil className="h-4 w-4" />
                         </button>
-                        <button className="rounded-full p-2 transition hover:bg-gray-100 hover:text-amber-500" aria-label={`Disable ${customer.name}`}>
+                        <button className="rounded-full p-2 transition hover:bg-gray-100 hover:text-amber-400" aria-label={`Disable ${customer.name}`}>
                           <Ban className="h-4 w-4" />
                         </button>
                       </div>

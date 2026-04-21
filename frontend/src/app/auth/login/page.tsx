@@ -35,7 +35,7 @@ export default function LogInPage() {
   const { showSuccess, showError } = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [redirectUrl, setRedirectUrl] = useState<string>('/main/products');
+  const [redirectUrl, setRedirectUrl] = useState<string>('/products');
   const [isCheckout, setIsCheckout] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function LogInPage() {
 
     // Check if user is already authenticated
     if (AuthService.isAuthenticated()) {
-      router.push('/main/products');
+      router.push('/products');
     }
   }, [searchParams, router]);
 
@@ -84,7 +84,7 @@ export default function LogInPage() {
       }
 
       // Redirect to cart if coming from checkout flow, otherwise use redirect URL
-      const finalRedirect = isCheckout ? '/main/cart' : redirectUrl;
+      const finalRedirect = isCheckout ? '/cart' : redirectUrl;
 
       setTimeout(() => {
         router.push(finalRedirect);
@@ -149,7 +149,7 @@ export default function LogInPage() {
             <div className="text-right">
               <a
                 href="/auth/forgot-password"
-                className="text-sm text-amber-500 hover:underline"
+                className="text-sm text-amber-400 hover:underline"
               >
                 Forgot Password?
               </a>

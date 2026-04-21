@@ -81,7 +81,7 @@ const Footer = () => {
             <p className="text-sm text-gray-500 mb-6 leading-relaxed">
               Elegant pink origami design three type of dimensional view and decoration co Great for adding a decorative touch to any room's decor.
             </p>
-            <Link href="#" className="text-sm font-bold flex items-center gap-1 hover:text-red-500">
+            <Link href="/contact" className="text-sm font-bold flex items-center gap-1 hover:text-red-500">
               GET IN TOUCH <ArrowRight size={16} />
             </Link>
           </div>
@@ -91,10 +91,10 @@ const Footer = () => {
             <h3 className="font-bold text-sm mb-6">INFORMATION</h3>
             <ul className="space-y-3">
               <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">About</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">FAQ's</Link></li>
+              <li><Link href="/help" className="text-sm text-gray-500 hover:text-red-500">FAQ's</Link></li>
               <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Wishlist</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
+              <li><Link href="/cart" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
+              <li><Link href="/checkout" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
             </ul>
           </div>
 
@@ -103,10 +103,10 @@ const Footer = () => {
             <h3 className="font-bold text-sm mb-6">MY ACCOUNT</h3>
             <ul className="space-y-3">
               <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Wishlist</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">My Account</Link></li>
-              <li><Link href="#" className="text-sm text-gray-500 hover:text-red-500">Shop</Link></li>
+              <li><Link href="/cart" className="text-sm text-gray-500 hover:text-red-500">Cart</Link></li>
+              <li><Link href="/checkout" className="text-sm text-gray-500 hover:text-red-500">Checkout</Link></li>
+              <li><Link href="/profile" className="text-sm text-gray-500 hover:text-red-500">My Account</Link></li>
+              <li><Link href="/products" className="text-sm text-gray-500 hover:text-red-500">Shop</Link></li>
             </ul>
           </div>
 

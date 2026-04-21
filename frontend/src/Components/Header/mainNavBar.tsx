@@ -127,7 +127,7 @@ export default function MainNavBar() {
                   <Menu className="w-6 h-6" />
                 </button>
               )}
-              
+
               {/* Desktop Category Toggle - rounded pill */}
               <div
                 className="hidden lg:flex items-center justify-between w-[220px] bg-white text-black px-4 cursor-pointer rounded-full h-12 md:h-12 relative shadow-sm border border-gray-200 hover:shadow-lg transition-all focus-within:ring-2 focus-within:ring-amber-200 ring-1 ring-amber-300/40 hover:ring-amber-400/60 hover:ring-2"
@@ -168,11 +168,11 @@ export default function MainNavBar() {
 
             {/* Center: Navigation Links */}
             <div className="hidden md:flex items-center space-x-10">
-              <Link href="/main/products" className={`flex items-center space-x-1 text-[15px] font-bold text-red-500 hover:text-red-600 transition-colors ${clashDisplay.className}`}>
+              <Link href="/products" className={`flex items-center space-x-1 text-[15px] font-bold text-red-500 hover:text-red-600 transition-colors ${clashDisplay.className}`}>
                 <span>Home</span>
                 <span className="text-red-500 font-medium text-[16px]">+</span>
               </Link>
-              <Link href="/main/orders" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/orders" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Orders</span>
                 {orderCount > 0 ? (
                   <span className="flex items-center justify-center bg-red-500 text-white text-[10px] w-5 h-5 rounded-full font-bold shadow-sm">{orderCount > 99 ? '99+' : orderCount}</span>
@@ -180,7 +180,7 @@ export default function MainNavBar() {
                   <span className="text-gray-400 font-medium text-[16px]">+</span>
                 )}
               </Link>
-              <Link href="/main/cart" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/cart" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Cart</span>
                 {itemCount > 0 ? (
                   <span className="flex items-center justify-center bg-red-500 text-white text-[10px] w-5 h-5 rounded-full font-bold shadow-sm">{itemCount > 99 ? '99+' : itemCount}</span>
@@ -188,34 +188,34 @@ export default function MainNavBar() {
                   <span className="text-gray-400 font-medium text-[16px]">+</span>
                 )}
               </Link>
-                <Link href="/profile" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+              <Link href="/profile" className={`flex items-center space-x-1 text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Profile</span>
                 <span className="text-gray-400 font-medium text-[16px]">+</span>
               </Link>
-             
-              <Link href="/main/contact" className={`text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
+
+              <Link href="/contact" className={`text-[15px] font-bold text-black hover:text-red-500 transition-colors ${clashDisplay.className}`}>
                 <span>Contact</span>
               </Link>
             </div>
-            
+
             {/* Center Logo for Mobile */}
             <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
-            <Link href="/main/products">
-              <Image
-                src="/logo.png"
-                alt="babylist logo"
-                width={135}
-                height={45}
-                priority
-                className="w-auto h-auto max-h-[52px] object-contain"
-              />
-            </Link>
-          </div>
+              <Link href="/products">
+                <Image
+                  src="/logo.png"
+                  alt="babylist logo"
+                  width={135}
+                  height={45}
+                  priority
+                  className="w-auto h-auto max-h-[52px] object-contain"
+                />
+              </Link>
+            </div>
 
             {/* Right: navigation and cart + user */}
             <div className="flex items-center justify-end space-x-3 sm:space-x-4">
               {/* Desktop User Greeting (Right Side, replaces Search on lg) */}
-              <div className="hidden lg:flex items-center space-x-2 mr-2 cursor-pointer hover:bg-gray-50 rounded-full px-2 py-1 transition-colors" onClick={() => window.location.href='/profile'}>
+              <div className="hidden lg:flex items-center space-x-2 mr-2 cursor-pointer hover:bg-gray-50 rounded-full px-2 py-1 transition-colors" onClick={() => window.location.href = '/profile'}>
                 <div className="relative">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
@@ -250,7 +250,7 @@ export default function MainNavBar() {
 
               <div className="relative">
                 <Link
-                  href="/main/cart"
+                  href="/cart"
                   aria-label={`Cart with ${itemCount} items`}
                   title={`Cart (${itemCount} items)`}
                   onMouseEnter={openCartMenu}
@@ -332,9 +332,9 @@ export default function MainNavBar() {
                 </div>
 
                 <Link
-                  href="/main/products"
+                  href="/products"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-400 transition-colors"
                 >
                   <Home className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Home</span>
@@ -343,7 +343,7 @@ export default function MainNavBar() {
                 <Link
                   href="/auth/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-400 transition-colors"
                 >
                   <LogIn className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Login</span>
@@ -352,25 +352,25 @@ export default function MainNavBar() {
                 <Link
                   href="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-400 transition-colors"
                 >
                   <User className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Profile</span>
                 </Link>
 
                 <Link
-                  href="/main/orders"
+                  href="/orders"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-400 transition-colors"
                 >
                   <Package className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Orders</span>
                 </Link>
 
                 <Link
-                  href="/main/cart"
+                  href="/cart"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-500 transition-colors"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-50 hover:bg-amber-50 text-gray-800 hover:text-amber-400 transition-colors"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   <span className={`font-medium ${inter.className}`}>Cart</span>

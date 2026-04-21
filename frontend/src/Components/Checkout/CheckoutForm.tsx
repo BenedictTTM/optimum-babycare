@@ -45,7 +45,7 @@ export default function CheckoutForm({
             <p className="text-gray-700 font-medium text-[13px] sm:text-sm md:text-base">{product.title}</p>
             <p className="text-[11px] sm:text-xs md:text-sm text-gray-500 mt-1">Quantity: {quantity}</p>
             {product.stock && product.stock < 10 && (
-              <p className="text-[10px] sm:text-[11px] md:text-xs text-amber-500 mt-1">Only {product.stock} left in stock</p>
+              <p className="text-[10px] sm:text-[11px] md:text-xs text-amber-400 mt-1">Only {product.stock} left in stock</p>
             )}
           </div>
           <span className="font-semibold text-gray-800 text-sm sm:text-base">
@@ -66,10 +66,10 @@ export default function CheckoutForm({
               value={hall}
               onChange={(e) => onChange('hall', e.target.value)}
               placeholder="Location"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.hall ? 'border-amber-500' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${errors.hall ? 'border-amber-400' : 'border-gray-300'
                 }`}
             />
-            {errors.hall && <p className="text-amber-500 text-xs mt-1">{errors.hall}</p>}
+            {errors.hall && <p className="text-amber-400 text-xs mt-1">{errors.hall}</p>}
           </div>
 
           <div>
@@ -78,10 +78,10 @@ export default function CheckoutForm({
               value={whatsapp}
               onChange={(e) => onChange('whatsapp', e.target.value)}
               placeholder="WhatsApp Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.whatsapp ? 'border-amber-500' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${errors.whatsapp ? 'border-amber-400' : 'border-gray-300'
                 }`}
             />
-            {errors.whatsapp && <p className="text-amber-500 text-xs mt-1">{errors.whatsapp}</p>}
+            {errors.whatsapp && <p className="text-amber-400 text-xs mt-1">{errors.whatsapp}</p>}
           </div>
 
           <div>
@@ -90,10 +90,10 @@ export default function CheckoutForm({
               value={callNumber}
               onChange={(e) => onChange('callNumber', e.target.value)}
               placeholder="Call Number *"
-              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 ${errors.callNumber ? 'border-amber-500' : 'border-gray-300'
+              className={`w-full px-2.5 py-2 sm:py-2.5 border rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 ${errors.callNumber ? 'border-amber-400' : 'border-gray-300'
                 }`}
             />
-            {errors.callNumber && <p className="text-amber-500 text-xs mt-1">{errors.callNumber}</p>}
+            {errors.callNumber && <p className="text-amber-400 text-xs mt-1">{errors.callNumber}</p>}
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function CheckoutForm({
           onChange={(e) => onChange('message', e.target.value)}
           placeholder="Add any special requests or notes here..."
           rows={3}
-          className="w-full px-2.5 py-2 sm:py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+          className="w-full px-2.5 py-2 sm:py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none"
         />
       </div>
 
@@ -140,7 +140,7 @@ export default function CheckoutForm({
         <button
           onClick={onConfirm}
           disabled={isSubmitting}
-          className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-500 hover:bg-red-700 text-white'
+          className={`w-full rounded-lg py-2 text-sm sm:text-base font-semibold transition-colors ${isSubmitting ? 'bg-gray-400 cursor-not-allowed text-white' : 'bg-amber-400 hover:bg-red-700 text-white'
             }`}
         >
           {isSubmitting ? (

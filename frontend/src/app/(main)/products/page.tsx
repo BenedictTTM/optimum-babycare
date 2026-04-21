@@ -136,10 +136,32 @@ export default function ProductsPage() {
 
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [activeFilters, setActiveFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [activeTab, setActiveTab] = useState<'latest' | 'popular' | 'trending'>('latest');
+
+  const [groupedProducts, setGroupedProducts] = useState<{
+    latest: Product[];
+    popular: Product[];
+    trending: Product[];
+  }>({
+    latest: [],
+    popular: [],
+    trending: []
+  });
 
   const products = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) || [];
   }, [data]);
+
+  // Pre-process and group the array ONCE when products are fetched
+  useEffect(() => {
+    if (!products.length) return;
+    setGroupedProducts({
+      latest: products,
+      // Simple simulation for splitting logic
+      popular: [...products].sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0)),
+      trending: [...products].sort((a, b) => (b.discountedPrice || 0) - (a.discountedPrice || 0)),
+    });
+  }, [products]);
 
   const { ref, inView } = useInView();
 
@@ -156,7 +178,7 @@ export default function ProductsPage() {
     setShowAllProducts(prev => !prev);
   }, []);
 
-  const { filteredProducts, totalFilteredCount } = useMemo(() => {
+  const filteredGroups = useMemo(() => {
     // Fast path: skip filtering entirely when defaults are active
     const isDefaultFilter =
       activeFilters.category === 'All Categories' &&
@@ -164,13 +186,20 @@ export default function ProductsPage() {
       activeFilters.priceRange[0] === 0 &&
       activeFilters.priceRange[1] === Number.MAX_SAFE_INTEGER;
 
-    if (isDefaultFilter) {
-      return { filteredProducts: products, totalFilteredCount: products.length };
-    }
+    // Filter ALL groups in advance so tab switching requires zero computation
+    const applyF = (items: Product[]) =>
+      isDefaultFilter ? items : applyProductFilters(items, activeFilters);
 
-    const filtered = applyProductFilters(products, activeFilters);
-    return { filteredProducts: filtered, totalFilteredCount: filtered.length };
-  }, [products, activeFilters]);
+    return {
+      latest: applyF(groupedProducts.latest),
+      popular: applyF(groupedProducts.popular),
+      trending: applyF(groupedProducts.trending),
+    };
+  }, [groupedProducts, activeFilters]);
+
+  // Clicking a tab ONLY reads this value. No computation happens on click.
+  const filteredProducts = filteredGroups[activeTab];
+  const totalFilteredCount = filteredProducts.length || 0;
 
   const displayProducts = useMemo(() => {
     return showAllProducts
@@ -190,7 +219,7 @@ export default function ProductsPage() {
   const schemas = useMemo(() => {
     const seoProducts = seoProductsRef.current ?? [];
     const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://sellr.com';
-    const currentUrl = typeof window !== 'undefined' ? window.location.href : `${baseUrl}/main/products`;
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : `${baseUrl}/products`;
 
     return [
       generateOrganizationSchema('Sellr', baseUrl, `${baseUrl}/logo.png`),
@@ -202,7 +231,7 @@ export default function ProductsPage() {
       ),
       generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
-        { name: 'Products', url: '/main/products' },
+        { name: 'Products', url: '/products' },
       ], baseUrl),
       ...(seoProducts.length > 0 ? [generateProductListSchema(seoProducts, baseUrl, 'GHS')] : []),
     ];
@@ -226,8 +255,8 @@ export default function ProductsPage() {
         <div className="relative pt-0 pb-3 h-[420px] md:h-[560px] bg-[#FBF3E8] mb-12 overflow-hidden">
           {/* SVG Background */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 1440 560" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#F2E6D0" opacity="0.6" d="M-100,-100 C300,100 400,400 0,660 Z" />
-              <path fill="#F2E6D0" opacity="0.6" d="M1540,660 C1100,500 1000,100 1540,-100 Z" />
+            <path fill="#F2E6D0" opacity="0.6" d="M-100,-100 C300,100 400,400 0,660 Z" />
+            <path fill="#F2E6D0" opacity="0.6" d="M1540,660 C1100,500 1000,100 1540,-100 Z" />
           </svg>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -243,10 +272,10 @@ export default function ProductsPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 sm:mb-5 mb-12">
-            <PromotionalCards />
+          <PromotionalCards />
         </div>
 
-<main className="w-full overflow-x-hidden">
+        <main className="w-full overflow-x-hidden">
           <div className="flex flex-col lg:flex-row lg:items-start">
 
             <div className="w-full space-y-8">
@@ -258,11 +287,11 @@ export default function ProductsPage() {
                   <div className="mb-10 text-center px-4 sm:px-6 lg:px-8">
                     {/* Featured label with decorative squiggles */}
                     <div className="flex items-center justify-center gap-3 sm:mb-2 md:mb-4">
-                      <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-500">
+                      <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-400">
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
-                      <span className="text-amber-500 font-medium text-lg">Featured</span>
-                      <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-500">
+                      <span className="text-amber-400 font-medium text-lg">Featured</span>
+                      <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-400">
                         <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                     </div>
@@ -274,11 +303,26 @@ export default function ProductsPage() {
 
                     {/* Filter Tabs */}
                     <div className="flex items-center justify-center gap-6 text-xs font-semibold">
-                      <button className="text-amber-500 hover:text-amber-500 transition-colors">Latest</button>
+                      <button
+                        onClick={() => setActiveTab('latest')}
+                        className={`transition-colors ${activeTab === 'latest' ? 'text-amber-400' : 'text-gray-500 hover:text-amber-400'}`}
+                      >
+                        Latest
+                      </button>
                       <span className="w-2 h-2 rounded-full bg-gray-300" />
-                      <button className="text-gray-500 hover:text-amber-500 transition-colors">Popular</button>
+                      <button
+                        onClick={() => setActiveTab('popular')}
+                        className={`transition-colors ${activeTab === 'popular' ? 'text-amber-400' : 'text-gray-500 hover:text-amber-400'}`}
+                      >
+                        Popular
+                      </button>
                       <span className="w-2 h-2 rounded-full bg-gray-300" />
-                      <button className="text-gray-500 hover:text-amber-500 transition-colors">Trending</button>
+                      <button
+                        onClick={() => setActiveTab('trending')}
+                        className={`transition-colors ${activeTab === 'trending' ? 'text-amber-400' : 'text-gray-500 hover:text-amber-400'}`}
+                      >
+                        Trending
+                      </button>
                     </div>
                   </div>
 
@@ -374,7 +418,7 @@ export default function ProductsPage() {
                         </>
                       ) : (
                         <>
-                          View More  
+                          View More
                           <svg
                             className="inline-block w-5 h-5 ml-2"
                             fill="none"
@@ -411,7 +455,7 @@ export default function ProductsPage() {
         </div>
 
         <BlogInsights />
-        
+
         <a
           href="#top"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 

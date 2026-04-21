@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { products } from '@/api/clients';
 
 const DealOfWeek = () => {
@@ -64,7 +65,7 @@ const DealOfWeek = () => {
                 {/* Desktop absolute product card (kept) - mobile snapshot will be embedded inside the Deal card */}
 
                 <div className="hidden lg:block absolute left-20 top-12 z-20">
-                    <div className="bg-white rounded-lg shadow-xs w-[240px] overflow-hidden">
+                    <Link href={`/products/${dealProduct.id}`} className="bg-white rounded-lg shadow-xs w-[240px] overflow-hidden block hover:shadow-md transition-shadow group">
                         <div className="relative w-full h-48 bg-neutral-50">
                             <Image
                                 src={dealProduct.imageUrl?.[0] ||  dealProduct.images?.[0] || '/placeholder-product.jpg'}
@@ -75,12 +76,12 @@ const DealOfWeek = () => {
                             />
                         </div>
                         <div className="p-4 border-t">
-                            <h4 className="text-xs text-gray-500 truncate" title={dealProduct.title}>
+                            <h4 className="text-xs text-gray-500 truncate group-hover:text-red-500 transition-colors" title={dealProduct.title}>
                                 {dealProduct.title}
                             </h4>
                             <p className="text-lg font-extrabold text-gray-900">${dealProduct.discountedPrice || dealProduct.originalPrice}</p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
 
                 {/* Right content card */}
@@ -91,10 +92,10 @@ const DealOfWeek = () => {
                     </div>
 
                     {/* Mobile: small product snapshot inside the deal card */}
-                    <div className="flex items-center gap-4 mb-4 lg:hidden">
+                    <Link href={`/products/${dealProduct.id}`} className="flex items-center gap-4 mb-4 lg:hidden group">
                         <div className="relative w-16 h-16 rounded-sm overflow-hidden ">
                             <Image
-                                src={dealProduct.imageUrl?.[0] }
+                                src={dealProduct.imageUrl?.[0] || dealProduct.images?.[0] || '/placeholder-product.jpg'}
                                 alt={dealProduct.title || "Promo"}
                                 fill
                                 loading="lazy"
@@ -102,12 +103,12 @@ const DealOfWeek = () => {
                             />
                         </div>
                         <div>
-                            <div className="text-sm font-semibold text-gray-900 truncate max-w-[200px]" title={dealProduct.title}>
+                            <div className="text-sm font-semibold text-gray-900 truncate max-w-[200px] group-hover:text-red-500 transition-colors" title={dealProduct.title}>
                                 {dealProduct.title}
                             </div>
                             <div className="text-sm text-gray-500 font-bold">${dealProduct.discountedPrice || dealProduct.originalPrice}</div>
                         </div>
-                    </div>
+                    </Link>
 
                     <p className="text-gray-600 text-sm sm:text-base max-w-lg leading-relaxed mb-6 line-clamp-3">
                         {dealProduct.description}

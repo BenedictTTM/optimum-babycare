@@ -48,7 +48,7 @@ export default function CategoryPage() {
   if (loading) {
     return (
       <div className="flex h-[50vh] w-full items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-amber-400" />
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function CategoryPage() {
       <div className="flex flex-col items-center justify-center py-20 text-center">
         <h2 className="text-2xl font-bold text-gray-800">No Category Selected</h2>
         <p className="mt-2 text-gray-600">Please select a category to view.</p>
-        <Link href="/main/products" className="mt-6 rounded-lg bg-amber-500 px-6 py-2 text-white hover:bg-amber-500">
+        <Link href="/products" className="mt-6 rounded-lg bg-amber-400 px-6 py-2 text-white hover:bg-amber-400">
           Back to Products
         </Link>
       </div>
@@ -74,7 +74,7 @@ export default function CategoryPage() {
       {/* Back Navigation */}
       <button
         onClick={() => router.back()}
-        className="mb-8 flex items-center gap-2 text-gray-600 transition-colors hover:text-amber-500"
+        className="mb-8 flex items-center gap-2 text-gray-600 transition-colors hover:text-amber-400"
       >
         <ArrowLeft size={20} />
         <span>Back</span>
@@ -85,7 +85,7 @@ export default function CategoryPage() {
         <h1 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           {category.name}
         </h1>
-        <div className="mx-auto h-1 w-24 rounded bg-amber-500"></div>
+        <div className="mx-auto h-1 w-24 rounded bg-amber-400"></div>
         {category.description && (
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600">
             {category.description}
@@ -96,7 +96,7 @@ export default function CategoryPage() {
       {/* Products Grid */}
       <div className="mb-8">
         <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-gray-800">
-          <ShoppingBag className="text-amber-500" />
+          <ShoppingBag className="text-amber-400" />
           Featured Items
         </h2>
 
@@ -105,7 +105,7 @@ export default function CategoryPage() {
             {category.products.map((product: any) => (
               <Link
                 key={product.id}
-                href={`/main/products/${product.id}`}
+                href={`/products/${product.id}`}
                 className="group relative overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 {/* Image Aspect Ratio Container */}
@@ -131,11 +131,11 @@ export default function CategoryPage() {
 
                 {/* Content */}
                 <div className="p-4">
-                  <div className="mb-1 flex items-center gap-1 text-xs font-medium text-amber-500">
+                  <div className="mb-1 flex items-center gap-1 text-xs font-medium text-amber-400">
                     <Tag size={12} />
                     {category.name}
                   </div>
-                  <h3 className="line-clamp-2 text-lg font-bold text-gray-900 group-hover:text-amber-500">
+                  <h3 className="line-clamp-2 text-lg font-bold text-gray-900 group-hover:text-amber-400">
                     {product.title}
                   </h3>
 

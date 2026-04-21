@@ -136,13 +136,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     title,
     description,
     alternates: {
-      canonical: `${baseUrl}/main/products/${id}`,
+      canonical: `${baseUrl}/products/${id}`,
     },
     openGraph: {
       title: product.title,
       description,
       type: 'website',
-      url: `${baseUrl}/main/products/${id}`,
+      url: `${baseUrl}/products/${id}`,
       images: images.slice(0, 4).map((img) => ({
         url: img,
         width: 800,
@@ -181,8 +181,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const productSchema = generateProductSchema(product);
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: process.env.NEXT_PUBLIC_SITE_URL || "https://babylist.shop" },
-    { name: "Products", url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://babylist.shop"}/main/products` },
-    { name: product.title, url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://babylist.shop"}/main/products/${id}` },
+    { name: "Products", url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://babylist.shop"}/products` },
+    { name: product.title, url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://babylist.shop"}/products/${id}` },
   ]);
 
   return (

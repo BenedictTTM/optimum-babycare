@@ -5,13 +5,13 @@ import Link from 'next/link'
 
 const MARQUEE_ITEMS = [
   { text: 'Open Door To A World Of Fashion', highlight: false },
-  { text: 'Discover Now', highlight: true, href: '/main/products' },
+  { text: 'Discover Now', highlight: true, href: '/products' },
   { text: 'Free Shipping On Orders Over $99', highlight: false },
-  { text: 'Shop Now', highlight: true, href: '/main/products' },
+  { text: 'Shop Now', highlight: true, href: '/products' },
   { text: 'New Arrivals Every Week — Stay Ahead Of The Curve', highlight: false },
-  { text: 'Explore Collection', highlight: true, href: '/main/products' },
+  { text: 'Explore Collection', highlight: true, href: '/products' },
   { text: 'Premium Quality. Timeless Style.', highlight: false },
-  { text: 'View Lookbook', highlight: true, href: '/main/products' },
+  { text: 'View Lookbook', highlight: true, href: '/products' },
 ]
 
 const Separator = () => (

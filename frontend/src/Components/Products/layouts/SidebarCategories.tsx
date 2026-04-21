@@ -66,7 +66,7 @@ const SidebarCategories: React.FC = () => {
                 {displayCategories.map((cat) => (
                     <Link
                         key={cat.id}
-                        href={`/main/products/categories?category=${cat.id}`}
+                        href={`/products/categories?category=${cat.id}`}
                         className="group flex items-center justify-between px-6 py-3 hover:bg-gray-50 transition-colors"
                     >
                         <div className="flex items-center gap-3">

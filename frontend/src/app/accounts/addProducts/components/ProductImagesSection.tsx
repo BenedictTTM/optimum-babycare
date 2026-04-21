@@ -45,9 +45,8 @@ const ProductImagesSection = memo(function ProductImagesSection({
       <div className="p-5">
         <div className="mb-3">
           <div
-            className={`aspect-square bg-gray-50 border-2 border-dashed rounded-lg flex items-center justify-center overflow-hidden transition-colors ${
-              errorMessage ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-            }`}
+            className={`aspect-square bg-gray-50 border-2 border-dashed rounded-lg flex items-center justify-center overflow-hidden transition-colors ${errorMessage ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+              }`}
           >
             {mainPreview ? (
               <div className="relative w-full h-full">
@@ -57,7 +56,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                   onClick={() => onRemoveImage(0)}
                   aria-label="Remove main image"
                   title="Remove image"
-                  className="absolute top-2 right-2 bg-amber-500 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-amber-500 transition-colors "
+                  className="absolute top-2 right-2 bg-amber-400 text-white rounded-full w-7 h-7 flex items-center justify-center hover:bg-amber-400 transition-colors "
                 >
                   <IoClose className="w-4 h-4" />
                 </button>
@@ -67,7 +66,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                 <IoCamera className="mx-auto h-10 w-10 text-gray-400" />
                 <div className="mt-3">
                   <label htmlFor="main-image" className="cursor-pointer">
-                    <span className="text-sm font-semibold text-amber-500 hover:text-amber-500 transition-colors">
+                    <span className="text-sm font-semibold text-amber-400 hover:text-amber-400 transition-colors">
                       Upload main image
                     </span>
                     <input id="main-image" type="file" accept="image/*" onChange={onImageUpload} className="sr-only" />
@@ -79,7 +78,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
           </div>
         </div>
 
-        {errorMessage && <p className="mb-3 text-sm text-amber-500">{errorMessage}</p>}
+        {errorMessage && <p className="mb-3 text-sm text-amber-400">{errorMessage}</p>}
 
         <div className="grid grid-cols-3 gap-2">
           {secondaryPreviews.map(({ key, url }, index) => (
@@ -90,7 +89,7 @@ const ProductImagesSection = memo(function ProductImagesSection({
                 onClick={() => onRemoveImage(index + 1)}
                 aria-label={`Remove image ${index + 2}`}
                 title="Remove image"
-                className="absolute -top-1.5 -right-1.5 bg-amber-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-amber-500 transition-colors "
+                className="absolute -top-1.5 -right-1.5 bg-amber-400 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-amber-400 transition-colors "
               >
                 <IoClose className="w-3.5 h-3.5" />
               </button>

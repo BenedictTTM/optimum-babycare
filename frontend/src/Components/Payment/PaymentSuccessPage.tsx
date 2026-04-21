@@ -41,7 +41,7 @@ export const PaymentSuccessPage: React.FC = () => {
     }
 
     if (countdown === 0 && verificationResult?.success) {
-      router.push('/main/orders');
+      router.push('/orders');
     }
   }, [countdown, verificationResult, router]);
 
@@ -85,14 +85,14 @@ export const PaymentSuccessPage: React.FC = () => {
           
           <div className="space-y-3">
             <button
-              onClick={() => router.push('/main/orders')}
+              onClick={() => router.push('/orders')}
               className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
             >
               <span>View Orders</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => router.push('/main/cart')}
+              onClick={() => router.push('/cart')}
               className="w-full px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
             >
               Return to Cart
@@ -158,14 +158,14 @@ export const PaymentSuccessPage: React.FC = () => {
           {/* Action buttons */}
           <div className="space-y-3">
             <button
-              onClick={() => router.push('/main/orders')}
+              onClick={() => router.push('/orders')}
               className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
             >
               <span>View My Orders</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => router.push('/main/products')}
+              onClick={() => router.push('/products')}
               className="w-full px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
             >
               Continue Shopping
@@ -205,13 +205,13 @@ export const PaymentSuccessPage: React.FC = () => {
 
         <div className="space-y-3">
           <button
-            onClick={() => router.push('/main/orders')}
+            onClick={() => router.push('/orders')}
             className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             Try Again
           </button>
           <button
-            onClick={() => router.push('/main/contact')}
+            onClick={() => router.push('/contact')}
             className="w-full px-6 py-3 bg-gray-200 text-gray-800 font-medium rounded-lg hover:bg-gray-300 transition-colors"
           >
             Contact Support

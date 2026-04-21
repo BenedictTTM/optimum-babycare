@@ -73,7 +73,7 @@ const SearchComponent = () => {
         ref={searchRef}
       >
         <div className={`flex items-center w-full transition-all duration-300 ${isFocused
-          ? 'px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full border-2 shadow-2xl border-amber-500'
+          ? 'px-4 sm:px-6 py-2 sm:py-3 bg-white rounded-full border-2 shadow-2xl border-amber-400'
           : 'p-0 border-transparent'
           }`}>
           {isFocused && (

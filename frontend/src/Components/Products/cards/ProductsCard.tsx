@@ -21,7 +21,7 @@ export default function ProductsCard({ product }: ProductsCardProps) {
 
   return (
     <div className="group flex flex-col h-full bg-white relative">
-      <Link href={`/main/products/${product.id}`} className="block flex-grow flex flex-col">
+      <Link href={`/products/${product.id}`} className="block flex-grow flex flex-col">
         <div className="relative aspect-square overflow-hidden bg-[#F5F5F5] rounded-sm">
           <Image
             src={imageUrl}

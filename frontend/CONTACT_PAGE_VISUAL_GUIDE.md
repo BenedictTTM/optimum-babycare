@@ -74,7 +74,7 @@
 
 ### 1. **Header Section**
 
-- **Background:** Gradient from amber-500 to amber-500
+- **Background:** Gradient from amber-400 to amber-400
 - **Text:** White, centered
 - **Title:** "Let's Talk" (4xl - 6xl responsive)
 - **Subtitle:** Descriptive text in red-100
@@ -180,7 +180,7 @@
 
 ```
 ┌═════════════════════════════┐
-│ John|                       │  ← Red border + ring (focus:border-amber-500)
+│ John|                       │  ← Red border + ring (focus:border-amber-400)
 └═════════════════════════════┘
 ```
 
@@ -188,7 +188,7 @@
 
 ```
 ┌─────────────────────────────┐
-│ J                           │  ← Red border (border-amber-500)
+│ J                           │  ← Red border (border-amber-400)
 └─────────────────────────────┘
 ❌ Name must be at least 2 characters
 ```
@@ -217,7 +217,7 @@
 
 ```
 ┌────────────────────┐
-│ 📤 Send Message    │  ← Red background (bg-amber-500)
+│ 📤 Send Message    │  ← Red background (bg-amber-400)
 └────────────────────┘
 ```
 
@@ -267,7 +267,7 @@
 ### Status Colors
 
 - **Success:** Green-500 (#10B981)
-- **Error:** amber-500 (#EF4444)
+- **Error:** amber-400 (#EF4444)
 - **Warning:** Yellow-500 (#EAB308)
 - **Info:** Blue-500 (#3B82F6)
 
@@ -431,12 +431,12 @@ Tab Order:
 
 ```typescript
 // Replace all instances of:
-amber-500 → blue-500
-amber-500 → blue-600
+amber-400 → blue-500
+amber-400 → blue-600
 red-100 → blue-100
 
 // Example:
-className="bg-amber-500 hover:bg-amber-500"
+className="bg-amber-400 hover:bg-amber-400"
 // becomes:
 className="bg-blue-500 hover:bg-blue-600"
 ```
@@ -444,7 +444,7 @@ className="bg-blue-500 hover:bg-blue-600"
 ### Add Company Logo
 
 ```typescript
-<div className="bg-gradient-to-r from-amber-500 to-amber-500 text-white py-16">
+<div className="bg-gradient-to-r from-amber-400 to-amber-400 text-white py-16">
   <div className="container mx-auto px-4 text-center">
     <img src="/logo.png" alt="Company Logo" className="h-16 mx-auto mb-6" />
     <h1 className="text-5xl font-bold mb-4">Let's Talk</h1>

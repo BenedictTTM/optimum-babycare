@@ -14,7 +14,7 @@ export default function Loading() {
   // Minimal, truthful schemas during loading (no product list until data is ready)
   const schemas = useMemo(() => {
     const baseUrl = typeof window !== "undefined" ? window.location.origin : "https://sellr.com";
-    const currentUrl = typeof window !== "undefined" ? window.location.href : `${baseUrl}/main/products`;
+    const currentUrl = typeof window !== "undefined" ? window.location.href : `${baseUrl}/products`;
 
     return [
       generateOrganizationSchema("Sellr", baseUrl, `${baseUrl}/logo.png`),
@@ -27,7 +27,7 @@ export default function Loading() {
       generateBreadcrumbSchema(
         [
           { name: "Home", url: "/" },
-          { name: "Products", url: "/main/products" },
+          { name: "Products", url: "/products" },
         ],
         baseUrl
       ),

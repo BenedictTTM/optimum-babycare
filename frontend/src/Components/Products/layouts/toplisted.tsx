@@ -26,7 +26,7 @@ const TopListedItems = () => {
                         <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight uppercase">
                             Top Listed Items
                         </h2>
-                        <Link href="/main/products" className="text-sm font-bold text-gray-900 hover:text-gray-600 flex items-center gap-1 transition-colors">
+                        <Link href="/products" className="text-sm font-bold text-gray-900 hover:text-gray-600 flex items-center gap-1 transition-colors">
                             View All
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />

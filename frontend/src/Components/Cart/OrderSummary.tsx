@@ -86,9 +86,8 @@ interface SummaryLineProps {
 function SummaryLine({ label, value, showBorder = false }: SummaryLineProps) {
   return (
     <div
-      className={`flex justify-between items-center mb-3 sm:mb-4 ${
-        showBorder ? 'pb-4 sm:pb-6 border-b border-gray-200' : ''
-      }`}
+      className={`flex justify-between items-center mb-3 sm:mb-4 ${showBorder ? 'pb-4 sm:pb-6 border-b border-gray-200' : ''
+        }`}
     >
       <span className="text-sm sm:text-base md:text-lg text-gray-600">{label}</span>
       <span className="text-sm sm:text-base md:text-lg text-gray-900 font-semibold">
@@ -121,12 +120,12 @@ function CouponSection({
           onChange={(e) => onCouponChange(e.target.value)}
           placeholder="Enter coupon code"
           disabled={!!appliedCoupon}
-          className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed transition-all"
+          className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed transition-all"
         />
         <button
           onClick={onApplyCoupon}
           disabled={!couponCode.trim() || !!appliedCoupon}
-          className="px-4 sm:px-6 py-2 sm:py-2.5 bg-red-100 text-amber-500 font-medium rounded-lg hover:bg-red-200 transition-all text-sm sm:text-base whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 sm:px-6 py-2 sm:py-2.5 bg-red-100 text-amber-400 font-medium rounded-lg hover:bg-red-200 transition-all text-sm sm:text-base whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {appliedCoupon ? 'Applied' : 'Apply'}
         </button>
@@ -166,7 +165,7 @@ function CheckoutButton({ isAuthenticated, onCheckout }: CheckoutButtonProps) {
     <>
       <button
         onClick={onCheckout}
-        className="w-full bg-amber-500 hover:bg-amber-500 active:bg-red-700 text-white font-semibold py-1.5 sm:py-2 md:py-2.5 rounded-md transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 mb-3 sm:mb-4 text-sm sm:text-base md:text-lg shadow-sm hover:shadow-sm"
+        className="w-full bg-amber-400 hover:bg-amber-400 active:bg-red-700 text-white font-semibold py-1.5 sm:py-2 md:py-2.5 rounded-md transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 mb-3 sm:mb-4 text-sm sm:text-base md:text-lg shadow-sm hover:shadow-sm"
       >
         Proceed to Checkout
         <ArrowRight size={18} className="sm:w-5 sm:h-5" />

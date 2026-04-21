@@ -214,7 +214,7 @@ export default function ShoppingCart() {
 
     if (!isAuthenticated) {
       console.log('🔐 User not authenticated - Redirecting to login');
-      router.push('/auth/login?redirect=/main/cart&checkout=true');
+      router.push('/auth/login?redirect=/cart&checkout=true');
       return;
     }
 
@@ -240,7 +240,7 @@ export default function ShoppingCart() {
       const item = displayItems[0];
       console.log('🎯 Single item checkout');
 
-      const checkoutUrl = `/main/checkout?productId=${item.productId}&quantity=${item.quantity}`;
+      const checkoutUrl = `/checkout?productId=${item.productId}&quantity=${item.quantity}`;
       console.log('🔗 Checkout URL:', checkoutUrl);
 
       router.push(checkoutUrl);
@@ -253,7 +253,7 @@ export default function ShoppingCart() {
       .map(item => `${item.productId}:${item.quantity}`)
       .join(',');
 
-    const checkoutUrl = `/main/checkout?items=${encodeURIComponent(itemsParam)}&subtotal=${encodeURIComponent(String(subtotal))}`;
+    const checkoutUrl = `/checkout?items=${encodeURIComponent(itemsParam)}&subtotal=${encodeURIComponent(String(subtotal))}`;
     console.log('🔗 Checkout URL:', checkoutUrl);
 
     router.push(checkoutUrl);
@@ -337,7 +337,7 @@ function ErrorMessage({ error }: { error: string | null }) {
 
   return (
     <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg">
-      <p className="text-amber-500 text-xs sm:text-sm break-words">{error}</p>
+      <p className="text-amber-400 text-xs sm:text-sm break-words">{error}</p>
     </div>
   );
 }

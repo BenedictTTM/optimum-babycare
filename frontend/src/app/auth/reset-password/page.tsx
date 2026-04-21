@@ -79,7 +79,7 @@ function ResetPasswordForm() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-red-50 mb-4">
-              <Lock className="w-6 h-6 text-amber-500" />
+              <Lock className="w-6 h-6 text-amber-400" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">Reset Password</h1>
             <p className="text-sm text-gray-500">
@@ -90,13 +90,12 @@ function ResetPasswordForm() {
           {/* Alert Message */}
           {message && (
             <div
-              className={`mb-6 p-4 rounded-lg flex items-start gap-2 ${
-                message.type === 'success'
+              className={`mb-6 p-4 rounded-lg flex items-start gap-2 ${message.type === 'success'
                   ? 'bg-green-50 text-green-700'
                   : message.type === 'error'
-                  ? 'bg-red-50 text-red-700'
-                  : 'bg-blue-50 text-blue-700'
-              }`}
+                    ? 'bg-red-50 text-red-700'
+                    : 'bg-blue-50 text-blue-700'
+                }`}
             >
               {message.type === 'success' ? (
                 <CheckCircle className="w-5 h-5 flex-shrink-0" />
@@ -124,7 +123,7 @@ function ResetPasswordForm() {
                   minLength={8}
                   required
                   disabled={!token || loading}
-                  className="w-full px-4 py-3 pr-12 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 pr-12 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent disabled:bg-gray-50 disabled:cursor-not-allowed"
                 />
                 <button
                   type="button"
@@ -153,11 +152,10 @@ function ResetPasswordForm() {
                   minLength={8}
                   required
                   disabled={!token || loading}
-                  className={`w-full px-4 py-3 pr-12 bg-white border rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed ${
-                    confirmPassword && !passwordsMatch
-                      ? 'border-red-300 focus:ring-amber-500'
-                      : 'border-gray-200 focus:ring-amber-500 focus:border-transparent'
-                  }`}
+                  className={`w-full px-4 py-3 pr-12 bg-white border rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all disabled:bg-gray-50 disabled:cursor-not-allowed ${confirmPassword && !passwordsMatch
+                      ? 'border-red-300 focus:ring-amber-400'
+                      : 'border-gray-200 focus:ring-amber-400 focus:border-transparent'
+                    }`}
                 />
                 <button
                   type="button"
@@ -170,7 +168,7 @@ function ResetPasswordForm() {
               </div>
 
               {confirmPassword && !passwordsMatch && (
-                <p className="mt-2 text-xs text-amber-500 flex items-center gap-1">
+                <p className="mt-2 text-xs text-amber-400 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" /> Passwords do not match
                 </p>
               )}
@@ -185,7 +183,7 @@ function ResetPasswordForm() {
             <button
               type="submit"
               disabled={loading || !token || !passwordsMatch || !password || !confirmPassword}
-              className="w-full px-6 py-3 bg-amber-500 text-white text-sm font-semibold rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full px-6 py-3 bg-amber-400 text-white text-sm font-semibold rounded-lg hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {loading ? 'Resetting password...' : 'Reset Password'}
             </button>
@@ -194,7 +192,7 @@ function ResetPasswordForm() {
           {/* Footer */}
           <p className="text-center text-sm text-gray-600 mt-8">
             Remember your password?{' '}
-            <Link href="/auth/login" className="text-amber-500 hover:text-amber-500 font-medium transition-colors">
+            <Link href="/auth/login" className="text-amber-400 hover:text-amber-400 font-medium transition-colors">
               Sign in
             </Link>
           </p>
@@ -215,7 +213,7 @@ export default function ResetPasswordPage() {
       fallback={
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <div className="inline-block w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <div className="inline-block w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mb-4"></div>
             <p className="text-sm text-gray-600">Loading...</p>
           </div>
         </div>

@@ -179,7 +179,7 @@ export default function MyOrdersPage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-amber-500 text-xl mb-4">⚠️</div>
+          <div className="text-amber-400 text-xl mb-4">⚠️</div>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Orders</h2>
           <p className="text-gray-600 mb-4">{error}</p>
           <button
@@ -255,7 +255,7 @@ export default function MyOrdersPage() {
                           <button
                             disabled={!!actionLoading}
                             onClick={() => handleStatusChange(order.id, 'CANCELLED')}
-                            className="text-xs px-2 py-1 rounded bg-amber-500 text-white disabled:opacity-50"
+                            className="text-xs px-2 py-1 rounded bg-amber-400 text-white disabled:opacity-50"
                           >
                             {actionLoading === order.id ? '...' : 'Cancel'}
                           </button>

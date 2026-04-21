@@ -112,7 +112,7 @@ export default function Sidebar() {
     <>
       {/* Top Navbar for Mobile */}
       <div className="lg:hidden flex items-center justify-between px-4 py-4 bg-gray-100 border-gray-50">
-        <Link href="/main/products" className="flex items-center text-xl font-bold text-gray-800">
+        <Link href="/products" className="flex items-center text-xl font-bold text-gray-800">
           <Image src='/logo.png' alt="Logo" width={60} height={60} />
         </Link>
         <button
@@ -131,7 +131,7 @@ export default function Sidebar() {
       >
         {/* Brand */}
         <div className="hidden lg:flex items-center justify-between px-4 py-4 bg-transparent">
-          <Link href="/main/products" className="hidden flex items-center text-xl font-bold text-gray-800">
+          <Link href="/products" className="hidden flex items-center text-xl font-bold text-gray-800">
             <Image src='/logo.png' alt="Logo" width={120} height={120} />
           </Link>
         </div>
@@ -146,7 +146,7 @@ export default function Sidebar() {
                 className="w-[46px] h-[46px] rounded-full object-cover shadow-sm bg-white p-[2px] border border-gray-100"
               />
             ) : (
-              <div className="w-[48px] h-[48px] rounded-full bg-gray-50 flex items-center justify-center text-amber-500 font-bold text-sm shadow-[0_2px_10px_rgba(0,0,0,0.06)] border border-gray-200">
+              <div className="w-[48px] h-[48px] rounded-full bg-gray-50 flex items-center justify-center text-amber-400 font-bold text-sm shadow-[0_2px_10px_rgba(0,0,0,0.06)] border border-gray-200">
                 {getUserInitials()}
               </div>
             )}
@@ -176,11 +176,10 @@ export default function Sidebar() {
                       setIsMobileOpen(false);
                     }
                   }}
-                  className={`w-full flex items-center justify-between px-3 py-[9px] rounded-[10px] text-[14px] font-medium transition-all ${
-                    activeItem === item.label && !item.hasSubmenu
+                  className={`w-full flex items-center justify-between px-3 py-[9px] rounded-[10px] text-[14px] font-medium transition-all ${activeItem === item.label && !item.hasSubmenu
                       ? 'bg-gray-100 text-gray-900 border border-gray-100/50'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <item.icon className={`w-[18px] h-[18px] ${activeItem === item.label && !item.hasSubmenu ? 'text-gray-700' : 'text-gray-500'}`} strokeWidth={2} />
@@ -197,24 +196,23 @@ export default function Sidebar() {
                   <div className="relative mt-1 ml-[25px] mb-2">
                     {/* Vertical Tree Line */}
                     <div className="absolute left-0 top-0 bottom-[20px] w-[2px] bg-gray-200/80 rounded-full"></div>
-                    
+
                     <div className="space-y-1">
                       {item.submenu.map((subItem, subIndex) => (
                         <div key={subIndex} className="relative flex items-center w-full">
                           {/* Horizontal branch */}
                           <div className={`absolute left-0 w-[14px] h-[2px] rounded-full  ${activeItem === subItem.label ? 'bg-amber-200' : 'bg-gray-200/80'}`}></div>
-                          
+
                           <button
                             onClick={() => {
                               setActiveItem(subItem.label);
                               router.push(subItem.path);
                               setIsMobileOpen(false);
                             }}
-                            className={`flex-1 flex items-center justify-between ml-[20px] mr-0 p-[8px] pl-3 rounded-lg text-[13.5px] font-medium transition-all ${
-                              activeItem === subItem.label
+                            className={`flex-1 flex items-center justify-between ml-[20px] mr-0 p-[8px] pl-3 rounded-lg text-[13.5px] font-medium transition-all ${activeItem === subItem.label
                                 ? 'bg-[#FEF5ED] text-[#ea580c] shadow-[0_1px_2px_rgba(234,88,12,0.05)]' // Amber tint
                                 : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'
-                            }`}
+                              }`}
                           >
                             <div className="flex items-center gap-3">
                               <subItem.icon className={`w-[16px] h-[16px] ${activeItem === subItem.label ? 'text-[#ea580c]' : 'text-gray-400'}`} strokeWidth={2} />
@@ -244,11 +242,10 @@ export default function Sidebar() {
                   router.push(item.path);
                   setIsMobileOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-[9px] rounded-[10px] text-[14px] font-medium transition-all ${
-                  activeItem === item.label
+                className={`w-full flex items-center gap-3 px-3 py-[9px] rounded-[10px] text-[14px] font-medium transition-all ${activeItem === item.label
                     ? 'bg-gray-100 text-gray-900'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                }`}
+                  }`}
               >
                 <item.icon className="w-[18px] h-[18px] text-gray-500" strokeWidth={2} />
                 <span>{item.label}</span>

@@ -10,12 +10,12 @@ export function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) 
 
   const strength = zxcvbn(password);
   const strengthLabels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
-  
+
   // Create 5 segments with appropriate colors
   const getSegmentColor = (index: number) => {
     if (index <= strength.score) {
       switch (strength.score) {
-        case 0: return 'bg-amber-500';
+        case 0: return 'bg-amber-400';
         case 1: return 'bg-red-400';
         case 2: return 'bg-yellow-400';
         case 3: return 'bg-blue-400';
@@ -37,7 +37,7 @@ export function PasswordStrengthMeter({ password }: PasswordStrengthMeterProps) 
           />
         ))}
       </div>
-      
+
       {/* Compact strength label */}
       <p className="text-xs mt-1 text-gray-500 h-4">
         {strengthLabels[strength.score]}

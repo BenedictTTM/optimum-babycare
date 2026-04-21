@@ -30,7 +30,7 @@ export default function ProductActions({
 
   const handleBuyNow = () => {
     if (!inStock) return;
-    router.push(`/main/checkout?productId=${productId}&quantity=${quantity}`);
+    router.push(`/checkout?productId=${productId}&quantity=${quantity}`);
   };
 
   return (
@@ -73,12 +73,12 @@ export default function ProductActions({
             }}
             className="w-full sm:flex-1 py-2 sm:py-2.5 text-sm font-semibold rounded-lg shadow-sm transition-transform hover:scale-[1.02] active:scale-95"
           />
-          
+
           <a
             href={`tel:${'0544566921'}`}
             title="Call seller to buy"
             aria-label="Call seller to buy"
-            className="w-full sm:flex-1 flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 text-amber-500 hover:text-red-700 text-sm font-semibold rounded-lg  transition-all hover:scale-[1.02] active:scale-95"
+            className="w-full sm:flex-1 flex items-center justify-center gap-2 px-4 py-2 sm:py-2.5 text-amber-400 hover:text-red-700 text-sm font-semibold rounded-lg  transition-all hover:scale-[1.02] active:scale-95"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a2 2 0 011.9 1.37l.7 2.11a2 2 0 01-.45 2.05L8.91 11.09a16.06 16.06 0 007 7l2.51-1.02a2 2 0 012.05-.45l2.11.7A2 2 0 0121 17.72V21a2 2 0 01-2 2A19 19 0 013 5z" />

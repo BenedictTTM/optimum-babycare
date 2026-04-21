@@ -53,7 +53,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     setUpdatingItems(prev => new Set(prev).add(itemId));
 
     const result = await updateCartItem(itemId, newQuantity);
-    
+
     if (result.success && result.data) {
       setCart(result.data);
     }
@@ -69,7 +69,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     setUpdatingItems(prev => new Set(prev).add(itemId));
 
     const result = await removeCartItem(itemId);
-    
+
     if (result.success) {
       setCart(result.data || null);
     }
@@ -93,14 +93,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
       {/* Drawer */}
       <div
-        className={`fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
-            <ShoppingCart className="h-6 w-6 text-amber-500" />
+            <ShoppingCart className="h-6 w-6 text-amber-400" />
             <h2 className="text-2xl font-bold">
               Cart ({cart?.totalItems || 0})
             </h2>
@@ -136,7 +135,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       className={`flex gap-4 p-4 border rounded-lg ${isUpdating ? 'opacity-50' : ''}`}
                     >
                       {/* Image */}
-                      <Link href={`/main/products/${product.id}`} onClick={onClose}>
+                      <Link href={`/products/${product.id}`} onClick={onClose}>
                         <img
                           src={imageUrl}
                           alt={product.title}
@@ -146,8 +145,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                       {/* Details */}
                       <div className="flex-1 min-w-0">
-                        <Link href={`/main/products/${product.id}`} onClick={onClose}>
-                          <h3 className="text-sm font-medium text-gray-800 mb-1 truncate hover:text-amber-500">
+                        <Link href={`/products/${product.id}`} onClick={onClose}>
+                          <h3 className="text-sm font-medium text-gray-800 mb-1 truncate hover:text-amber-400">
                             {product.title}
                           </h3>
                         </Link>
@@ -179,7 +178,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                           <button
                             onClick={() => handleRemoveItem(item.id)}
                             disabled={isUpdating}
-                            className="ml-auto p-1 text-amber-500 hover:bg-red-50 rounded"
+                            className="ml-auto p-1 text-amber-400 hover:bg-red-50 rounded"
                             aria-label="Remove item"
                           >
                             <Trash2 size={16} />
@@ -200,9 +199,9 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   </span>
                 </div>
                 <Link
-                  href="/main/cart"
+                  href="/cart"
                   onClick={onClose}
-                  className="block w-full bg-amber-500 hover:bg-amber-500 text-white font-semibold py-3 rounded-lg text-center transition-colors"
+                  className="block w-full bg-amber-400 hover:bg-amber-400 text-white font-semibold py-3 rounded-lg text-center transition-colors"
                 >
                   View Full Cart
                 </Link>

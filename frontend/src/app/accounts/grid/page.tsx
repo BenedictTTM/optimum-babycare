@@ -87,7 +87,7 @@ export default function ProductList() {
 
   const getStockStatus = (product: Product) => {
     if (product.isSold || !product.stock || product.stock === 0)
-      return { label: 'Sold Out', color: 'text-amber-500 bg-red-50' };
+      return { label: 'Sold Out', color: 'text-amber-400 bg-red-50' };
     if (product.stock <= 5)
       return { label: 'Low Stock', color: 'text-yellow-600 bg-yellow-50' };
     return { label: 'In Stock', color: 'text-green-600 bg-green-50' };
@@ -183,7 +183,7 @@ export default function ProductList() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <p className="text-amber-500 mb-4">{error}</p>
+          <p className="text-amber-400 mb-4">{error}</p>
           <button
             onClick={loadProducts}
             className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
@@ -353,7 +353,7 @@ export default function ProductList() {
                           </button>
                           <button
                             onClick={() => handleDelete(product)}
-                            className="p-1 text-gray-600 hover:text-amber-500 hover:bg-red-50 rounded"
+                            className="p-1 text-gray-600 hover:text-amber-400 hover:bg-red-50 rounded"
                             aria-label={`Delete ${product.title}`}
                           >
                             <Trash2 className="w-3.5 h-3.5" />

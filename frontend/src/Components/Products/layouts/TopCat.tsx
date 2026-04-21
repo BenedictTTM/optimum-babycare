@@ -51,13 +51,13 @@ const TopCat: React.FC = () => {
                 {categories.map((cat) => (
                     <Link
                         key={cat.id}
-                        href={`/main/products/categories?category=${cat.id}`}
+                        href={`/products/categories?category=${cat.id}`}
                         className="flex-shrink-0"
                     >
                         <div
-                            className="px-4 py-2 rounded-full bg-gray-100 hover:bg-amber-100 hover:text-amber-500 cursor-pointer transition-colors duration-200 whitespace-nowrap"
+                            className="px-4 py-2 rounded-full bg-gray-100 hover:bg-amber-100 hover:text-amber-400 cursor-pointer transition-colors duration-200 whitespace-nowrap"
                         >
-                            <span className="text-sm font-medium text-gray-700 group-hover:text-amber-500 transition-colors duration-200">
+                            <span className="text-sm font-medium text-gray-700 group-hover:text-amber-400 transition-colors duration-200">
                                 {cat.name}
                             </span>
                         </div>

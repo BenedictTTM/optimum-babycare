@@ -51,7 +51,7 @@ export default function DeleteConfirmModal({
             >
                 <div className="mb-4 flex items-start gap-4">
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-amber-100">
-                        <AlertTriangle className="h-6 w-6 text-amber-500" />
+                        <AlertTriangle className="h-6 w-6 text-amber-400" />
                     </div>
                     <div className="flex-1">
                         <h2 id="delete-modal-title" className="text-xl font-bold text-gray-900">
@@ -104,7 +104,7 @@ export default function DeleteConfirmModal({
                         <button
                             type="button"
                             onClick={handleConfirm}
-                            className="flex-1 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex-1 rounded-lg bg-amber-400 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-amber-800 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={isDeleting}
                         >
                             {isDeleting ? 'Deleting...' : 'Delete Category'}

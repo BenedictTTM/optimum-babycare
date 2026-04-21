@@ -62,7 +62,7 @@ const UnderTop = () => {
 
                 {/* Left: Logo */}
                 <div className="flex items-center justify-center w-full sm:w-auto gap-3">
-                    <Link href="/main">
+                    <Link href="/">
                         <Image
                             src="/logo.png"
                             alt="babylist logo"

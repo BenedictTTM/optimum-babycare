@@ -8,8 +8,8 @@ export default function CartHeader() {
         Your Cart
       </h1>
       <Link
-        href="/main/products"
-        className="flex items-center gap-1 sm:gap-2 text-amber-500 hover:text-amber-500 font-medium transition-colors text-sm sm:text-base whitespace-nowrap flex-shrink-0"
+        href="/products"
+        className="flex items-center gap-1 sm:gap-2 text-amber-400 hover:text-amber-400 font-medium transition-colors text-sm sm:text-base whitespace-nowrap flex-shrink-0"
       >
         <span className="hidden sm:inline">Continue Shopping</span>
         <span className="sm:hidden">Continue</span>

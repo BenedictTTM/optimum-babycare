@@ -24,15 +24,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   onClick={() => setActiveTab(tab as "details" | "reviews")}
                   role="tab"
                   aria-selected={isActive}
-                  className={`relative pb-2 text-xs sm:text-sm font-medium transition-colors duration-200 ${
-                    isActive
-                      ? "text-amber-500"
+                  className={`relative pb-2 text-xs sm:text-sm font-medium transition-colors duration-200 ${isActive
+                      ? "text-amber-400"
                       : "text-gray-500 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
-                  }`}
+                    }`}
                 >
                   {tab === "details" ? "Product Details" : "Reviews"}
                   {isActive && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-500 rounded-full"></div>
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-amber-400 rounded-full"></div>
                   )}
                 </button>
               </li>
@@ -51,7 +50,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 "Discover the Oraimo SpacePods, engineered for immersive sound and comfort. Featuring noise-cancellation, long battery life, and an ergonomic design — perfect for music, calls, and more."}
             </p>
 
-          
+
           </div>
         ) : (
           /* Reviews Section */

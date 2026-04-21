@@ -310,11 +310,11 @@ export default function CreateProductPage() {
                       type="text"
                       id="title"
                       {...register('title')}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                       placeholder="Enter product title"
                     />
                     {errors.title && (
-                      <p className="mt-1 text-sm text-amber-500">{errors.title.message}</p>
+                      <p className="mt-1 text-sm text-amber-400">{errors.title.message}</p>
                     )}
                   </div>
 
@@ -326,11 +326,11 @@ export default function CreateProductPage() {
                       id="description"
                       {...register('description')}
                       rows={4}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all resize-none"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all resize-none"
                       placeholder="Describe your product"
                     />
                     {errors.description && (
-                      <p className="mt-1 text-sm text-amber-500">{errors.description.message}</p>
+                      <p className="mt-1 text-sm text-amber-400">{errors.description.message}</p>
                     )}
                   </div>
 
@@ -342,7 +342,7 @@ export default function CreateProductPage() {
                       <select
                         id="category"
                         {...register('category')}
-                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                         disabled={isLoadingCategories}
                       >
                         <option value="">{isLoadingCategories ? 'Loading categories...' : 'Select a category'}</option>
@@ -353,7 +353,7 @@ export default function CreateProductPage() {
                         ))}
                       </select>
                       {errors.category && (
-                        <p className="mt-1 text-sm text-amber-500">{errors.category.message}</p>
+                        <p className="mt-1 text-sm text-amber-400">{errors.category.message}</p>
                       )}
                     </div>
 
@@ -364,7 +364,7 @@ export default function CreateProductPage() {
                       <select
                         id="condition"
                         {...register('condition')}
-                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                       >
                         <option value="">Select condition</option>
                         <option value="new">New</option>
@@ -374,7 +374,7 @@ export default function CreateProductPage() {
                         <option value="poor">Poor</option>
                       </select>
                       {errors.condition && (
-                        <p className="mt-1 text-sm text-amber-500">{errors.condition.message}</p>
+                        <p className="mt-1 text-sm text-amber-400">{errors.condition.message}</p>
                       )}
                     </div>
                   </div>
@@ -387,11 +387,11 @@ export default function CreateProductPage() {
                       type="text"
                       id="tags"
                       {...register('tags')}
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                       placeholder="e.g., smartphone, android, samsung (comma separated)"
                     />
                     {errors.tags && (
-                      <p className="mt-1 text-sm text-amber-500">{errors.tags.message}</p>
+                      <p className="mt-1 text-sm text-amber-400">{errors.tags.message}</p>
                     )}
                   </div>
                 </div>
@@ -416,12 +416,12 @@ export default function CreateProductPage() {
                           {...register('originalPrice')}
                           min="0"
                           step="0.01"
-                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                           placeholder="0.00"
                         />
                       </div>
                       {errors.originalPrice && (
-                        <p className="mt-1 text-sm text-amber-500">{errors.originalPrice.message}</p>
+                        <p className="mt-1 text-sm text-amber-400">{errors.originalPrice.message}</p>
                       )}
                     </div>
 
@@ -437,12 +437,12 @@ export default function CreateProductPage() {
                           {...register('discountedPrice')}
                           min="0"
                           step="0.01"
-                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                          className="w-full pl-9 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                           placeholder="0.00"
                         />
                       </div>
                       {errors.discountedPrice && (
-                        <p className="mt-1 text-sm text-amber-500">{errors.discountedPrice.message}</p>
+                        <p className="mt-1 text-sm text-amber-400">{errors.discountedPrice.message}</p>
                       )}
                     </div>
                   </div>
@@ -450,7 +450,7 @@ export default function CreateProductPage() {
                   {calcDiscount() > 0 && (
                     <div className=" ">
                       <div className="flex items-center">
-                        <div className="text-amber-500 text-sm font-semibold">
+                        <div className="text-amber-400 text-sm font-semibold">
                           <span className='text-gray-700 italic font-thin'>Discount:</span>  {calcDiscount()}% off
                         </div>
                       </div>
@@ -466,11 +466,11 @@ export default function CreateProductPage() {
                       id="stock"
                       {...register('stock')}
                       min="0"
-                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
                       placeholder="Enter stock quantity"
                     />
                     {errors.stock && (
-                      <p className="mt-1 text-sm text-amber-500">{errors.stock.message}</p>
+                      <p className="mt-1 text-sm text-amber-400">{errors.stock.message}</p>
                     )}
                   </div>
                 </div>
@@ -497,7 +497,7 @@ export default function CreateProductPage() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-gray-700">Status</span>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-amber-500 border border-red-200">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-amber-400 border border-red-200">
                         Active
                       </span>
                     </div>
@@ -529,7 +529,7 @@ export default function CreateProductPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-5 py-2.5 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+                className="px-5 py-2.5 bg-amber-400 text-white text-sm font-medium rounded-lg hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
               >
                 {isSubmitting ? 'Publishing...' : 'Add to Product'}
               </button>

@@ -38,7 +38,7 @@ export default function NotFoundPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10">
             <button
               onClick={() => window.location.href = '/'}
-              className="flex items-center gap-2 bg-amber-500 hover:bg-amber-500 text-white font-medium px-6 py-3 rounded shadow-md hover:shadow-lg transition-all duration-200 w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 bg-amber-400 hover:bg-amber-400 text-white font-medium px-6 py-3 rounded shadow-md hover:shadow-lg transition-all duration-200 w-full sm:w-auto justify-center"
             >
               <Home size={18} />
               Back to Home
@@ -57,20 +57,20 @@ export default function NotFoundPage() {
             <p className="text-gray-600 text-sm mb-4">Or try one of these popular pages:</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/main/products"
+                href="/products"
                 className="px-5 py-2 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium rounded border border-gray-300 shadow-sm hover:shadow transition-all duration-200"
               >
                 Home
               </Link>
 
               <Link
-                href="/main/about"
+                href="/about"
                 className="px-5 py-2 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium rounded border border-gray-300 shadow-sm hover:shadow transition-all duration-200"
               >
                 About
               </Link>
               <Link
-                href="/main/contact"
+                href="/contact"
                 className="px-5 py-2 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium rounded border border-gray-300 shadow-sm hover:shadow transition-all duration-200"
               >
                 Contact

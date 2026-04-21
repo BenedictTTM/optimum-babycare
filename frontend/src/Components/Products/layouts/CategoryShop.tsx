@@ -50,7 +50,7 @@ const CategoryShop = () => {
                 {cat.description || `Explore our ${cat.name} collection featuring exclusive items.`}
             </p>
 
-            <Link href={`/main/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-amber-600 hover:bg-amber-100 rounded-md transition-colors text-sm tracking-widest uppercase font-thin text-center">
+            <Link href={`/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-amber-600 hover:bg-amber-100 rounded-md transition-colors text-sm tracking-widest uppercase font-thin text-center">
                 VIEW COLLECTION
             </Link>
         </div>
@@ -66,12 +66,12 @@ const CategoryShop = () => {
                             <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#F5A623]">
                                 <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
-                            <span className="text-[#F5A623] font-semibold text-sm">Categories</span>
-                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-[#F5A623]">
+                            <span className="text-amber-400 font-semibold text-sm">Categories</span>
+                            <svg width="28" height="10" viewBox="0 0 28 10" fill="none" className="text-amber-400">
                                 <path d="M2 5C6 1 10 9 14 5C18 1 22 9 26 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                             </svg>
                         </div>
-                        <h2 className="md:text-4xl text-xl text-[#1a1a2e] tracking-widest uppercase font-bold">
+                        <h2 className="md:text-4xl text-xl text-gray-900 tracking-widest uppercase font-bold">
                             OUR COLLECTIONS
                         </h2>
                     </div>

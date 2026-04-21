@@ -28,7 +28,7 @@ export function CheckoutError({ message }: CheckoutErrorProps) {
                         Go Back
                     </button>
                     <Link
-                        href="/main/products"
+                        href="/products"
                         className="inline-flex justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
                     >
                         Browse Products

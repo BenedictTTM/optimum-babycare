@@ -13,7 +13,7 @@ import type { NextRequest } from 'next/server';
 
 // Define protected route patterns
 const PROTECTED_ROUTES = [
-  '/main',
+  '/',
   '/accounts',
   '/api/cart',
   '/api/products/me',
@@ -23,12 +23,12 @@ const PROTECTED_ROUTES = [
 const PUBLIC_ROUTES = [
   '/auth/login',
   '/auth/signup',
-  '/main/auth/login',
-  '/main/auth/signUp',
-  '/main/reset-password',
+  '/auth/login',
+  '/auth/signUp',
+  '/reset-password',
   '/auth/forgot-password',
   '/auth/reset-password',
-  '/main/auth/forgot-password',
+  '/auth/forgot-password',
   '/',
 ];
 

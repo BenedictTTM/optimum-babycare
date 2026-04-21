@@ -69,7 +69,7 @@ export default function SignUpPage() {
 
         setTimeout(() => {
           console.log('🚀 Redirecting to /products...');
-          router.push('/main/products');
+          router.push('/products');
           reset();
         }, 500);
       } else {

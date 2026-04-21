@@ -10,12 +10,12 @@ interface FormInputProps {
   children?: React.ReactNode;
 }
 
-export function FormInput({ 
-  type = 'text', 
-  placeholder, 
-  register, 
-  error, 
-  children 
+export function FormInput({
+  type = 'text',
+  placeholder,
+  register,
+  error,
+  children
 }: FormInputProps) {
   return (
     <div>
@@ -27,7 +27,7 @@ export function FormInput({
       />
       <div className="min-h-[1rem]">
         {error && (
-          <p className="text-amber-500 text-xs transition-opacity duration-300 ease-in-out">
+          <p className="text-amber-400 text-xs transition-opacity duration-300 ease-in-out">
             {error}
           </p>
         )}

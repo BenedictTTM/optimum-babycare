@@ -35,7 +35,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
       <div className="max-w-2xl w-full text-center">
         {/* Error 500 Badge */}
         <div className="mb-6">
-          <h2 className="text-amber-500 font-bold text-2xl sm:text-3xl">Error 500</h2>
+          <h2 className="text-amber-400 font-bold text-2xl sm:text-3xl">Error 500</h2>
         </div>
 
         {/* Main Heading */}
@@ -52,7 +52,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <button
             onClick={handleBackToHome}
-            className="bg-amber-500 hover:bg-amber-500 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+            className="bg-amber-400 hover:bg-amber-400 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
           >
             Back to Home
           </button>
@@ -133,7 +133,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
         {/* Contact Support Link */}
         <div className="text-center mt-8">
           <a
-            href="/main/contact"
+            href="/contact"
             className="text-sm text-gray-500 hover:text-gray-700 underline transition-colors duration-200"
           >
             Contact Support
