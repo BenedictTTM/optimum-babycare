@@ -39,18 +39,18 @@ const CategoryShop = () => {
     };
 
     const renderCard = (cat: Category, index: number, extraClasses = '') => (
-        <div key={index} className={`bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 w-[300px] sm:w-[360px] md:w-[420px] lg:w-[480px] h-[260px] md:h-[200px] ${extraClasses}`}>
-            <h3 className="md:text-xl text-md font-bold text-[#1a1a2e] tracking-widest uppercase mb-2">
+        <div key={index} className={`bg-white rounded-xl p-4 sm:p-5 flex flex-col items-center text-center shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 w-full h-auto min-h-[140px] sm:min-h-[160px] md:min-h-[180px] ${extraClasses}`}>
+            <h3 className="text-sm sm:text-base md:text-lg font-bold text-[#1a1a2e] tracking-widest uppercase mb-1.5 sm:mb-2">
                 {cat.name}
             </h3>
 
-            <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#F5A623]/60 to-transparent mb-3" />
+            <div className="h-[2px] w-12 sm:w-16 bg-gradient-to-r from-transparent via-[#F5A623]/60 to-transparent mb-2 sm:mb-3" />
 
-            <p className="text-gray-500 text-[14px] leading-relaxed mb-4 flex-1 overflow-hidden" style={{display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
-                {cat.description || `Explore our ${cat.name} collection featuring exclusive items.`}
+            <p className="text-gray-500 text-[11px] sm:text-[12px] md:text-[13px] leading-tight mb-3 sm:mb-4 overflow-hidden w-full" style={{display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
+                {cat.description || `Explore our ${cat.name} collection.`}
             </p>
 
-            <Link href={`/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2.5 border border-[#F5A623] text-amber-600 hover:bg-amber-100 rounded-md transition-colors text-sm tracking-widest uppercase font-thin text-center">
+            <Link href={`/products/categories?category=${cat.id}`} className="mt-auto inline-block w-full py-2 sm:py-2.5 border border-[#F5A623] text-amber-600 hover:bg-amber-100 rounded-md transition-colors text-[11px] sm:text-[12px] md:text-[13px] tracking-widest uppercase font-medium text-center">
                 VIEW COLLECTION
             </Link>
         </div>
