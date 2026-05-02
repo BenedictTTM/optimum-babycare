@@ -45,6 +45,7 @@ export class MailService {
       OrderConfirmation: 'Your order confirmation',
       CartAdded: 'Items added to your cart',
       ResetPassword: 'Password Reset Request',
+      OrderStatusUpdate: 'Update on your order status',
     };
     return subjects[template] || 'Notification from Our Service';
   }

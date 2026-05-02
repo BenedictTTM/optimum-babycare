@@ -1,9 +1,38 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Facebook, Youtube, Twitter, Linkedin, Phone, Mail, Package, HeadphonesIcon, RotateCcw, Tags, ArrowRight } from 'lucide-react';
+import { apiClient } from '@/api/clients';
+import { toast } from 'sonner';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      toast.error('Please enter an email address');
+      return;
+    }
+    
+    // Basic email validation
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await apiClient.post('/newsletter/subscribe', { email });
+      toast.success('Successfully subscribed to the newsletter!');
+      setEmail('');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Failed to subscribe. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-gray-50 pt-10 pb-6 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,10 +147,19 @@ const Footer = () => {
               <input 
                 type="email" 
                 placeholder="Enter email address" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSubscribe();
+                }}
                 className="w-full px-4 py-3 text-sm bg-white border border-gray-200 rounded focus:outline-none focus:border-red-500"
               />
-              <button className="w-auto px-6 py-3 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
-                Subscribe Now <ArrowRight size={16} />
+              <button 
+                onClick={handleSubscribe}
+                disabled={loading}
+                className="w-auto px-6 py-3 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600 disabled:opacity-70 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+              >
+                {loading ? 'Subscribing...' : 'Subscribe Now'} {!loading && <ArrowRight size={16} />}
               </button>
             </div>
           </div>

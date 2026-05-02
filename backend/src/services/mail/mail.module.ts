@@ -12,6 +12,6 @@ import { NodemailerProvider } from './providers/nodemailer.provider';
       useClass: NodemailerProvider,
     },
   ],
-  exports: [MailService],
+  exports: [MailService, RenderService],
 })
 export class MailModule {}

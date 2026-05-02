@@ -315,6 +315,32 @@ export class OrderService {
         },
       },
     });
+
+    this.prisma.user.findUnique({
+      where: { id: updated.buyerId },
+      select: { email: true, firstName: true }
+    }).then(user => {
+      if (user && user.email) {
+        const items = updated.items ? updated.items.map((item: any) => ({
+          name: item.productName || (item.product ? item.product.title : 'Product'),
+          quantity: item.quantity,
+          price: (item.unitPrice * item.quantity).toFixed(2),
+        })) : [];
+
+        this.mailService.sendMail({
+          to: user.email,
+          template: 'OrderStatusUpdate',
+          data: {
+            orderId: String(updated.id),
+            name: user.firstName || 'Customer',
+            status: updated.status,
+            total: updated.totalAmount ? `GHS ${Number(updated.totalAmount).toFixed(2)}` : 'GHS 0.00',
+            items: items,
+          }
+        }).catch(err => console.error('Failed to send OrderStatusUpdate email', err));
+      }
+    }).catch(err => console.error('Error fetching user for status email', err));
+
     return updated;
   }
 

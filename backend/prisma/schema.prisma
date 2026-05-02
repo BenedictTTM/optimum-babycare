@@ -8,33 +8,34 @@ datasource db {
 }
 
 model User {
-  id                   Int       @id @default(autoincrement())
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-  email                String    @unique
+  id                   Int                  @id @default(autoincrement())
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  email                String               @unique
   passwordHash         String
-  username             String    @unique
-  phone                String?   @unique
+  username             String               @unique
+  phone                String?              @unique
   profilePic           String?
   firstName            String?
   lastName             String?
-  role                 Role      @default(USER)
-  isDeleted            Boolean   @default(false)
-  rating               Float     @default(0.0)
-  totalRatings         Int       @default(0)
+  role                 Role                 @default(USER)
+  isDeleted            Boolean              @default(false)
+  rating               Float                @default(0.0)
+  totalRatings         Int                  @default(0)
   passwordResetExpires DateTime?
   passwordResetToken   String?
   refreshToken         String?
   refreshTokenExp      DateTime?
   storeName            String?
-  receivedMessages     Message[] @relation("ReceivedMessages")
-  sentMessages         Message[] @relation("SentMessages")
+  receivedMessages     Message[]            @relation("ReceivedMessages")
+  sentMessages         Message[]            @relation("SentMessages")
   payments             Payment[]
   products             Product[]
-  reviews              Review[]      @relation("ReviewerReviews")
+  reviews              Review[]             @relation("ReviewerReviews")
   feedbacks            Feedback[]
-  blogPosts            BlogPost[]    @relation("BlogAuthor")
-  blogComments         BlogComment[] @relation("BlogCommenter")
+  blogPosts            BlogPost[]           @relation("BlogAuthor")
+  blogComments         BlogComment[]        @relation("BlogCommenter")
+  newsletterCampaigns  NewsletterCampaign[] @relation("CampaignCreator")
 
   @@index([createdAt])
   @@index([role])
@@ -287,4 +288,29 @@ model TopBarSettings {
   callNumber         String
   discountPercentage String
   isActive           Boolean @default(true)
+}
+
+model NewsletterCampaign {
+  id          Int       @id @default(autoincrement())
+  title       String
+  subject     String
+  content     Json // Stores the array of section blocks
+  status      String    @default("draft") // "draft", "scheduled", "sent"
+  scheduledAt DateTime?
+  createdBy   Int? // Relating to a User admin
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User?     @relation("CampaignCreator", fields: [createdBy], references: [id])
+
+  @@index([status])
+}
+
+model NewsletterSubscriber {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  isSubscribed Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isSubscribed])
 }

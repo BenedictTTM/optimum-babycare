@@ -5,6 +5,8 @@ import VerifyEmail from '../../emails/VerifyEmail';
 import OrderConfirmation from '../../emails/OrderConfirmation';
 import CartAdded from '../../emails/CartAdded';
 import ResetPassword from '../../emails/ResetPassword';
+import NewsletterTemplate from '../../emails/NewsletterTemplate';
+import OrderStatusUpdate from '../../emails/OrderStatusUpdate';
 
 @Injectable()
 export class RenderService {
@@ -16,6 +18,8 @@ export class RenderService {
     OrderConfirmation,
     CartAdded,
     ResetPassword,
+    NewsletterTemplate,
+    OrderStatusUpdate,
   };
 
   /**

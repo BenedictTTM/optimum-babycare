@@ -23,7 +23,7 @@ export class KeepAliveService implements OnModuleInit {
     );
   }
 
-  @Cron('*/4 * * * *') // every 4 minutes
+  @Cron('*/30 * * * *') // every 30 minutes
   async pingDatabase() {
     if (process.env.NODE_ENV === 'production') return; // ← skip in prod
 
@@ -44,7 +44,7 @@ export class KeepAliveService implements OnModuleInit {
   }
 
 
-  @Cron('*/10 * * * *') // every 10 minutes
+  @Cron('*/20 * * * *') // every 10 minutes
   async selfPing() {
     try {
       const start = Date.now();

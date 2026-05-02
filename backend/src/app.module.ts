@@ -16,6 +16,7 @@ import { CategoryModule } from './category/category.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { HealthModule } from './health/health.module';
 import { BlogModule } from './blog/blog.module';
+import { NewsletterModule } from './newsletter/newsletter.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { BlogModule } from './blog/blog.module';
     OrderModule,
     FeedbackModule,
     BlogModule,
+    NewsletterModule,
   ],
   providers: [
     {
