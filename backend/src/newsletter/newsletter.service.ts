@@ -76,6 +76,12 @@ export class NewsletterService {
     });
     if (!campaign) throw new NotFoundException('Campaign not found');
 
+    // Cast Prisma JsonValue to any to avoid type mismatch at runtime
+    const content = campaign.content as any;
+    if (!content || !Array.isArray(content.blocks)) {
+      throw new Error('Campaign content is invalid or has no blocks.');
+    }
+
     const subscribers = await this.prisma.newsletterSubscriber.findMany({
       where: { isSubscribed: true },
     });
@@ -84,9 +90,9 @@ export class NewsletterService {
       return { message: 'No subscribers to send to.' };
     }
 
-    // Render HTML once
+    // Render HTML once for all subscribers
     const html = await this.renderService.renderTemplate('NewsletterTemplate', {
-      content: campaign.content,
+      content,
       subject: campaign.subject,
     });
 
@@ -99,23 +105,16 @@ export class NewsletterService {
       let sent = false;
       while (attempts < 3 && !sent) {
         try {
-          // Note: Here we bypass the MailService's template rendering and pass the rendered HTML directly.
-          // Since MailService's sendMail expects a template name, wait, we need to adapt MailService's send method,
-          // or access the underlying provider directly.
-          // Let's use mailProvider from MailService directly, but it's private.
-          // As an alternative, we will create a dummy wrapper or ask mailService to send raw html,
-          // OR we just use MailService with 'NewsletterTemplate' and pass data! That is even better and follows existing architecture!
-          
           await this.mailService.sendMail({
             to: sub.email,
             subject: campaign.subject,
             template: 'NewsletterTemplate',
             data: {
-              content: campaign.content,
+              content,
               subject: campaign.subject,
             },
           });
-          
+
           sent = true;
           successCount++;
         } catch (error) {

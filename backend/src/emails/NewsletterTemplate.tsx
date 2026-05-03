@@ -4,11 +4,13 @@ import { NewsletterContent, NewsletterBlock } from './types/newsletter.types';
 import { HeroComponent } from './newsletter/HeroComponent';
 import { MealListComponent } from './newsletter/MealListComponent';
 import { CTAComponent } from './newsletter/CTAComponent';
+import { TextComponent } from './newsletter/TextComponent';
 
 const blockToComponentMap: Record<string, React.FC<{ props: any }>> = {
   hero: HeroComponent,
   meal_list: MealListComponent,
   cta: CTAComponent,
+  text: TextComponent,
 };
 
 interface NewsletterTemplateProps {
