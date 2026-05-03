@@ -186,7 +186,7 @@ export class OrderService {
         const items = order.items ? order.items.map((item: any) => ({
           name: item.productName || (item.product ? item.product.title : 'Product'),
           quantity: item.quantity,
-          price: (item.unitPrice * item.quantity).toFixed(2),
+          price: `${order.currency || 'GHS'} ${(item.unitPrice * item.quantity).toFixed(2)}`,
         })) : [];
         
         this.mailService.sendMail({
@@ -324,7 +324,7 @@ export class OrderService {
         const items = updated.items ? updated.items.map((item: any) => ({
           name: item.productName || (item.product ? item.product.title : 'Product'),
           quantity: item.quantity,
-          price: (item.unitPrice * item.quantity).toFixed(2),
+          price: `${updated.currency || 'GHS'} ${(item.unitPrice * item.quantity).toFixed(2)}`,
         })) : [];
 
         this.mailService.sendMail({

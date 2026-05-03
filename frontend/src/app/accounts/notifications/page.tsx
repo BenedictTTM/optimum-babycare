@@ -242,13 +242,31 @@ export default function MyOrdersPage() {
                     </p>
                     {isAdmin && (
                       <div className="mt-2 flex flex-wrap gap-1 justify-end">
-                        {order.status !== 'CANCELLED' && order.status !== 'DELIVERED' && (
+                        {order.status === 'PENDING' && (
                           <button
                             disabled={!!actionLoading}
-                            onClick={() => handleStatusChange(order.id, order.status === 'SHIPPED' ? 'DELIVERED' : 'SHIPPED')}
+                            onClick={() => handleStatusChange(order.id, 'CONFIRMED')}
                             className="text-xs px-2 py-1 rounded bg-blue-600 text-white disabled:opacity-50"
                           >
-                            {actionLoading === order.id ? '...' : order.status === 'SHIPPED' ? 'Mark Delivered' : 'Mark Shipped'}
+                            {actionLoading === order.id ? '...' : 'Confirm Order'}
+                          </button>
+                        )}
+                        {order.status === 'CONFIRMED' && (
+                          <button
+                            disabled={!!actionLoading}
+                            onClick={() => handleStatusChange(order.id, 'SHIPPED')}
+                            className="text-xs px-2 py-1 rounded bg-indigo-600 text-white disabled:opacity-50"
+                          >
+                            {actionLoading === order.id ? '...' : 'Mark Shipped'}
+                          </button>
+                        )}
+                        {order.status === 'SHIPPED' && (
+                          <button
+                            disabled={!!actionLoading}
+                            onClick={() => handleStatusChange(order.id, 'DELIVERED')}
+                            className="text-xs px-2 py-1 rounded bg-green-600 text-white disabled:opacity-50"
+                          >
+                            {actionLoading === order.id ? '...' : 'Mark Delivered'}
                           </button>
                         )}
                         {order.status !== 'CANCELLED' && order.status !== 'DELIVERED' && (

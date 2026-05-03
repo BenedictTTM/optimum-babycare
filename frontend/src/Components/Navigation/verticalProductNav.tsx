@@ -19,6 +19,7 @@ import {
   Calendar,
   Folder,
   MessageSquare,
+  Mail,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useUserStore } from '@/store/userStore';
@@ -41,6 +42,7 @@ export default function Sidebar() {
     else if (pathname.includes('/accounts/addCategories')) setActiveItem('Categories');
     else if (pathname.includes('/accounts/customers')) setActiveItem('Customers');
     else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('Admin Feedback');
+    else if (pathname.includes('/accounts/newsletter')) setActiveItem('Newsletter');
     else if (pathname.includes('/accounts/blog') || pathname.includes('/accounts/blog')) setActiveItem('Blogs');
     else if (pathname.includes('/accounts/notifications')) setActiveItem('Notifications');
     else setActiveItem('Dashboard');
@@ -81,6 +83,7 @@ export default function Sidebar() {
     },
     { icon: Users, label: 'Customers', path: '/accounts/customers' },
     { icon: MessageSquare, label: 'Admin Feedback', path: '/accounts/adminFeedback' },
+    { icon: Mail, label: 'Newsletter', path: '/accounts/newsletter' },
     { icon: Activity, label: 'Blogs', path: '/accounts/blog' },
     { icon: Bell, label: 'Notifications', path: '/accounts/notifications' },
   ];

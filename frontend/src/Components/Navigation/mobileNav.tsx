@@ -15,7 +15,8 @@ import {
   Package,
   ChevronDown,
   Folder,
-  MessageSquare
+  MessageSquare,
+  Mail
 } from 'lucide-react';
 import { useUserStore } from '@/store/userStore';
 import { useRouter, usePathname } from 'next/navigation';
@@ -58,6 +59,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
     },
     { id: 'customers', label: 'Customers', icon: User, path: '/accounts/customers', hasSubmenu: false },
     { id: 'adminfeedback', label: 'Admin Feedback', icon: MessageSquare, path: '/accounts/adminFeedback', hasSubmenu: false },
+    { id: 'newsletter', label: 'Newsletter', icon: Mail, path: '/accounts/newsletter', hasSubmenu: false },
     { id: 'notifications', label: 'Notification', icon: Bell, path: '/accounts/notifications', hasSubmenu: false },
     { id: 'settings', label: 'Settings', icon: Settings, path: '/accounts/settings', hasSubmenu: false },
   ];
@@ -84,6 +86,7 @@ const Sidebar = ({ onClose }: MobileNavProps) => {
     else if (pathname.includes('/accounts/customers')) setActiveItem('customers');
     else if (pathname.includes('/accounts/slots-dashboard')) setActiveItem('slotsDashboard');
     else if (pathname.includes('/accounts/adminFeedback')) setActiveItem('adminfeedback');
+    else if (pathname.includes('/accounts/newsletter')) setActiveItem('newsletter');
     else if (pathname.includes('/accounts/notifications')) setActiveItem('notifications');
     else if (pathname.includes('/accounts/settings')) setActiveItem('settings');
     else if (pathname.includes('/cart')) setActiveItem('carts');

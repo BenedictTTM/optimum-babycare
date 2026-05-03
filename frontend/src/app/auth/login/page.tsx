@@ -52,7 +52,10 @@ export default function LogInPage() {
 
     // Check if user is already authenticated
     if (AuthService.isAuthenticated()) {
-      router.push('/products');
+      const redirect = searchParams.get('redirect');
+      const checkout = searchParams.get('checkout');
+      const finalRedirect = checkout === 'true' ? '/cart' : (redirect ? decodeURIComponent(redirect) : '/products');
+      router.push(finalRedirect);
     }
   }, [searchParams, router]);
 
